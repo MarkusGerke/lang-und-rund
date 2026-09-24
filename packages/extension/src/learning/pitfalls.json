@@ -1,0 +1,722 @@
+{
+  "pitfalls": [
+    {
+      "id": "n-u",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "n und u",
+      "glyphs": [
+        "n",
+        "u"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "n",
+          "u"
+        ]
+      },
+      "hint": "In der Kurrent sind n und u fast gleich (Zickzack). Das u trägt immer einen Bogen oder Hut darüber — ohne Bogen lies n.",
+      "rank": 1
+    },
+    {
+      "id": "m-n",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "m und n",
+      "glyphs": [
+        "m",
+        "n"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "m",
+          "n"
+        ]
+      },
+      "hint": "m hat einen Bogen mehr als n. Beide wirken spitz und geradlinig — zähle die Auf-/Abstriche.",
+      "rank": 2
+    },
+    {
+      "id": "long-round-s",
+      "modes": [
+        "kurrent",
+        "fraktur",
+        "antiqua"
+      ],
+      "title": "langes ſ und rundes s",
+      "glyphs": [
+        "ſ",
+        "s"
+      ],
+      "match": {
+        "type": "sForms"
+      },
+      "hint": "Langes ſ steht am Silben-/Wortanfang und im Silbeninneren. Rundes s steht am Silben- oder Wortende (auch Fugen-s). Frage: Endet hier ein sinntragender Wortteil?",
+      "rank": 3
+    },
+    {
+      "id": "longs-f",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "langes ſ und f",
+      "glyphs": [
+        "ſ",
+        "f"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "ſ",
+          "f"
+        ]
+      },
+      "hint": "Beides hat Ober- und oft Unterlänge. f hat einen waagrechten Querstrich — ſ nicht. ſ wie f zu lesen ist der klassische Anfängerfehler.",
+      "rank": 4
+    },
+    {
+      "id": "e-i",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "e und i",
+      "glyphs": [
+        "e",
+        "i"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "e",
+          "i"
+        ]
+      },
+      "hint": "e wirkt oft wie zwei kurze Parallelstriche. i erkennt man am Punkt. Ohne Punkt und ohne klaren Kontext leicht mit e oder c zu verwechseln.",
+      "rank": 5
+    },
+    {
+      "id": "e-c",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "e und c",
+      "glyphs": [
+        "e",
+        "c"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "e",
+          "c"
+        ]
+      },
+      "hint": "c hat oft ein kleines Häkchen an der Spitze. In den Ligaturen ch/ck/sch verliert c dieses Häkchen und ähnelt dann einem i ohne Punkt.",
+      "rank": 6
+    },
+    {
+      "id": "c-ohne-haekchen",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "c in Ligaturen",
+      "glyphs": [
+        "c"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "(ch|ck|sch|ſch)"
+      },
+      "hint": "Vor h/k in ch/ck/sch verliert c oft das obere Häkchen und sieht aus wie ein undeutliches i — Ligatur als Ganzes lesen.",
+      "rank": 7
+    },
+    {
+      "id": "verdopplung",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "Verdopplungsstrich",
+      "glyphs": [
+        "n",
+        "m"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "n",
+          "m"
+        ]
+      },
+      "hint": "Ein gerader Strich über n oder m bedeutet Verdopplung (nn/mm). Das ist kein U-Bogen — der U-Bogen ist rund/geschwungen.",
+      "rank": 8
+    },
+    {
+      "id": "longs-h",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "langes ſ und h",
+      "glyphs": [
+        "ſ",
+        "h"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "ſ",
+          "h"
+        ]
+      },
+      "hint": "h hat in der Unterlänge typischerweise eine offene Schleife nach links. ſ und f haben diese Schleife nicht.",
+      "rank": 9
+    },
+    {
+      "id": "f-h",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "f und h",
+      "glyphs": [
+        "f",
+        "h"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "f",
+          "h"
+        ]
+      },
+      "hint": "f: Querstrich. h: Unterlänge-Schleife. Beide können ſ ähneln — immer Querstrich und Schleife prüfen.",
+      "rank": 10
+    },
+    {
+      "id": "lig-ch",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "Ligatur ch",
+      "glyphs": [
+        "c",
+        "h"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "ch"
+      },
+      "hint": "ch als Einheit lesen. In Kurrent verliert c oft sein Häkchen — nicht als loses c+h buchstabieren.",
+      "rank": 11
+    },
+    {
+      "id": "lig-sch",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "Ligatur sch",
+      "glyphs": [
+        "s",
+        "c",
+        "h"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "(ſch|sch)"
+      },
+      "hint": "sch als eine Form speichern. Nach etwas Übung springt die charakteristische Gruppe sofort ins Auge.",
+      "rank": 12
+    },
+    {
+      "id": "ss-forms",
+      "modes": [
+        "kurrent",
+        "fraktur",
+        "antiqua"
+      ],
+      "title": "ss / ſs / ß",
+      "glyphs": [
+        "ſ",
+        "s",
+        "ß"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "(ſs|ss|ß)"
+      },
+      "hint": "Im klassischen Satz: Doppel-s innerhalb einer Silbe oft als ſs (lang+rund). ß ist historisch ſ+z und steht nie am Silbenanfang.",
+      "rank": 13
+    },
+    {
+      "id": "lig-st",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "Ligatur st / ſt",
+      "glyphs": [
+        "ſ",
+        "t"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "(ſt|st)"
+      },
+      "hint": "st/ſt bildet oft eine eigene Ligatur. In Kurrent kann St am Wortanfang sogar aus zwei Majuskeln wirken — genau hinsehen.",
+      "rank": 14
+    },
+    {
+      "id": "lig-ck",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "Ligatur ck",
+      "glyphs": [
+        "c",
+        "k"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "ck"
+      },
+      "hint": "ck ist eine feste Verbindung. Das c wirkt in Kurrent oft „nackt“ ohne Häkchen.",
+      "rank": 15
+    },
+    {
+      "id": "fraktur-s-rules",
+      "modes": [
+        "fraktur",
+        "antiqua"
+      ],
+      "title": "ſ im Fraktursatz",
+      "glyphs": [
+        "ſ",
+        "s"
+      ],
+      "match": {
+        "type": "sForms"
+      },
+      "hint": "Im Fraktursatz gilt: ſ im Anlaut/Inlaut der Silbe, rundes s am Ende sinntragender Einheiten. Digraphen ſch, ſt, ſp beginnen mit langem ſ.",
+      "rank": 16
+    },
+    {
+      "id": "eszett-tz",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "ß und tz",
+      "glyphs": [
+        "ß",
+        "t",
+        "z"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "(ß|tz)"
+      },
+      "hint": "In Handschriften werden ß und die Ligatur tz häufig verwechselt. Prüfe, ob ein t-Ansatz sichtbar ist und ob das Wort mit ß oder tz Sinn ergibt.",
+      "rank": 17
+    },
+    {
+      "id": "fraktur-sz",
+      "modes": [
+        "fraktur",
+        "antiqua"
+      ],
+      "title": "ß (Eszett)",
+      "glyphs": [
+        "ß"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "ß"
+        ]
+      },
+      "hint": "ß entsteht historisch aus ſ+z. Es steht nicht am Silbenanfang. In Versalien oft als SS wiedergegeben.",
+      "rank": 18
+    },
+    {
+      "id": "fraktur-round-s-fuge",
+      "modes": [
+        "fraktur",
+        "antiqua"
+      ],
+      "title": "Fugen-s",
+      "glyphs": [
+        "s"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "[a-zäöüßſ]{3,}s[bcdfghjklmnpqrtvwxyzſ]"
+      },
+      "hint": "Ein rundes s mitten im Kompositum kann Fugen-s sein (Bildungspolitik). Dann endet der linke Wortteil — kein ſ.",
+      "rank": 19
+    },
+    {
+      "id": "r-x",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "r",
+      "glyphs": [
+        "r"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "r"
+        ]
+      },
+      "hint": "Das Kurrent-r ist oft nur ein kleiner Haken nach rechts oben und wirkt unscheinbar — leicht zu übersehen oder mit i-Resten zu verwechseln.",
+      "rank": 20
+    },
+    {
+      "id": "o-a",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "o und a",
+      "glyphs": [
+        "o",
+        "a"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "o",
+          "a"
+        ]
+      },
+      "hint": "In vielen Kurrent-/Frakturformen sind a, d, g, o, q oben offen. o wirkt spitz/offen; a ist meist geschlossener oder anders angeschlossen.",
+      "rank": 21
+    },
+    {
+      "id": "open-bowls",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "Oben offene Bäuche",
+      "glyphs": [
+        "a",
+        "d",
+        "g",
+        "o",
+        "q"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "a",
+          "d",
+          "g",
+          "o",
+          "q"
+        ]
+      },
+      "hint": "a, d, g, o, q haben in der Kurrent oft nach oben offene Bäuche — nicht mit lateinischen geschlossenen Formen rechnen.",
+      "rank": 22
+    },
+    {
+      "id": "i-j",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "i und j",
+      "glyphs": [
+        "i",
+        "j"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "i",
+          "j"
+        ]
+      },
+      "hint": "Beide tragen einen Punkt. j hat zusätzlich eine Unterlänge. Punkt suchen hilft gegen Verwechslung mit e/n.",
+      "rank": 23
+    },
+    {
+      "id": "umlaut",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "Umlaute ä ö ü",
+      "glyphs": [
+        "ä",
+        "ö",
+        "ü"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "ä",
+          "ö",
+          "ü"
+        ]
+      },
+      "hint": "Umlaut-Striche sind meist kurz und eckig. Den runden U-Bogen nicht mit ü-Punkten verwechseln.",
+      "rank": 24
+    },
+    {
+      "id": "y-z",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "y und z",
+      "glyphs": [
+        "y",
+        "z"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "y",
+          "z"
+        ]
+      },
+      "hint": "z endet oft mit einem waagrechten Abstrich nach links und kann einer 3 ähneln. y hat eine andere Unterlänge — Kontextwort prüfen.",
+      "rank": 25
+    },
+    {
+      "id": "k-letter",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "k",
+      "glyphs": [
+        "k"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "k"
+        ]
+      },
+      "hint": "k besteht aus langem Senkrechten und einer nach rechts geöffneten Schlaufe. In Ligatur ck und allein leicht mit ri-ähnlichen Formen zu verwechseln.",
+      "rank": 26
+    },
+    {
+      "id": "g-q",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "g und q",
+      "glyphs": [
+        "g",
+        "q"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "g",
+          "q"
+        ]
+      },
+      "hint": "Beide mit Unterlänge und oft offenem Bauch. Anschluss nach rechts und Wortbedeutung entscheiden.",
+      "rank": 27
+    },
+    {
+      "id": "b-v-w",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "b, v, w",
+      "glyphs": [
+        "b",
+        "v",
+        "w"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "b",
+          "v",
+          "w"
+        ]
+      },
+      "hint": "Diese Buchstaben können in flüssiger Kurrent ineinander übergehen. Auf Oberlänge (b) und Wellenstruktur (w) achten.",
+      "rank": 28
+    },
+    {
+      "id": "t-letter",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "t",
+      "glyphs": [
+        "t"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "t"
+        ]
+      },
+      "hint": "In Kurrent wird das t oft tiefer gekreuzt als in lateinischer Schreibschrift. In ſt/st-Ligaturen mit dem vorausgehenden ſ zusammen sehen.",
+      "rank": 29
+    },
+    {
+      "id": "d-letter",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "d",
+      "glyphs": [
+        "d"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "d"
+        ]
+      },
+      "hint": "d hat oft einen oben offenen Bauch und spezielle Anschlussformen an folgende Buchstaben — Varianten in echten Texten sind groß.",
+      "rank": 30
+    },
+    {
+      "id": "p-letter",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "p",
+      "glyphs": [
+        "p"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "p"
+        ]
+      },
+      "hint": "p hat Unterlänge; der Bauch kann oben offen wirken. Nicht mit q vertauschen — Anschlussrichtung prüfen.",
+      "rank": 31
+    },
+    {
+      "id": "l-letter",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "l",
+      "glyphs": [
+        "l"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "l"
+        ]
+      },
+      "hint": "l ist eine hohe Schleife. Bei flüchtigem Schreiben Nähe zu e/c-Verbindungen möglich — auf die Höhe achten.",
+      "rank": 32
+    },
+    {
+      "id": "w-letter",
+      "modes": [
+        "kurrent",
+        "fraktur"
+      ],
+      "title": "w",
+      "glyphs": [
+        "w"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "w"
+        ]
+      },
+      "hint": "w ist breit und wellig. In Fraktur/Kurrent leicht mit verbundenen v-Formen zu verwechseln.",
+      "rank": 33
+    },
+    {
+      "id": "capital-s-st",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "Großes S und St",
+      "glyphs": [
+        "S",
+        "T"
+      ],
+      "match": {
+        "type": "pattern",
+        "regex": "(^S|St)"
+      },
+      "hint": "St am Wortanfang kann in Kurrent wie zwei Großbuchstaben hintereinander wirken. Nicht mit N oder anderen Majuskeln verwechseln.",
+      "rank": 34
+    },
+    {
+      "id": "x-letter",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "x",
+      "glyphs": [
+        "x"
+      ],
+      "match": {
+        "type": "letters",
+        "any": [
+          "x"
+        ]
+      },
+      "hint": "x ist selten und oft unregelmäßig — im Zweifel Wörterbuch/Kontext, nicht erzwingen.",
+      "rank": 35
+    },
+    {
+      "id": "capital-confusion",
+      "modes": [
+        "kurrent"
+      ],
+      "title": "Majuskeln",
+      "glyphs": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z"
+      ],
+      "match": {
+        "type": "hasCapital"
+      },
+      "hint": "Kurrent-Großbuchstaben weichen stark von Antiqua ab und variieren je Schreiber. Im Zweifel mit sicheren Kleinbuchstaben im gleichen Dokument vergleichen.",
+      "rank": 36
+    }
+  ]
+}

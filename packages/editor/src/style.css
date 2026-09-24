@@ -1,0 +1,332 @@
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #5c5c5c;
+  --border: #e0ddd8;
+  --accent: #8b4513;
+  --accent-light: #f5ebe0;
+  --ambiguity-bg: #fff3cd;
+  --ambiguity-border: #e6b800;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.panel-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.panel-header .panel-label {
+  margin-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+}
+
+.editor-input {
+  width: 100%;
+  min-height: 160px;
+  padding: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  resize: vertical;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.editor-input:focus {
+  outline: 2px solid var(--accent-light);
+  border-color: var(--accent);
+}
+
+.panel-preview {
+  overflow: visible;
+}
+
+.preview {
+  min-height: 160px;
+  padding: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: visible;
+}
+
+.ambiguity {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  vertical-align: baseline;
+}
+
+.ambiguity-word {
+  border-bottom: 2px dotted var(--ambiguity-border);
+  padding-bottom: 1px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ambiguity:hover .ambiguity-word,
+.ambiguity:focus-visible .ambiguity-word,
+.ambiguity[aria-expanded='true'] .ambiguity-word {
+  border-bottom-color: var(--accent);
+  background: var(--ambiguity-bg);
+}
+
+.ambiguity-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.ambiguity-layer[hidden] {
+  display: none !important;
+}
+
+.ambiguity-popover {
+  position: fixed;
+  z-index: 1001;
+  pointer-events: auto;
+  min-width: 15rem;
+  max-width: min(24rem, calc(100vw - 16px));
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ambiguity-popover::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--surface);
+  filter: drop-shadow(0 1px 0 var(--border));
+}
+
+.ambiguity-popover.below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--surface);
+}
+
+.ambiguity-tooltip-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding: 0.15rem 0.35rem 0.25rem;
+}
+
+.ambiguity-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.ambiguity-option:hover,
+.ambiguity-option:focus-visible {
+  background: var(--accent-light);
+  outline: none;
+}
+
+.ambiguity-option.selected {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.ambiguity-option-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+}
+
+.ambiguity-option-desc {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.hint.hidden {
+  display: none;
+}
+
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer p {
+  margin: 0;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(1rem);
+  padding: 0.6rem 1.2rem;
+  background: var(--text);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 100;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 600px) {
+  #app {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .header h1 {
+    font-size: 1.4rem;
+  }
+
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

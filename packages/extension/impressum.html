@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impressum · lang &amp; rund</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f4ef;
+        --text: #1c1917;
+        --muted: #57534e;
+        --accent: #9a3412;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+      }
+      main {
+        max-width: 36rem;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 3rem;
+      }
+      h1 {
+        font-size: 1.35rem;
+        margin: 0 0 1rem;
+      }
+      h2 {
+        font-size: 1rem;
+        margin: 1.5rem 0 0.4rem;
+      }
+      p,
+      address {
+        margin: 0 0 0.75rem;
+        font-style: normal;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      a {
+        color: var(--accent);
+      }
+      .back {
+        display: inline-block;
+        margin-bottom: 1.25rem;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="#" id="back-link">← zurück</a>
+      <h1>Impressum</h1>
+      <p class="muted">
+        Angaben für das Browser-Add-on „lang &amp; rund“.
+      </p>
+
+      <h2>Anbieter</h2>
+      <address>
+        Markus Gerke<br />
+        <!-- Anschrift bei Bedarf ergänzen -->
+      </address>
+
+      <h2>Kontakt</h2>
+      <p>
+        X:
+        <a href="https://x.com/MarkusGerke" target="_blank" rel="noopener">@MarkusGerke</a>
+      </p>
+      <p>
+        Quellcode:
+        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener"
+          >github.com/MarkusGerke/lang-und-rund</a
+        >
+      </p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p class="muted">
+        Die Konvertierung historischer Schreibungen und die Lernhinweise erfolgen nach bestem
+        Wissen, können aber unvollständig oder fehlerhaft sein. Eine Gewähr für Richtigkeit wird
+        nicht übernommen.
+      </p>
+    </main>
+    <script>
+      (function () {
+        var link = document.getElementById('back-link');
+        if (!link) return;
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (history.length > 1) {
+            history.back();
+            return;
+          }
+          location.href = 'options.html';
+        });
+      })();
+    </script>
+  </body>
+</html>

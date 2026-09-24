@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+*.log
+.vite
+coverage
+.cursor
+packages/extension/.output
+packages/extension/dist-chrome
+packages/extension/dist-firefox

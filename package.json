@@ -1,0 +1,17 @@
+{
+  "name": "langs-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "lang & rund – historisches langes/rundes s (Editor + Browser-Erweiterung)",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm --filter @langs/core test",
+    "dev:editor": "pnpm --filter @langs/editor dev",
+    "dev:extension": "pnpm --filter @langs/extension dev",
+    "build:extension": "pnpm --filter @langs/extension build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
