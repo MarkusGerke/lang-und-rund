@@ -38,7 +38,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["reader.html", "impressum.html", "assets/*", "fonts/*", "icons/*"],
+      "resources": ["reader.html", "impressum.html", "assets/*", "fonts/*", "icons/*", "READABILITY-LICENSE.md"],
       "matches": ["<all_urls>"]
     }
   ]

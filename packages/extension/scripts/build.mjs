@@ -31,6 +31,7 @@ async function main() {
         targets: [
           { src: 'public/icons/*', dest: 'icons' },
           { src: 'public/fonts/*', dest: 'fonts' },
+          { src: 'public/READABILITY-LICENSE.md', dest: '.' },
         ],
       }),
     ],

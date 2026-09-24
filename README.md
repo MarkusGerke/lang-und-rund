@@ -52,8 +52,27 @@ Artefakte:
 - Mehrdeutigkeiten wie im Editor (Tooltip)
 - Sideload; Stores und Safari-Release später
 
-## Lizenzen
+## Datenschutz
 
-- Code: MIT
-- UnifrakturMaguntia: SIL OFL 1.1
-- Deutsche Kurrent (Hans J. Zinken): Freeware, siehe `packages/extension/public/fonts/KURRENT-LICENSE.txt`
+Die Erweiterung arbeitet **lokal im Browser**:
+
+- Extraktion, ſ/s-Konvertierung und Lesemodus laufen auf dem Gerät.
+- Schriften (Fraktur/Kurrent) sind **eingebettet**; es erfolgt **kein** Nachladen von Google Fonts oder anderen CDNs.
+- Es gibt **keine** Telemetrie, Tracking-Pixel oder eigenen Server der Erweiterung.
+- Seiteninhalte werden **nicht** an Dritte übermittelt.
+
+Optional / nur bei Nutzeraktion:
+
+- Einstellungen können über die Sync-Funktion des Browsers (`storage.sync`) mit dem Browserkonto synchronisiert werden — das ist eine Browser-Funktion, kein eigener Cloud-Dienst von lang & rund.
+- Links (Repo, Impressum, Fehler melden) öffnen externe Seiten erst nach einem Klick.
+
+Damit entstehen durch den normalen Betrieb der Erweiterung **keine zusätzlichen Datenschutzbedenken** durch Font-CDNs oder Backend-Telemetrie.
+
+## Lizenzen / Drittanbieter
+
+- **Code** (dieses Repository): MIT — siehe `LICENSE`
+- **UnifrakturMaguntia** (Fraktur-Font): SIL Open Font License 1.1 — vollständiger Text in `packages/extension/public/fonts/FRAKTUR-LICENSE.txt`
+- **Deutsche Kurrent** (Hans J. Zinken): Freeware (privat & geschäftlich, Weitergabe gestattet) — `packages/extension/public/fonts/KURRENT-LICENSE.txt` · https://zinken.net/Fonts/Kurrent.html
+- **@mozilla/readability**: Apache License 2.0 — `packages/extension/public/READABILITY-LICENSE.md`
+
+Die Fraktur- und Kurrent-Schriftdateien werden **lokal in der Erweiterung mitgeliefert** (`public/fonts/*.ttf`) und nicht von Google Fonts oder anderen CDNs nachgeladen.
