@@ -4,6 +4,7 @@ import {
   SETTINGS_KEY,
   type DisplayMode,
   type LangsSettings,
+  type LeadingMode,
   type MeasureMode,
 } from './types';
 
@@ -27,15 +28,26 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
     const mode =
       raw.displayMode === 'fraktur' || raw.displayMode === 'kurrent'
         ? (raw.displayMode as DisplayMode)
-        : 'antiqua';
+        : 'fraktur';
     fontSizes[mode] = raw.fontSize;
   }
 
+  const displayMode: DisplayMode =
+    raw.displayMode === 'antiqua' ||
+    raw.displayMode === 'fraktur' ||
+    raw.displayMode === 'kurrent'
+      ? raw.displayMode
+      : 'fraktur';
+
+  const leading: LeadingMode =
+    raw.leading === 'compact' ||
+    raw.leading === 'normal' ||
+    raw.leading === 'loose'
+      ? raw.leading
+      : 'normal';
+
   return {
-    displayMode:
-      raw.displayMode === 'fraktur' || raw.displayMode === 'kurrent'
-        ? raw.displayMode
-        : 'antiqua',
+    displayMode,
     theme:
       raw.theme === 'dark' ||
       raw.theme === 'light' ||
@@ -47,9 +59,10 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
       raw.measure === 'narrow' || raw.measure === 'wide'
         ? (raw.measure as MeasureMode)
         : 'medium',
+    leading,
     fontSizes,
-    wordTooltip: raw.wordTooltip !== false,
     textOnly: raw.textOnly !== false,
+    drawerLiveCursor: raw.drawerLiveCursor === true,
     forceGerman:
       raw.forceGerman === true || raw.forceGerman === false
         ? raw.forceGerman

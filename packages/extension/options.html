@@ -10,7 +10,7 @@
       <h1>lang &amp; rund</h1>
       <p class="lead">Einstellungen werden synchronisiert, sofern der Browser das erlaubt.</p>
       <nav class="options-legal" aria-label="Rechtliches">
-        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Repo</a>
+        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Github</a>
         <span aria-hidden="true">·</span>
         <a href="impressum.html">Impressum</a>
         <span aria-hidden="true">·</span>
@@ -27,7 +27,7 @@
         Standard-Darstellung
         <select id="display-mode" class="select">
           <option value="antiqua">Antiqua</option>
-          <option value="fraktur">Fraktur</option>
+          <option value="fraktur" selected>Fraktur</option>
           <option value="kurrent">Kurrent</option>
         </select>
       </label>
@@ -38,6 +38,15 @@
           <option value="narrow">Schmal</option>
           <option value="medium">Mittel</option>
           <option value="wide">Breit</option>
+        </select>
+      </label>
+
+      <label class="field">
+        Zeilenabstand
+        <select id="leading" class="select">
+          <option value="compact">Eng</option>
+          <option value="normal" selected>Normal</option>
+          <option value="loose">Weit</option>
         </select>
       </label>
 
@@ -76,6 +85,23 @@
         </select>
       </label>
 
+      <section class="start-page-help" aria-labelledby="start-help-title">
+        <h2 id="start-help-title" class="options-h2">Als Startseite einrichten</h2>
+        <p class="hint">
+          Zufälliges deutsches Wort mit Lernhinweisen — zum Lernen oder als Browser-Startseite.
+        </p>
+        <p class="field">
+          <button type="button" id="open-start-page" class="btn">Seite öffnen</button>
+          <button type="button" id="copy-start-url" class="btn">URL kopieren</button>
+        </p>
+        <p id="start-url" class="mono-url" hidden></p>
+        <ol class="hint-list">
+          <li>„URL kopieren“ und in den Browser-Einstellungen unter Startseite / Seiten beim Start einfügen.</li>
+          <li>Neuer Tab: je nach Browser selbst festlegen (Erweiterung erzwingt das nicht).</li>
+          <li>Später dieselbe Seite auch über eine Domain (geplanter Build).</li>
+        </ol>
+      </section>
+
       <p class="hint">
         Tastenkürzel: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>
         (unter Erweiterungs-Shortcuts änderbar).
@@ -84,7 +110,7 @@
       <p id="status" class="status" hidden></p>
 
       <footer id="options-footer" class="app-footer options-footer">
-        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Repo</a>
+        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Github</a>
         <span class="app-footer-sep" aria-hidden="true">·</span>
         <a href="impressum.html">Impressum</a>
         <span class="app-footer-sep" aria-hidden="true">·</span>

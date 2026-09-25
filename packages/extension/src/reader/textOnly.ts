@@ -1,4 +1,4 @@
-/** Entfernt Bilder/Medien und typischen Ballast aus Readability-HTML. */
+/** Entfernt Bilder, Videos, Embeds (Tweets usw.) und typischen Ballast aus Readability-HTML. */
 export function stripToTextOnly(html: string): string {
   const template = document.createElement('template');
   template.innerHTML = html;
@@ -29,9 +29,50 @@ export function stripToTextOnly(html: string): string {
       '[role="complementary"]',
       '[role="banner"]',
       '[role="contentinfo"]',
+      // Social-/Medien-Embeds
+      'blockquote.twitter-tweet',
+      'blockquote.instagram-media',
+      'blockquote.reddit-embed-bq',
+      'blockquote.bluesky-embed',
+      'amp-img',
+      'amp-video',
+      'amp-iframe',
+      'amp-twitter',
+      'amp-youtube',
+      'amp-instagram',
+      'amp-facebook',
+      'amp-tiktok',
+      'amp-reddit',
+      '[data-tweet-id]',
+      '[data-instagram-id]',
+      '[class*="twitter-tweet"]',
+      '[class*="instagram-media"]',
+      '[class*="tiktok-embed"]',
+      '[class*="fb-post"]',
+      '[class*="fb-video"]',
+      '[class*="youtube-embed"]',
+      '[class*="yt-embed"]',
+      '[class*="mastodon-embed"]',
+      '[class*="bluesky-embed"]',
+      '[class*="linkedin-embed"]',
+      '[class*="reddit-embed"]',
+      '[class*="threads-embed"]',
     ].join(','),
   );
   junk.forEach((el) => el.remove());
+
+  // Embed-Wrapper ohne sinnvollen Fließtext (z. B. Script-Platzhalter um Tweets)
+  template.content.querySelectorAll('div, section, article, aside').forEach((el) => {
+    const cls = typeof el.className === 'string' ? el.className.toLowerCase() : '';
+    const isEmbedShell =
+      /\b(embed|oembed|tweet|twitter|instagram|tiktok|youtube|fb-|facebook|mastodon|bluesky|linkedin)\b/.test(
+        cls,
+      );
+    if (!isEmbedShell) return;
+    const text = el.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+    // Kurzer Resttext = typisch Widget-Hülle, kein Artikelabsatz
+    if (text.length < 280) el.remove();
+  });
 
   // Leere Container nach dem Entfernen aufräumen
   template.content.querySelectorAll('div, span, section, p').forEach((el) => {

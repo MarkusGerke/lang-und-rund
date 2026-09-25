@@ -1,14 +1,15 @@
 import {
   APP_VERSION,
   BRAND_NAME,
-  REPO_ISSUES_URL,
+  FEEDBACK_EMAIL,
   REPO_URL,
+  START_PAGE_PATH,
   X_HANDLE,
   X_URL,
 } from '../shared/links';
 import type { DisplayMode } from '../shared/types';
 import type { PitfallHit } from './matchPitfalls';
-import { escapeHtml } from './matchPitfalls';
+import { escapeHtml, formatPitfallPlain } from './matchPitfalls';
 
 export interface ReportContext {
   converted: string;
@@ -39,7 +40,7 @@ export function formatReportBody(ctx: ReportContext): string {
     ctx.hits.length === 0
       ? '(keine Lernhinweise für dieses Wort)'
       : ctx.hits
-          .map((h) => `- ${h.pitfall.title}: ${h.pitfall.hint}`)
+          .map((h) => `- ${h.pitfall.title}: ${formatPitfallPlain(h.pitfall)}`)
           .join('\n');
 
   return [
@@ -62,15 +63,15 @@ export function formatReportBody(ctx: ReportContext): string {
     .join('\n');
 }
 
-/** GitHub-Issue, falls Repo existiert. */
-export function buildReportIssueUrl(ctx: ReportContext): string | null {
-  if (!REPO_ISSUES_URL) return null;
-  const title = `[${BRAND_NAME}] ${ctx.modern || ctx.converted || 'Fehler'}`;
+/** mailto: — ohne GitHub-Konto. */
+export function buildReportMailtoUrl(ctx: ReportContext): string {
+  const subject = `[${BRAND_NAME}] ${ctx.modern || ctx.converted || 'Fehler'}`;
   const body = formatReportBody(ctx);
-  const url = new URL(REPO_ISSUES_URL);
-  url.searchParams.set('title', title);
-  url.searchParams.set('body', body);
-  return url.toString();
+  return (
+    `mailto:${FEEDBACK_EMAIL}` +
+    `?subject=${encodeURIComponent(subject)}` +
+    `&body=${encodeURIComponent(body)}`
+  );
 }
 
 /** Kurzer X-Intent (URL-Länge begrenzt). */
@@ -94,11 +95,11 @@ export function renderDrawerFeedbackTile(): string {
     `<aside class="drawer-feedback" aria-label="Hinweis zu Fehlern">` +
     `<p class="drawer-feedback-text">` +
     `Lernhinweise und Konvertierung können Fehler enthalten. ` +
-    `Fallen dir Ungereimtheiten auf, melde sie gern — ` +
+    `Fallen dir Ungereimtheiten auf, melde sie gern per E-Mail — ` +
     `die Hinweise zu diesem Wort werden dabei mitgeschickt.` +
     `</p>` +
     `<div class="drawer-feedback-actions">` +
-    `<button type="button" class="btn drawer-report-btn" data-report="issue">` +
+    `<button type="button" class="btn drawer-report-btn" data-report="mail">` +
     `Fehler melden` +
     `</button>` +
     xHandleLinkHtml('drawer-feedback-x') +
@@ -107,12 +108,27 @@ export function renderDrawerFeedbackTile(): string {
   );
 }
 
-/** Footer: Impressum + X (+ Repo nur wenn gesetzt) + Version. */
-export function renderAppFooterLinks(impressumHref: string): string {
+/** Footer: Startseite + Impressum + X (+ Github) + Version. */
+export function renderAppFooterLinks(
+  impressumHref: string,
+  options?: { includeStartPage?: boolean },
+): string {
   const parts: string[] = [];
+  const includeStart = options?.includeStartPage !== false;
+  if (includeStart) {
+    let startHref = START_PAGE_PATH;
+    try {
+      startHref = chrome.runtime.getURL(START_PAGE_PATH);
+    } catch {
+      /* Datei-Relativpfad (Host / Preview) */
+    }
+    parts.push(
+      `<a href="${escapeHtml(startHref)}">Als Startseite einrichten</a>`,
+    );
+  }
   if (REPO_URL) {
     parts.push(
-      `<a href="${escapeHtml(REPO_URL)}" target="_blank" rel="noopener">Repo</a>`,
+      `<a href="${escapeHtml(REPO_URL)}" target="_blank" rel="noopener">Github</a>`,
     );
   }
   parts.push(`<a href="${escapeHtml(impressumHref)}">Impressum</a>`);

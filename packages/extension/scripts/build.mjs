@@ -10,10 +10,11 @@ const dist = resolve(root, 'dist');
 async function main() {
   rmSync(dist, { recursive: true, force: true });
 
-  // 1) Reader + Options (MPA)
+  // 1) Reader + Options (MPA) — base './' für file:// / Safari-App-Bundle
   await build({
     configFile: false,
     root,
+    base: './',
     build: {
       outDir: 'dist',
       emptyOutDir: true,
@@ -23,6 +24,7 @@ async function main() {
           reader: resolve(root, 'reader.html'),
           options: resolve(root, 'options.html'),
           impressum: resolve(root, 'impressum.html'),
+          start: resolve(root, 'start.html'),
         },
       },
     },
