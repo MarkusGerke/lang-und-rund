@@ -17,15 +17,27 @@ function escapeHtml(text: string): string {
 
 const WORD_RE = /^[a-zA-ZäöüÄÖÜßſ]+$/;
 
+export interface ConvertDomOptions {
+  /**
+   * Sichtbaren Text 1:1 zur Quelle halten (kein ſ / kein Kurrent-#).
+   * Nötig für Host-Live-Overlay + transparente Textarea (Caret-Ausrichtung).
+   * data-converted bleibt die Lern-Form.
+   */
+  matchSourceVisual?: boolean;
+}
+
 function wrapWord(
   converted: string,
   mode: DisplayMode,
   extras: { id?: string; ambiguity?: boolean } = {},
+  options: ConvertDomOptions = {},
 ): string {
   const classes = ['word'];
   if (extras.ambiguity) classes.push('ambiguity');
-  const visual = encodeForDisplay(converted, mode);
   const modern = toModernS(converted);
+  const visual = options.matchSourceVisual
+    ? modern
+    : encodeForDisplay(converted, mode);
   const idAttr = extras.id
     ? ` data-id="${escapeHtml(extras.id)}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Lernhinweise: ${escapeHtml(modern)}"`
     : ' tabindex="0" role="button"';
@@ -39,19 +51,31 @@ function wrapWord(
   );
 }
 
-export function resultToHtml(result: Result, mode: DisplayMode): string {
+export function resultToHtml(
+  result: Result,
+  mode: DisplayMode,
+  options: ConvertDomOptions = {},
+): string {
   return result.segments
     .map((seg) => {
       if (seg.type === 'ambiguity' && seg.ambiguity) {
-        return wrapWord(seg.text, mode, {
-          id: seg.ambiguity.id,
-          ambiguity: true,
-        });
+        return wrapWord(
+          seg.text,
+          mode,
+          {
+            id: seg.ambiguity.id,
+            ambiguity: true,
+          },
+          options,
+        );
       }
       if (WORD_RE.test(seg.text)) {
-        return wrapWord(seg.text, mode);
+        return wrapWord(seg.text, mode, {}, options);
       }
-      return escapeHtml(encodeForDisplay(seg.text, mode));
+      const raw = options.matchSourceVisual
+        ? toModernS(seg.text)
+        : encodeForDisplay(seg.text, mode);
+      return escapeHtml(raw);
     })
     .join('');
 }
@@ -60,6 +84,7 @@ export function convertHtmlFragment(
   html: string,
   overrides: Map<string, number>,
   mode: DisplayMode,
+  options: ConvertDomOptions = {},
 ): { html: string; ambiguities: AmbiguitySpan[] } {
   const template = document.createElement('template');
   template.innerHTML = html;
@@ -87,7 +112,7 @@ export function convertHtmlFragment(
     ambiguities.push(...result.ambiguities);
 
     const wrap = document.createElement('span');
-    wrap.innerHTML = resultToHtml(result, mode);
+    wrap.innerHTML = resultToHtml(result, mode, options);
     node.replaceWith(...Array.from(wrap.childNodes));
   }
 

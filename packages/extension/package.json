@@ -1,13 +1,14 @@
 {
   "name": "@langs/extension",
-  "version": "1.0.0",
+  "version": "1.5.1",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node scripts/build.mjs && node scripts/pack.mjs",
-    "build": "tsc -p tsconfig.json --noEmit && node scripts/build.mjs && node scripts/pack.mjs",
+    "build": "tsc -p tsconfig.json --noEmit && node scripts/build.mjs && node scripts/build-app.mjs && node scripts/pack.mjs",
     "build:chrome": "pnpm build",
-    "build:firefox": "pnpm build"
+    "build:firefox": "pnpm build",
+    "bake:watch": "node scripts/bake-watch-data.mjs"
   },
   "dependencies": {
     "@langs/core": "workspace:*",

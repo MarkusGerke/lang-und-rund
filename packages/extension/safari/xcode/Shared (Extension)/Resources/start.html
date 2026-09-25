@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lang &amp; rund · Wort</title>
+    <script type="module" crossorigin src="./assets/start-DxwX6XSA.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/feedback-BC6-Y1et.js">
+    <link rel="modulepreload" crossorigin href="./assets/drawerRender-Z-x6akoC.js">
+    <link rel="stylesheet" crossorigin href="./assets/start-BmfTPcP6.css">
+  </head>
+  <body>
+    <div id="app" class="start-app theme-sepia mode-fraktur">
+      <header class="start-toolbar" role="toolbar" aria-label="Darstellung">
+        <p class="start-brand">lang &amp; rund</p>
+        <span id="homepage-hint" class="start-homepage-hint"
+          >Einstellungen › Allgemein</span
+        >
+        <code id="page-url" class="start-page-url"></code>
+        <button type="button" id="copy-page-url" class="btn start-url-copy">
+          URL kopieren
+        </button>
+        <div
+          class="start-segment"
+          role="group"
+          aria-label="Schrift"
+          id="display-mode"
+        >
+          <button
+            type="button"
+            class="start-segment-btn is-active"
+            data-mode="fraktur"
+            aria-pressed="true"
+          >
+            Fraktur
+          </button>
+          <button
+            type="button"
+            class="start-segment-btn"
+            data-mode="kurrent"
+            aria-pressed="false"
+          >
+            Kurrent
+          </button>
+        </div>
+        <button type="button" id="btn-next" class="btn start-next">
+          Nächstes Wort
+        </button>
+      </header>
+
+      <main class="start-main">
+        <div class="start-stage">
+          <p id="word-script" class="start-script" aria-live="polite"></p>
+          <p id="word-modern" class="start-modern antiqua-font"></p>
+        </div>
+
+        <section class="start-hints-section" aria-label="Lernhinweise">
+          <div id="hint-track" class="start-hint-track" tabindex="0"></div>
+        </section>
+      </main>
+
+      <footer id="start-footer" class="app-footer"></footer>
+    </div>
+  </body>
+</html>

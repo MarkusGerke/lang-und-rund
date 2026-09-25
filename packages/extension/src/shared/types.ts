@@ -1,17 +1,22 @@
 export type DisplayMode = 'antiqua' | 'fraktur' | 'kurrent';
 export type ThemeMode = 'light' | 'sepia' | 'graphite' | 'dark';
 export type MeasureMode = 'narrow' | 'medium' | 'wide';
+export type LeadingMode = 'compact' | 'normal' | 'loose';
 
 export interface LangsSettings {
   displayMode: DisplayMode;
   theme: ThemeMode;
   measure: MeasureMode;
+  leading: LeadingMode;
   /** Schriftgröße pro Darstellungsmodus (px). */
   fontSizes: Record<DisplayMode, number>;
-  /** Hover-Tooltip mit moderner s-Schreibung. */
-  wordTooltip: boolean;
-  /** Bilder und Medien im Lesemodus ausblenden. */
+  /** Bilder, Videos und Embeds (Tweets usw.) im Lesemodus ausblenden. */
   textOnly: boolean;
+  /**
+   * Host-App: Drawer folgt dem Textcursor (Caret).
+   * Aus = Wort nur per Mausklick im Drawer öffnen.
+   */
+  drawerLiveCursor: boolean;
   forceGerman: boolean | null;
 }
 
@@ -36,12 +41,13 @@ export const MODE_DEFAULT_FONT_SIZE: Record<DisplayMode, number> = {
 };
 
 export const DEFAULT_SETTINGS: LangsSettings = {
-  displayMode: 'antiqua',
+  displayMode: 'fraktur',
   theme: 'sepia',
   measure: 'medium',
+  leading: 'normal',
   fontSizes: { ...MODE_DEFAULT_FONT_SIZE },
-  wordTooltip: true,
   textOnly: true,
+  drawerLiveCursor: false,
   forceGerman: null,
 };
 

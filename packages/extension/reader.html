@@ -2,88 +2,185 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>lang &amp; rund</title>
   </head>
   <body>
-    <div id="app" class="app theme-sepia mode-antiqua measure-medium">
+    <div id="app" class="app theme-sepia mode-fraktur measure-medium leading-normal">
       <header id="toolbar" class="toolbar" role="toolbar" aria-label="Lesemodus">
-        <div class="toolbar-group">
+        <p class="toolbar-brand">lang &amp; rund</p>
+        <div class="toolbar-group toolbar-close-wrap">
           <div class="toolbar-close-group">
             <button type="button" id="btn-close" class="btn" title="Schließen (Esc)" aria-label="Schließen (Esc)">✕</button>
             <kbd class="drawer-esc-hint" title="Schließen mit Escape">Esc</kbd>
           </div>
         </div>
-        <div class="toolbar-group toolbar-controls">
-          <label class="ctrl">
-            Schrift
-            <select id="display-mode" aria-label="Darstellung" class="select">
-              <option value="antiqua">Antiqua</option>
-              <option value="fraktur">Fraktur</option>
-              <option value="kurrent">Kurrent</option>
-            </select>
-          </label>
-          <label class="ctrl">
-            Zeile
-            <select id="measure" aria-label="Textbreite" class="select">
-              <option value="narrow">Schmal</option>
-              <option value="medium">Mittel</option>
-              <option value="wide">Breit</option>
-            </select>
-          </label>
-          <label class="ctrl">
-            Thema
-            <select id="theme" aria-label="Farbschema" class="select">
-              <option value="light">Hell</option>
-              <option value="sepia" selected>Sepia</option>
-              <option value="graphite">Graphit</option>
-              <option value="dark">Dunkel</option>
-            </select>
-          </label>
-          <div class="ctrl">
-            <span class="ctrl-label" id="size-label">Größe</span>
-            <div class="font-size-ctrl" role="group" aria-labelledby="size-label">
-              <button type="button" id="font-minus" class="btn" aria-label="Kleiner">A−</button>
-              <button type="button" id="font-plus" class="btn" aria-label="Größer">A+</button>
+        <button
+          type="button"
+          id="btn-edit-mode"
+          class="btn toolbar-edit-btn"
+          hidden
+          aria-pressed="false"
+        >
+          Bearbeiten
+        </button>
+        <details class="toolbar-settings">
+          <summary class="toolbar-settings-summary">
+            <span>Einstellungen</span>
+            <span class="toolbar-settings-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="toolbar-group toolbar-controls">
+            <div class="ctrl">
+              <span class="ctrl-label">Schriftart</span>
+              <div
+                class="segment"
+                id="display-mode"
+                role="group"
+                aria-label="Schriftart"
+              >
+                <button type="button" class="segment-btn" data-value="antiqua">
+                  Antiqua
+                </button>
+                <button
+                  type="button"
+                  class="segment-btn is-active"
+                  data-value="fraktur"
+                  aria-pressed="true"
+                >
+                  Fraktur
+                </button>
+                <button type="button" class="segment-btn" data-value="kurrent">
+                  Kurrent
+                </button>
+              </div>
             </div>
+            <label class="ctrl ctrl-measure">
+              Breite
+              <select id="measure" aria-label="Textbreite" class="select">
+                <option value="narrow">Schmal</option>
+                <option value="medium">Mittel</option>
+                <option value="wide">Breit</option>
+              </select>
+            </label>
+            <div class="ctrl">
+              <span class="ctrl-label" id="leading-label">Zeilenabstand</span>
+              <div
+                class="font-size-ctrl"
+                id="leading"
+                role="group"
+                aria-labelledby="leading-label"
+              >
+                <button
+                  type="button"
+                  id="leading-minus"
+                  class="btn"
+                  aria-label="Enger"
+                >
+                  −
+                </button>
+                <button
+                  type="button"
+                  id="leading-plus"
+                  class="btn"
+                  aria-label="Weiter"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <span class="ctrl-label">Thema</span>
+              <div
+                class="theme-cubes"
+                id="theme"
+                role="group"
+                aria-label="Farbschema"
+              >
+                <button
+                  type="button"
+                  class="theme-cube theme-cube-light"
+                  data-value="light"
+                  aria-label="Hell"
+                >
+                  <span class="theme-cube-letter" aria-hidden="true">ſ</span>
+                </button>
+                <button
+                  type="button"
+                  class="theme-cube theme-cube-sepia is-active"
+                  data-value="sepia"
+                  aria-label="Sepia"
+                  aria-pressed="true"
+                >
+                  <span class="theme-cube-letter" aria-hidden="true">ſ</span>
+                </button>
+                <button
+                  type="button"
+                  class="theme-cube theme-cube-graphite"
+                  data-value="graphite"
+                  aria-label="Graphit"
+                >
+                  <span class="theme-cube-letter" aria-hidden="true">ſ</span>
+                </button>
+                <button
+                  type="button"
+                  class="theme-cube theme-cube-dark"
+                  data-value="dark"
+                  aria-label="Dunkel"
+                >
+                  <span class="theme-cube-letter" aria-hidden="true">ſ</span>
+                </button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <span class="ctrl-label" id="size-label">Schriftgröße</span>
+              <div class="font-size-ctrl" role="group" aria-labelledby="size-label">
+                <button type="button" id="font-minus" class="btn" aria-label="Kleiner">A−</button>
+                <button type="button" id="font-plus" class="btn" aria-label="Größer">A+</button>
+              </div>
+            </div>
+            <label class="ctrl">
+              Medien aus
+              <button
+                type="button"
+                id="text-only-toggle"
+                class="switch"
+                role="switch"
+                aria-checked="true"
+                title="Bilder, Videos und Embeds (z. B. Tweets) ausblenden"
+              >
+                <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              </button>
+            </label>
           </div>
-          <label class="ctrl">
-            Bilder aus
-            <button
-              type="button"
-              id="text-only-toggle"
-              class="switch"
-              role="switch"
-              aria-checked="true"
-              title="Bilder und Medien ausblenden"
-            >
-              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-            </button>
-          </label>
-          <label class="ctrl">
-            Tooltip
-            <button
-              type="button"
-              id="word-tooltip-toggle"
-              class="switch"
-              role="switch"
-              aria-checked="true"
-              title="Wort-Tooltip"
-            >
-              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-            </button>
-          </label>
-        </div>
+        </details>
       </header>
 
       <div class="reader-shell">
         <main class="reader">
           <p id="meta" class="meta"></p>
+          <input
+            id="editor-title"
+            class="title title-edit host-only"
+            type="text"
+            placeholder="Titel (optional)"
+            autocomplete="off"
+          />
+          <div class="live-stack host-only">
+            <article id="content-host" class="content" aria-live="polite"></article>
+            <textarea
+              id="editor-body"
+              class="content content-edit"
+              placeholder="Text einfügen oder schreiben…"
+            ></textarea>
+          </div>
           <h1 id="title" class="title"></h1>
           <article id="content" class="content"></article>
           <p id="ambiguity-hint" class="hint hidden">
-            Gepunktet unterstrichene Wörter: Wortfuge unklar — Klick öffnet den Lern-Drawer mit Varianten.
-            Hover zeigt jedes Wort modern geschrieben (abschaltbar über „Tooltip“).
+            Mit Hintergrund und gestrichelter Linie markierte Wörter: Wortfuge unklar —
+            Klick öffnet den Lern-Drawer mit Varianten.
           </p>
         </main>
 
@@ -94,6 +191,7 @@
           aria-label="Lernhinweise zum Wort"
         >
           <header class="drawer-toolbar">
+            <div class="drawer-resize-handle" id="drawer-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drawer-Höhe anpassen" title="Ziehen zum Anpassen · Doppeltipp: Standardhöhe"></div>
             <h2 class="drawer-title">Wort lernen</h2>
             <div class="drawer-close-group">
               <kbd class="drawer-esc-hint" title="Schließen mit Escape">Esc</kbd>
@@ -104,10 +202,9 @@
         </aside>
       </div>
 
-      <div id="word-tooltip" class="word-tooltip" hidden role="tooltip"></div>
       <div id="toast" class="toast" role="status"></div>
       <footer id="app-footer" class="app-footer">
-        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Repo</a>
+        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Github</a>
         <span class="app-footer-sep" aria-hidden="true">·</span>
         <a href="impressum.html">Impressum</a>
         <span class="app-footer-sep" aria-hidden="true">·</span>

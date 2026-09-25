@@ -6,14 +6,24 @@ export interface Pitfall {
   modes: DisplayMode[];
   title: string;
   glyphs: string[];
-  /** Niedriger = häufiger / wahrscheinlicher zu verkennen */
+  /** Niedriger = höher priorisiert innerhalb des Modus */
   rank?: number;
+  /**
+   * Didaktische Welle je Modus (1 = zuerst).
+   * Sortierung der Hinweise; alle Wellen werden angezeigt.
+   */
+  wave: Partial<Record<DisplayMode, number>>;
   match:
     | { type: 'letters'; any: string[] }
     | { type: 'pattern'; regex: string }
     | { type: 'sForms' }
     | { type: 'hasCapital' };
-  hint: string;
+  /** Block 1: Womit leicht zu verwechseln? */
+  confusion: string;
+  /** Block 2: Woran erkenne ich die Schreibart? */
+  writing: string;
+  /** Optionaler Kontext-Tipp */
+  context?: string;
 }
 
 export interface PitfallHit {
@@ -24,6 +34,19 @@ export interface PitfallHit {
 
 const ALL_MODES: DisplayMode[] = ['antiqua', 'fraktur', 'kurrent'];
 const pitfalls = pitfallsData.pitfalls as Pitfall[];
+
+export function pitfallWaveForMode(
+  pitfall: Pitfall,
+  mode: DisplayMode,
+): number {
+  return (
+    pitfall.wave[mode] ??
+    pitfall.wave.fraktur ??
+    pitfall.wave.kurrent ??
+    pitfall.wave.antiqua ??
+    5
+  );
+}
 
 /** Analyseform: modern + ſ beibehalten, Kleinbuchstaben außer ſ. */
 export function normalizeForMatch(word: string): string {
@@ -36,13 +59,16 @@ export function normalizeForMatch(word: string): string {
 }
 
 function indexesOfAny(word: string, chars: string[]): number[] {
-  const set = new Set(chars.map((c) => c.toLowerCase()));
+  const capitalsOnly = chars.every(
+    (c) => c !== 'ſ' && c !== 'ß' && c === c.toUpperCase() && c !== c.toLowerCase(),
+  );
+  const set = new Set(capitalsOnly ? chars : chars.map((c) => c.toLowerCase()));
   const out: number[] = [];
   const charsArr = [...word];
   for (let i = 0; i < charsArr.length; i++) {
     const ch = charsArr[i];
-    const key = ch === 'ſ' ? 'ſ' : ch.toLowerCase();
-    if (set.has(key) || set.has(ch)) out.push(i);
+    const key = capitalsOnly ? ch : ch === 'ſ' ? 'ſ' : ch.toLowerCase();
+    if (set.has(key)) out.push(i);
   }
   return out;
 }
@@ -74,9 +100,21 @@ function collectHits(
     let highlightIndexes: number[] = [];
 
     switch (pitfall.match.type) {
-      case 'letters':
-        highlightIndexes = indexesOfAny(norm, pitfall.match.any);
+      case 'letters': {
+        const any = pitfall.match.any;
+        const capitalsOnly = any.every(
+          (c) =>
+            c !== 'ſ' &&
+            c !== 'ß' &&
+            c === c.toUpperCase() &&
+            c !== c.toLowerCase(),
+        );
+        highlightIndexes = indexesOfAny(
+          capitalsOnly ? displayWord : norm,
+          any,
+        );
         break;
+      }
       case 'pattern':
         highlightIndexes = indexesOfRegex(norm, pitfall.match.regex);
         break;
@@ -105,26 +143,29 @@ function collectHits(
     });
   }
 
-  hits.sort(
-    (a, b) =>
-      (a.pitfall.rank ?? 100) - (b.pitfall.rank ?? 100) ||
-      a.pitfall.id.localeCompare(b.pitfall.id),
-  );
-
   return hits;
 }
 
 /**
- * Zuerst Treffer im aktiven Schriftmodus; wenn keiner, Fallstricke zu
- * vorhandenen Buchstaben aus allen Modi (Verwechslungen/Besonderheiten).
+ * Treffer im aktiven Schriftmodus.
+ * Sortierung: Welle, dann Rank.
  */
 export function matchPitfalls(
   displayWord: string,
   mode: DisplayMode,
 ): PitfallHit[] {
-  const modeHits = collectHits(displayWord, [mode]);
-  if (modeHits.length > 0) return modeHits;
-  return collectHits(displayWord, ALL_MODES);
+  let hits = collectHits(displayWord, [mode]);
+  if (hits.length === 0) hits = collectHits(displayWord, ALL_MODES);
+
+  hits.sort(
+    (a, b) =>
+      pitfallWaveForMode(a.pitfall, mode) -
+        pitfallWaveForMode(b.pitfall, mode) ||
+      (a.pitfall.rank ?? 100) - (b.pitfall.rank ?? 100) ||
+      a.pitfall.id.localeCompare(b.pitfall.id),
+  );
+
+  return hits;
 }
 
 export function escapeHtml(text: string): string {
@@ -133,4 +174,13 @@ export function escapeHtml(text: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+export function formatPitfallPlain(p: Pitfall): string {
+  const parts = [
+    `Verwechslungsgefahr: ${p.confusion}`,
+    `Schreibart: ${p.writing}`,
+  ];
+  if (p.context) parts.push(`Kontext: ${p.context}`);
+  return parts.join(' ');
 }
