@@ -29,6 +29,11 @@ jobs:
       - name: Build Host-App (Web)
         run: pnpm --filter @langs/extension run build:app
 
+      - name: Trim web bundle for FTP
+        run: |
+          rm -rf packages/extension/dist-app/fonts packages/extension/dist-app/icons
+          rm -f packages/extension/dist-app/READABILITY-LICENSE.md
+
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -38,9 +43,9 @@ jobs:
           protocol: ftps
           local-dir: ./packages/extension/dist-app/
           server-dir: ./editor/
+          timeout: 600000
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/Base.lproj/**
-            **/*.ttf
