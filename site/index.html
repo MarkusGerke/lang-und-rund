@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lang &amp; rund — langes ſ und rundes s</title>
+    <meta
+      name="description"
+      content="lang & rund setzt langes ſ und rundes s. Editor im Browser, später Erweiterung, Apps und ein Ziffernblatt."
+    />
+    <style>
+      @font-face {
+        font-family: "UnifrakturMaguntia";
+        src: url("fonts/unifrakturmaguntia.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      :root {
+        --bg: #f3e7d3;
+        --surface: #faf0e0;
+        --text: #3f2e1e;
+        --muted: #6b563f;
+        --border: #d4b896;
+        --accent: #8b4513;
+        --accent-ink: #faf0e0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: var(--accent);
+      }
+      .wrap {
+        width: min(52rem, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+      .site-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+      .site-header .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 0;
+      }
+      .brand {
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.55rem 0.95rem;
+        border-radius: 6px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      .btn:hover {
+        opacity: 0.92;
+      }
+      .hero {
+        padding: 2.5rem 0 1.5rem;
+      }
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: clamp(1.7rem, 4vw, 2.25rem);
+        line-height: 1.2;
+        font-weight: 600;
+      }
+      .lead {
+        margin: 0;
+        max-width: 38rem;
+        font-size: 1.05rem;
+        color: var(--muted);
+      }
+      .example {
+        margin: 1.75rem 0 0;
+        padding: 1.1rem 1.25rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+      .example p {
+        margin: 0;
+      }
+      .example-kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .example-pair {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.75rem 1.25rem;
+        margin-top: 0.45rem;
+      }
+      .modern {
+        font-family: Georgia, "Iowan Old Style", Palatino, serif;
+        font-size: 1.65rem;
+      }
+      .arrow {
+        color: var(--muted);
+      }
+      .fraktur {
+        font-family: "UnifrakturMaguntia", Georgia, serif;
+        font-size: 2.4rem;
+        line-height: 1.1;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+        padding-bottom: 2.5rem;
+      }
+      .card {
+        margin: 0;
+        padding: 1.1rem 1.15rem 1.2rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+      .card h2 {
+        margin: 0 0 0.4rem;
+        font-size: 1.05rem;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .card .btn {
+        margin-top: 0.9rem;
+      }
+      .status {
+        display: inline-block;
+        margin-top: 0.75rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 1.25rem 0 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .site-footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.75rem;
+        margin-bottom: 0.65rem;
+      }
+      .site-footer a {
+        text-decoration: none;
+      }
+      .site-footer a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 640px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding-top: 1.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">lang &amp; rund</a>
+        <a class="btn" href="/editor/">Im Browser öffnen</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <h1>Lesen und schreiben mit langem ſ.</h1>
+        <p class="lead">
+          lang &amp; rund setzt langes ſ und rundes s nach den Regeln des
+          klassischen Fraktursatzes — beim Lesen, beim Schreiben und beim
+          Lernen der Formen.
+        </p>
+        <div class="example">
+          <p class="example-kicker">Zum Beispiel</p>
+          <p class="example-pair">
+            <span class="modern">dass</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="fraktur" lang="de">daſs</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Angebote">
+        <article class="card">
+          <h2>Browser-Erweiterung</h2>
+          <p>
+            Lesemodus für Webseiten. Der Text erscheint in Antiqua, Fraktur,
+            Kurrent oder Sütterlin, mit Hinweisen zu schwierigen Wörtern.
+          </p>
+          <p class="status">folgt</p>
+        </article>
+
+        <article class="card">
+          <h2>Apps</h2>
+          <p>
+            Dieselbe Oberfläche für iPhone und Mac, später aus dem App Store.
+          </p>
+          <p class="status">folgt</p>
+        </article>
+
+        <article class="card">
+          <h2>Editor im Web</h2>
+          <p>
+            Modernen Text eingeben oder einfügen. Die Schreibung wechselt sofort,
+            ein Wort lässt sich im Lernpanel nachschlagen.
+          </p>
+          <a class="btn" href="/editor/">Im Browser öffnen</a>
+        </article>
+
+        <article class="card">
+          <h2>Ziffernblatt</h2>
+          <p>Ein Ziffernblatt für die Apple Watch.</p>
+          <p class="status">folgt</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <nav aria-label="Rechtliches">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </nav>
+        <p>
+          Beispielschrift: UnifrakturMaguntia, SIL Open Font License 1.1
+          (<a href="fonts/FRAKTUR-LICENSE.txt">Lizenz</a>).
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

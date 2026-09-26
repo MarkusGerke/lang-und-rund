@@ -34,7 +34,7 @@ jobs:
           rm -rf packages/extension/dist-app/fonts packages/extension/dist-app/icons
           rm -f packages/extension/dist-app/READABILITY-LICENSE.md
 
-      - name: Deploy via FTPS
+      - name: Deploy editor via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -49,3 +49,28 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/Base.lproj/**
+
+      - name: Assemble landing page
+        run: |
+          rm -rf site-dist
+          mkdir -p site-dist/fonts
+          cp site/index.html site-dist/index.html
+          cp site/fonts/unifrakturmaguntia.ttf site-dist/fonts/
+          cp site/fonts/FRAKTUR-LICENSE.txt site-dist/fonts/
+          cp packages/extension/impressum.html site-dist/impressum.html
+          cp packages/extension/datenschutz.html site-dist/datenschutz.html
+
+      - name: Deploy landing page via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./site-dist/
+          server-dir: ./
+          timeout: 600000
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
