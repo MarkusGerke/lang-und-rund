@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "lang & rund",
   "short_name": "lang & rund",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Liest Webseiten im Lesemodus mit historischem langem ſ und rundem s.",
   "browser_specific_settings": {
     "gecko": {

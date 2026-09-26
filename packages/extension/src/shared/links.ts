@@ -3,7 +3,7 @@ export const BRAND_NAME = 'lang & rund';
 export const BRAND_NAME_SHORT = 'lang & rund';
 
 /** App-Version (mit Manifest abgleichen). */
-export const APP_VERSION = '1.9.0';
+export const APP_VERSION = '1.9.1';
 
 /** macOS/iOS-Host: Fenstertitel ohne Artikel. */
 export const WINDOW_TITLE_CLAIM =
