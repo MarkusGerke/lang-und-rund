@@ -51,6 +51,12 @@
 		C9B7D5E63067AACF003717F6 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CF3067AACF003717F6 /* content.js */; };
 		C9B7D5E73067AACF003717F6 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5D13067AACF003717F6 /* fonts */; };
 		C9B7D5E83067AACF003717F6 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5D23067AACF003717F6 /* assets */; };
+		A1D5E0023067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0013067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0033067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0013067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0123067AACF003717F1 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0113067AACF003717F1 /* impressum.html */; };
+		A1D5E0133067AACF003717F1 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0113067AACF003717F1 /* impressum.html */; };
+		A1D5E0153067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0143067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0163067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0143067AACF003717F1 /* datenschutz.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +127,9 @@
 		C9B7D5CB3067AACF003717F6 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = Resources/icons; sourceTree = "<group>"; };
 		C9B7D5CC3067AACF003717F6 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
 		C9B7D5CD3067AACF003717F6 /* impressum.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = impressum.html; path = Resources/impressum.html; sourceTree = "<group>"; };
+		A1D5E0013067AACF003717F1 /* datenschutz.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = datenschutz.html; path = Resources/datenschutz.html; sourceTree = "<group>"; };
+		A1D5E0113067AACF003717F1 /* impressum.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = impressum.html; sourceTree = "<group>"; };
+		A1D5E0143067AACF003717F1 /* datenschutz.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = datenschutz.html; sourceTree = "<group>"; };
 		C9B7D5CE3067AACF003717F6 /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = Resources/options.html; sourceTree = "<group>"; };
 		C9B7D5CF3067AACF003717F6 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = Resources/content.js; sourceTree = "<group>"; };
 		C9B7D5D03067AACF003717F6 /* background.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = background.js.map; path = Resources/background.js.map; sourceTree = "<group>"; };
@@ -179,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				C9B7D56C3067AACE003717F6 /* Main.html */,
+				A1D5E0113067AACF003717F1 /* impressum.html */,
+				A1D5E0143067AACF003717F1 /* datenschutz.html */,
 				C9B7D56E3067AACE003717F6 /* Icon.png */,
 				C9B7D56F3067AACE003717F6 /* Style.css */,
 				C9B7D5703067AACE003717F6 /* Script.js */,
@@ -255,6 +266,7 @@
 				C9B7D5CB3067AACF003717F6 /* icons */,
 				C9B7D5CC3067AACF003717F6 /* manifest.json */,
 				C9B7D5CD3067AACF003717F6 /* impressum.html */,
+				A1D5E0013067AACF003717F1 /* datenschutz.html */,
 				C9B7D5CE3067AACF003717F6 /* options.html */,
 				C9B7D5CF3067AACF003717F6 /* content.js */,
 				C9B7D5D03067AACF003717F6 /* background.js.map */,
@@ -389,6 +401,8 @@
 				C9B7D5A93067AACF003717F6 /* Icon.png in Resources */,
 				C9B7D5823067AACF003717F6 /* LaunchScreen.storyboard in Resources */,
 				C9B7D5A73067AACF003717F6 /* Main.html in Resources */,
+				A1D5E0123067AACF003717F1 /* impressum.html in Resources */,
+				A1D5E0153067AACF003717F1 /* datenschutz.html in Resources */,
 				C9B7D5AD3067AACF003717F6 /* Script.js in Resources */,
 				C9B7D5B13067AACF003717F6 /* Assets.xcassets in Resources */,
 				C9B7D5853067AACF003717F6 /* Main.storyboard in Resources */,
@@ -404,6 +418,8 @@
 				C9B7D5AE3067AACF003717F6 /* Script.js in Resources */,
 				C9B7D5B23067AACF003717F6 /* Assets.xcassets in Resources */,
 				C9B7D5A83067AACF003717F6 /* Main.html in Resources */,
+				A1D5E0133067AACF003717F1 /* impressum.html in Resources */,
+				A1D5E0163067AACF003717F1 /* datenschutz.html in Resources */,
 			);
 		};
 		C9B7D5953067AACF003717F6 /* Resources */ = {
@@ -412,6 +428,7 @@
 				C9B7D5DE3067AACF003717F6 /* background.js in Resources */,
 				C9B7D5E73067AACF003717F6 /* fonts in Resources */,
 				C9B7D5E43067AACF003717F6 /* impressum.html in Resources */,
+				A1D5E0033067AACF003717F1 /* datenschutz.html in Resources */,
 				C9B7D5E13067AACF003717F6 /* reader.html in Resources */,
 				C9B7D5E53067AACF003717F6 /* options.html in Resources */,
 				C9B7D5E03067AACF003717F6 /* start.html in Resources */,
@@ -428,6 +445,7 @@
 				C9B7D5D33067AACF003717F6 /* background.js in Resources */,
 				C9B7D5DC3067AACF003717F6 /* fonts in Resources */,
 				C9B7D5D93067AACF003717F6 /* impressum.html in Resources */,
+				A1D5E0023067AACF003717F1 /* datenschutz.html in Resources */,
 				C9B7D5D63067AACF003717F6 /* reader.html in Resources */,
 				C9B7D5DA3067AACF003717F6 /* options.html in Resources */,
 				C9B7D5D53067AACF003717F6 /* start.html in Resources */,

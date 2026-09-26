@@ -166,6 +166,8 @@ body {
 }
 
 .app {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
   background: var(--reader-bg);
@@ -590,7 +592,7 @@ body {
 .reader-shell {
   position: relative;
   display: block;
-  min-height: calc(100vh - 4rem);
+  flex: 1 1 auto;
   transition: padding-right var(--drawer-duration) var(--drawer-ease);
   padding-right: 0;
 }
@@ -602,7 +604,7 @@ body {
 .reader {
   max-width: var(--reader-measure);
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
+  padding: 2rem 1.25rem 1.5rem;
   background: var(--reader-bg);
   color: var(--reader-text);
   transition:
@@ -1316,12 +1318,14 @@ body {
 .app-footer {
   position: static;
   z-index: 1;
+  flex-shrink: 0;
+  margin-top: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.35rem 0.5rem;
-  padding: 1.25rem 1rem 1.5rem;
+  padding: 1rem 1rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
   font-size: 0.78rem;
   color: var(--reader-muted);
   background: transparent;

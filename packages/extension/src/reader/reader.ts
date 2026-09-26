@@ -242,7 +242,10 @@ async function init(): Promise<void> {
   const footerEl = document.getElementById('app-footer');
   if (footerEl) {
     const impressumHref = hostMode
-      ? new URL('../impressum.html', document.baseURI).href
+      ? new URL(
+          location.protocol === 'file:' ? '../impressum.html' : 'impressum.html',
+          document.baseURI,
+        ).href
       : chrome.runtime.getURL(IMPRESSUM_PATH);
     footerEl.outerHTML = renderAppFooterLinks(impressumHref, {
       includeStartPage: !hostMode,
@@ -259,22 +262,23 @@ async function init(): Promise<void> {
         } catch {
           return;
         }
+        const openExternal = (
+          window as unknown as {
+            webkit?: {
+              messageHandlers?: {
+                openExternal?: { postMessage: (v: string) => void };
+              };
+            };
+          }
+        ).webkit?.messageHandlers?.openExternal;
+        // Website / Browser ohne Bridge: normale Link-Navigation.
+        if (!openExternal) return;
         const scheme = url.protocol.replace(/:$/, '');
+        // Impressum/Datenschutz im App-Bundle (file:) normal laden.
+        if (scheme === 'file') return;
         if (scheme === 'http' || scheme === 'https' || scheme === 'mailto') {
           e.preventDefault();
-          try {
-            (
-              window as unknown as {
-                webkit?: {
-                  messageHandlers?: {
-                    openExternal?: { postMessage: (v: string) => void };
-                  };
-                };
-              }
-            ).webkit?.messageHandlers?.openExternal?.postMessage(url.href);
-          } catch {
-            window.location.href = url.href;
-          }
+          openExternal.postMessage(url.href);
         }
       });
     }

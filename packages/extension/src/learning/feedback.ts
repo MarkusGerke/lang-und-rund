@@ -111,7 +111,15 @@ export function renderDrawerFeedbackTile(): string {
   );
 }
 
-/** Footer: Startseite · Github · Impressum · Fehler melden · X · Version. */
+function siblingPage(baseHref: string, file: string): string {
+  try {
+    return new URL(file, baseHref).href;
+  } catch {
+    return file;
+  }
+}
+
+/** Footer: Startseite · Github · Impressum · Datenschutz · Fehler melden · X · Version. */
 export function renderAppFooterLinks(
   impressumHref: string,
   options?: { includeStartPage?: boolean },
@@ -135,6 +143,9 @@ export function renderAppFooterLinks(
     );
   }
   parts.push(`<a href="${escapeHtml(impressumHref)}">Impressum</a>`);
+  parts.push(
+    `<a href="${escapeHtml(siblingPage(impressumHref, 'datenschutz.html'))}">Datenschutz</a>`,
+  );
   const reportSubject = encodeURIComponent(`[${BRAND_NAME}] Feedback`);
   const reportBody = encodeURIComponent(
     `Hallo,\n\nich möchte Folgendes melden:\n\n\n\n— gemeldet via ${BRAND_NAME} v${APP_VERSION}\n`,

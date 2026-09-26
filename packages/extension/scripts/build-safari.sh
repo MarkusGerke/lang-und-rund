@@ -94,6 +94,9 @@ if [[ -d "$DIST_APP" && -f "$DIST_APP/Style.css" && -f "$DIST_APP/Script.js" ]];
   if [[ -f "$DIST_APP/impressum.html" ]]; then
     cp "$DIST_APP/impressum.html" "$APP_RES/impressum.html"
   fi
+  if [[ -f "$DIST_APP/datenschutz.html" ]]; then
+    cp "$DIST_APP/datenschutz.html" "$APP_RES/datenschutz.html"
+  fi
   echo "→ Host-App UI (Main.html / Style.css / Script.js) eingesetzt"
 else
   echo "Hinweis: dist-app fehlt — pnpm --filter @langs/extension build ausführen." >&2
