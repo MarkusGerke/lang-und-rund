@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "lang & rund",
   "short_name": "lang & rund",
-  "version": "1.8.6",
+  "version": "1.8.7",
   "description": "Liest Webseiten im Lesemodus mit historischem langem ſ und rundem s.",
   "icons": {
     "16": "icons/icon-16.png",

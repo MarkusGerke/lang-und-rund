@@ -11,6 +11,7 @@
         --text: #1c1917;
         --muted: #57534e;
         --accent: #9a3412;
+        --border: #d6d3d1;
       }
       body {
         margin: 0;
@@ -19,6 +20,38 @@
         background: var(--bg);
         color: var(--text);
         line-height: 1.55;
+      }
+      .site-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem 1rem;
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        background: #fffdf9;
+      }
+      .site-brand {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .site-brand:hover {
+        color: var(--accent);
+      }
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        font-size: 0.9rem;
+      }
+      .site-nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .site-nav a:hover {
+        text-decoration: underline;
       }
       main {
         max-width: 36rem;
@@ -45,16 +78,21 @@
       a {
         color: var(--accent);
       }
-      .back {
-        display: inline-block;
-        margin-bottom: 1.25rem;
-        font-size: 0.9rem;
+      ul.muted {
+        padding-left: 1.2rem;
+        margin: 0 0 0.75rem;
       }
     </style>
   </head>
   <body>
+    <header class="site-header">
+      <a class="site-brand" id="home-link" href="/">lang &amp; rund</a>
+      <nav class="site-nav" aria-label="Seitennavigation">
+        <a id="editor-link" href="/editor/">Editor</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+    </header>
     <main>
-      <a class="back" href="#" id="back-link">← zurück</a>
       <h1>Impressum</h1>
       <p class="muted">
         Angaben gemäß §&nbsp;5 DDG für die Website langundrund.de sowie die Apps und
@@ -102,7 +140,7 @@
         Fraktur-, Kurrent- und Sütterlin-Schriften werden lokal mit der Erweiterung ausgeliefert und nicht
         von externen Servern (z.&nbsp;B. Google Fonts) geladen.
       </p>
-      <ul class="muted" style="padding-left: 1.2rem; margin: 0 0 0.75rem">
+      <ul class="muted">
         <li>
           <strong>UnifrakturMaguntia</strong> — SIL Open Font License 1.1
           (<a href="fonts/FRAKTUR-LICENSE.txt">Lizenztext</a>)
@@ -126,16 +164,26 @@
     </main>
     <script>
       (function () {
-        var link = document.getElementById('back-link');
-        if (!link) return;
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          if (history.length > 1) {
-            history.back();
-            return;
-          }
-          location.href = 'options.html';
-        });
+        var home = document.getElementById('home-link');
+        var editor = document.getElementById('editor-link');
+        if (!home) return;
+        var proto = location.protocol;
+        if (proto === 'http:' || proto === 'https:') {
+          home.href = '/';
+          if (editor) editor.href = '/editor/';
+          return;
+        }
+        if (proto === 'file:') {
+          home.href = 'Base.lproj/Main.html';
+          if (editor) editor.href = 'Base.lproj/Main.html';
+          return;
+        }
+        try {
+          home.href = chrome.runtime.getURL('start.html');
+        } catch (e) {
+          home.href = 'start.html';
+        }
+        if (editor) editor.hidden = true;
       })();
     </script>
   </body>

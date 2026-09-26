@@ -11,6 +11,7 @@
         --text: #1c1917;
         --muted: #57534e;
         --accent: #9a3412;
+        --border: #d6d3d1;
       }
       body {
         margin: 0;
@@ -19,6 +20,38 @@
         background: var(--bg);
         color: var(--text);
         line-height: 1.55;
+      }
+      .site-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem 1rem;
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        background: #fffdf9;
+      }
+      .site-brand {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .site-brand:hover {
+        color: var(--accent);
+      }
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        font-size: 0.9rem;
+      }
+      .site-nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .site-nav a:hover {
+        text-decoration: underline;
       }
       main {
         max-width: 40rem;
@@ -51,16 +84,17 @@
       a {
         color: var(--accent);
       }
-      .back {
-        display: inline-block;
-        margin-bottom: 1.25rem;
-        font-size: 0.9rem;
-      }
     </style>
   </head>
   <body>
+    <header class="site-header">
+      <a class="site-brand" id="home-link" href="/">lang &amp; rund</a>
+      <nav class="site-nav" aria-label="Seitennavigation">
+        <a id="editor-link" href="/editor/">Editor</a>
+        <a href="impressum.html">Impressum</a>
+      </nav>
+    </header>
     <main>
-      <a class="back" href="#" id="back-link">← zurück</a>
       <h1>Datenschutzerklärung</h1>
       <p class="muted">
         Informationen nach Art.&nbsp;13 DSGVO für die Website langundrund.de sowie die Apps
@@ -84,7 +118,7 @@
       <h2>Kurzüberblick</h2>
       <p>
         Texte, die du in der App oder Erweiterung eingibst oder die der Lesemodus aus einer
-        Seite liest, werden auf deinem Gerät verarbeitet. Wir betreiben kein eigenes Konto-System,
+        Seite liest, werden auf deinem Gerät verarbeitet. Ich betreibe kein eigenes Konto-System,
         keine Analyse und keine Werbung. Schriften sind in der App bzw. Erweiterung enthalten und
         werden nicht von Drittservern geladen.
       </p>
@@ -92,8 +126,8 @@
       <h2>Website</h2>
       <p>
         Die Website wird bei All-Inkl.com (Neue Medien Münnich) gehostet. Im Kundenmenü ist
-        eingestellt, dass <strong>keine Zugriffslogs</strong> erzeugt werden. Wir erstellen keine
-        Zugriffsstatistik und werten keine Logdateien aus.
+        eingestellt, dass <strong>keine Zugriffslogs</strong> erzeugt werden. Ich erstelle keine
+        Zugriffsstatistik und werte keine Logdateien aus.
       </p>
       <p>
         Damit der Server die Seite ausliefern kann, übermittelt dein Browser technisch notwendige
@@ -111,7 +145,7 @@
       <h2>App und Browser-Erweiterung</h2>
       <p>
         Konvertierung, Darstellung und Lernhinweise laufen lokal. Der eingegebene oder gelesene
-        Text wird nicht an uns übertragen.
+        Text wird nicht an mich übertragen.
       </p>
       <p>
         Einstellungen (etwa Schrift, Thema, Zeilenabstand) speichert die Anwendung auf dem Gerät:
@@ -123,30 +157,31 @@
       <p>
         Wenn du die Synchronisation deines Browsers oder deines Apple-/Google-Kontos aktivierst,
         kann der jeweilige Anbieter diese Einstellungen auf seinen Servern speichern. Dafür ist
-        dieser Anbieter verantwortlich, nicht wir.
+        dieser Anbieter verantwortlich, nicht ich.
       </p>
 
       <h2>E-Mail</h2>
       <p>
-        Wenn du uns schreibst (auch über „Fehler melden“), verarbeiten wir die dabei übermittelten
+        Wenn du mir schreibst (auch über „Fehler melden“), verarbeite ich die dabei übermittelten
         Angaben — in der Regel E-Mail-Adresse, Inhalt und, falls die App sie in die Nachricht setzt,
-        den betroffenen Lernhinweis. Zweck ist die Bearbeitung deiner Nachricht.
+        den betroffenen Lernhinweis. Zweck ist die Bearbeitung deiner Nachricht. Ich verwende die
+        Angaben nur dafür und gebe sie nicht weiter.
       </p>
       <p class="muted">
         Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an der
-        Bearbeitung von Hinweisen). Die Nachricht löschen wir, sobald sie erledigt ist und keine
-        gesetzliche Aufbewahrung entgegensteht.
+        Bearbeitung von Hinweisen). Eine feste Löschfrist kann ich nicht zusagen; bitte melde dich,
+        wenn du die Löschung einer Nachricht wünschst.
       </p>
 
       <h2>Externe Links</h2>
       <p>
         Links zu GitHub oder X/Twitter werden erst bei einem Klick geladen. Für die dortige
-        Verarbeitung gelten die Hinweise des jeweiligen Anbieters. Wir betten diese Dienste nicht ein.
+        Verarbeitung gelten die Hinweise des jeweiligen Anbieters. Ich binde diese Dienste nicht ein.
       </p>
 
       <h2>Speicherdauer und Pflicht zur Angabe</h2>
       <p>
-        Eine Nutzung ohne Personenangaben an uns ist möglich. Die E-Mail-Angabe ist freiwillig.
+        Eine Nutzung ohne Personenangaben an mich ist möglich. Die E-Mail-Angabe ist freiwillig.
         Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt.
       </p>
 
@@ -175,16 +210,26 @@
     </main>
     <script>
       (function () {
-        var link = document.getElementById('back-link');
-        if (!link) return;
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          if (history.length > 1) {
-            history.back();
-            return;
-          }
-          location.href = 'impressum.html';
-        });
+        var home = document.getElementById('home-link');
+        var editor = document.getElementById('editor-link');
+        if (!home) return;
+        var proto = location.protocol;
+        if (proto === 'http:' || proto === 'https:') {
+          home.href = '/';
+          if (editor) editor.href = '/editor/';
+          return;
+        }
+        if (proto === 'file:') {
+          home.href = 'Base.lproj/Main.html';
+          if (editor) editor.href = 'Base.lproj/Main.html';
+          return;
+        }
+        try {
+          home.href = chrome.runtime.getURL('start.html');
+        } catch (e) {
+          home.href = 'start.html';
+        }
+        if (editor) editor.hidden = true;
       })();
     </script>
   </body>
