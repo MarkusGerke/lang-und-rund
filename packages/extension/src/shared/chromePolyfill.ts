@@ -46,7 +46,12 @@ function createArea(areaName: string) {
           } catch {
             /* ignore */
           }
-        } else if (keys && typeof keys === 'object' && !Array.isArray(keys) && key in keys) {
+        } else if (
+          keys &&
+          typeof keys === 'object' &&
+          !Array.isArray(keys) &&
+          key in keys
+        ) {
           out[key] = (keys as Record<string, unknown>)[key];
         }
       }
@@ -75,8 +80,23 @@ function createArea(areaName: string) {
   };
 }
 
+/** Echte Browser-Extension (Chrome/Firefox/Safari): hat immer eine runtime.id. */
+export function isRealExtensionRuntime(): boolean {
+  try {
+    const id = (
+      globalThis as typeof globalThis & { chrome?: typeof chrome }
+    ).chrome?.runtime?.id;
+    return typeof id === 'string' && id.length > 0;
+  } catch {
+    return false;
+  }
+}
+
 export function installChromePolyfill(): void {
   const g = globalThis as typeof globalThis & { chrome?: typeof chrome };
+
+  // Niemals echte Extension-APIs überschreiben (auch ohne storage.session).
+  if (isRealExtensionRuntime()) return;
 
   if (g.chrome?.storage?.sync && g.chrome?.storage?.session) return;
 
@@ -101,6 +121,8 @@ export function installChromePolyfill(): void {
 export function isHostAppMode(): boolean {
   const params = new URLSearchParams(location.search);
   if (params.get('host') === '1') return true;
+  // Extension-Kontext: nie Host — auch wenn Polyfill fälschlich fehlte
+  if (isRealExtensionRuntime()) return false;
   try {
     return typeof chrome?.runtime?.id !== 'string';
   } catch {

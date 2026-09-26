@@ -14,7 +14,8 @@ struct ContentView: View {
       return WatchWord(
         modern: "—",
         fraktur: WatchWordMode(word: "—", tips: []),
-        kurrent: WatchWordMode(word: "—", tips: [])
+        kurrent: WatchWordMode(word: "—", tips: []),
+        suetterlin: WatchWordMode(word: "—", tips: [])
       )
     }
     return words[index % words.count]
@@ -26,6 +27,8 @@ struct ContentView: View {
         .tag(ScriptMode.fraktur)
       WordScrollView(word: current, mode: .kurrent, onNext: nextWord)
         .tag(ScriptMode.kurrent)
+      WordScrollView(word: current, mode: .suetterlin, onNext: nextWord)
+        .tag(ScriptMode.suetterlin)
     }
     .tabViewStyle(.page(indexDisplayMode: .automatic))
     .onAppear(perform: pickInitial)
@@ -133,9 +136,9 @@ struct TipCard: View {
     )
   }
 
-  /// Kurrent wirkt in derselben Punktgröße optisch kleiner — Beispiele doppelt so groß.
+  /// Handschrift wirkt in derselben Punktgröße optisch kleiner — Beispiele doppelt so groß.
   private var glyphSize: CGFloat {
-    mode == .kurrent ? 44 : 22
+    mode == .kurrent || mode == .suetterlin ? 44 : 22
   }
 }
 

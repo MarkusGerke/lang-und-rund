@@ -16,7 +16,7 @@ interface StartWord {
   preferredMode: DisplayMode;
 }
 
-type StartScriptMode = 'fraktur' | 'kurrent';
+type StartScriptMode = 'fraktur' | 'kurrent' | 'suetterlin';
 
 const WORDS = startWordsData.words as StartWord[];
 
@@ -41,16 +41,28 @@ function pageUrl(): string {
 /** Menüpfad zum Ändern der Browser-Startseite. */
 function homepageSettingsHint(): string {
   const ua = navigator.userAgent;
-  if (/Firefox\//.test(ua)) return 'Einstellungen › Startseite';
-  if (/Edg\//.test(ua)) return 'Einstellungen › Start, Startseite und neue Tabs';
+  if (/Safari\//.test(ua) && !/Chrome\//.test(ua) && !/Chromium\//.test(ua)) {
+    return 'Safari: Einstellungen › Allgemein';
+  }
+  if (/Firefox\//.test(ua)) return 'Firefox: Einstellungen › Startseite';
+  if (/Edg\//.test(ua)) {
+    return 'Edge: Einstellungen › Start, Startseite und neue Tabs';
+  }
   if (/Chrome\//.test(ua) && !/Edg\//.test(ua)) {
-    return 'Einstellungen › Beim Start';
+    return 'Chrome: Einstellungen › Beim Start';
   }
   return 'Einstellungen › Allgemein';
 }
 
 function toScriptMode(mode: DisplayMode): StartScriptMode {
-  return mode === 'kurrent' ? 'kurrent' : 'fraktur';
+  if (mode === 'kurrent' || mode === 'suetterlin') return mode;
+  return 'fraktur';
+}
+
+function scriptFontClass(mode: StartScriptMode): string {
+  if (mode === 'kurrent') return 'kurrent-font';
+  if (mode === 'suetterlin') return 'suetterlin-font';
+  return 'fraktur-font';
 }
 
 function pickWord(exclude?: string): StartWord {
@@ -76,6 +88,7 @@ async function init(): Promise<void> {
   const modernEl = document.getElementById('word-modern')!;
   const scriptEl = document.getElementById('word-script')!;
   const trackEl = document.getElementById('hint-track')!;
+  const modeIntroEl = document.getElementById('mode-intro')!;
   const pageUrlEl = document.getElementById('page-url')!;
   const homepageHintEl = document.getElementById('homepage-hint')!;
   const copyBtn = document.getElementById(
@@ -84,6 +97,50 @@ async function init(): Promise<void> {
   const footer = document.getElementById('start-footer');
 
   homepageHintEl.textContent = homepageSettingsHint();
+
+  const MODE_INTRO: Record<StartScriptMode, string> = {
+    fraktur:
+      'In der Fraktur entscheiden Silbengrenzen über langes ſ und rundes s. Die Karten erklären typische Druckbild-Verwechslungen.',
+    kurrent:
+      'In der Kurrent helfen Bögen, Punkte und Ligaturen beim Entziffern. Die Karten zeigen typische Handschrift-Fallen.',
+    suetterlin:
+      'In der Sütterlin entscheiden Bogen, Haken und Schleife. Manche Fallen teilt sie mit der Kurrent, andere sehen anders aus.',
+  };
+
+  function syncModeIntro(): void {
+    modeIntroEl.textContent = MODE_INTRO[mode];
+  }
+
+  // Maus-Drag zum horizontalen Scrollen der Hinweiskarten
+  {
+    let dragging = false;
+    let startX = 0;
+    let startScroll = 0;
+    trackEl.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      dragging = true;
+      startX = e.clientX;
+      startScroll = trackEl.scrollLeft;
+      trackEl.classList.add('is-dragging');
+      trackEl.setPointerCapture(e.pointerId);
+    });
+    trackEl.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      trackEl.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    const endDrag = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      trackEl.classList.remove('is-dragging');
+      try {
+        trackEl.releasePointerCapture(e.pointerId);
+      } catch {
+        /* already released */
+      }
+    };
+    trackEl.addEventListener('pointerup', endDrag);
+    trackEl.addEventListener('pointercancel', endDrag);
+  }
 
   const url = pageUrl();
   pageUrlEl.textContent = url;
@@ -131,11 +188,8 @@ async function init(): Promise<void> {
     const converted = convertLongS(word.modern).output;
     modernEl.textContent = word.modern;
 
-    const visual =
-      mode === 'kurrent' ? encodeForDisplay(converted, 'kurrent') : converted;
-    scriptEl.textContent = visual;
-    scriptEl.className =
-      'start-script ' + (mode === 'kurrent' ? 'kurrent-font' : 'fraktur-font');
+    scriptEl.textContent = encodeForDisplay(converted, mode);
+    scriptEl.className = 'start-script ' + scriptFontClass(mode);
 
     const hits = matchPitfalls(converted, mode);
     const preferred = new Set(word.pitfallIds);
@@ -158,6 +212,7 @@ async function init(): Promise<void> {
   function showRandom(exclude?: string): void {
     applyChrome();
     syncSegment();
+    syncModeIntro();
     renderWord(pickWord(exclude));
   }
 
@@ -172,6 +227,7 @@ async function init(): Promise<void> {
     void saveSettings({ displayMode: mode });
     applyChrome();
     syncSegment();
+    syncModeIntro();
     if (current) renderWord(current);
   });
 

@@ -9,6 +9,7 @@ import {
 import {
   escapeHtml,
   matchPitfalls,
+  pitfallCopy,
   type Pitfall,
   type PitfallHit,
 } from './matchPitfalls';
@@ -71,19 +72,29 @@ function glyphDisplayMode(
   if (pitfallModes.includes(active)) return active;
   if (pitfallModes.includes('fraktur')) return 'fraktur';
   if (pitfallModes.includes('kurrent')) return 'kurrent';
+  if (pitfallModes.includes('suetterlin')) return 'suetterlin';
   return pitfallModes[0] ?? active;
+}
+
+function fontClassForMode(mode: DisplayMode): string {
+  if (mode === 'fraktur') return 'fraktur-font';
+  if (mode === 'kurrent') return 'kurrent-font';
+  if (mode === 'suetterlin') return 'suetterlin-font';
+  return 'antiqua-font';
+}
+
+function scriptLabel(mode: DisplayMode): string | null {
+  if (mode === 'kurrent') return 'Kurrent';
+  if (mode === 'suetterlin') return 'Sütterlin';
+  if (mode === 'fraktur') return 'Fraktur';
+  return null;
 }
 
 function renderGlyphPair(glyphs: string[], mode: DisplayMode): string {
   return glyphs
     .map((g) => {
       const visual = encodeForDisplay(g, mode);
-      const fontClass =
-        mode === 'fraktur'
-          ? 'fraktur-font'
-          : mode === 'kurrent'
-            ? 'kurrent-font'
-            : 'antiqua-font';
+      const fontClass = fontClassForMode(mode);
       return (
         `<span class="glyph-chip">` +
         `<span class="glyph-script ${fontClass}">${escapeHtml(visual)}</span>` +
@@ -159,15 +170,21 @@ function glyphsForPitfall(pitfall: Pitfall, focusKey: string): string[] {
   return out;
 }
 
-function renderPitfallBlocks(p: Pitfall): string {
+function renderPitfallBlocks(p: Pitfall, mode?: DisplayMode): string {
+  const script = mode ? scriptLabel(mode) : null;
+  const copy = pitfallCopy(p, mode);
+  const confuseLabel = script
+    ? `Verwechslungsgefahr (${script})`
+    : 'Verwechslungsgefahr';
+  const writingLabel = script ? `Schreibart in der ${script}` : 'Schreibart';
   let html =
     `<div class="pitfall-block">` +
-    `<p class="pitfall-block-label">Verwechslungsgefahr</p>` +
-    `<p class="pitfall-hint">${escapeHtml(p.confusion)}</p>` +
+    `<p class="pitfall-block-label">${escapeHtml(confuseLabel)}</p>` +
+    `<p class="pitfall-hint">${escapeHtml(copy.confusion)}</p>` +
     `</div>` +
     `<div class="pitfall-block">` +
-    `<p class="pitfall-block-label">Schreibart</p>` +
-    `<p class="pitfall-hint">${escapeHtml(p.writing)}</p>` +
+    `<p class="pitfall-block-label">${escapeHtml(writingLabel)}</p>` +
+    `<p class="pitfall-hint">${escapeHtml(copy.writing)}</p>` +
     `</div>`;
   if (p.context) {
     html +=
@@ -194,7 +211,7 @@ export function renderPitfallHintCard(
     (glyphs.length
       ? `<div class="glyph-row">${renderGlyphPair(glyphs, glyphMode)}</div>`
       : '') +
-    renderPitfallBlocks(pitfall) +
+    renderPitfallBlocks(pitfall, mode) +
     `</article>`
   );
 }
@@ -224,7 +241,7 @@ function renderGroupedPitfallCards(
             (glyphs.length
               ? `<div class="glyph-row">${renderGlyphPair(glyphs, glyphMode)}</div>`
               : '') +
-            renderPitfallBlocks(p) +
+            renderPitfallBlocks(p, mode) +
             `</div>`
           );
         })
@@ -286,6 +303,7 @@ export function renderDrawerBodyPrecise(
   const showConverted = wordHasSForm(ctx.converted);
   const frakturPreview = ctx.converted;
   const kurrentPreview = encodeForDisplay(ctx.converted, 'kurrent');
+  const suetterlinPreview = encodeForDisplay(ctx.converted, 'suetterlin');
 
   const liveOn = options?.drawerLiveCursor === true;
   const liveToggle =
@@ -311,6 +329,8 @@ export function renderDrawerBodyPrecise(
     `<p class="drawer-preview fraktur-font">${escapeHtml(frakturPreview)}</p>` +
     `<p class="drawer-kicker">In Kurrent</p>` +
     `<p class="drawer-preview kurrent-font">${escapeHtml(kurrentPreview)}</p>` +
+    `<p class="drawer-kicker">In Sütterlin</p>` +
+    `<p class="drawer-preview suetterlin-font">${escapeHtml(suetterlinPreview)}</p>` +
     `</div>` +
     (ctx.ambiguity ? renderAmbiguitySection(ctx.ambiguity) : '') +
     `<section class="drawer-section pitfall-box">` +

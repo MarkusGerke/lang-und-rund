@@ -55,6 +55,7 @@ async function main() {
   let css = readFileSync(stylePath, 'utf8');
   const mag = b64Font('public/fonts/unifrakturmaguntia.ttf');
   const kur = b64Font('public/fonts/kurrent.ttf');
+  const sue = b64Font('public/fonts/suetterlin.ttf');
   if (mag) {
     css = css.replace(
       /url\((['"]?)(?:\.\.\/)?(?:\/)?fonts\/unifrakturmaguntia\.ttf\1\)/g,
@@ -65,6 +66,12 @@ async function main() {
     css = css.replace(
       /url\((['"]?)(?:\.\.\/)?(?:\/)?fonts\/kurrent\.ttf\1\)/g,
       `url(data:font/truetype;charset=utf-8;base64,${kur})`,
+    );
+  }
+  if (sue) {
+    css = css.replace(
+      /url\((['"]?)(?:\.\.\/)?(?:\/)?fonts\/suetterlin\.ttf\1\)/g,
+      `url(data:font/truetype;charset=utf-8;base64,${sue})`,
     );
   }
   writeFileSync(stylePath, css);

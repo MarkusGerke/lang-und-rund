@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		087924E50FE64A3F5ADF78D4 /* KURRENT-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE6B8A3475CA7DA782B54060 /* KURRENT-LICENSE.txt */; };
 		1C3BA3353D29E74EA43313C4 /* kurrent.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AEF6BD98D4A0E47C009CE75 /* kurrent.ttf */; };
+		A11CE0010000000000000001 /* suetterlin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A11CE0020000000000000002 /* suetterlin.ttf */; };
+		A11CE0030000000000000003 /* SUETTERLIN-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = A11CE0040000000000000004 /* SUETTERLIN-LICENSE.txt */; };
 		21A4C0688105051F7B76A7FA /* WatchModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84FA46D3FFFCF67745A29E3 /* WatchModels.swift */; };
 		34B8338DA5255437BD547D82 /* LangUndRundWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB5DC6347B0F6AAE35B9C0 /* LangUndRundWatchApp.swift */; };
 		4927A34455056E615D8EC9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B79C5A788BB5804E9A1EBAEB /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 		7662EAAAA45690A34ACA3139 /* unifrakturmaguntia.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = unifrakturmaguntia.ttf; sourceTree = "<group>"; };
 		76B543206C4054ED2646837F /* LangUndRundWatchCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LangUndRundWatchCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEF6BD98D4A0E47C009CE75 /* kurrent.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kurrent.ttf; sourceTree = "<group>"; };
+		A11CE0020000000000000002 /* suetterlin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = suetterlin.ttf; sourceTree = "<group>"; };
+		A11CE0040000000000000004 /* SUETTERLIN-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SUETTERLIN-LICENSE.txt; sourceTree = "<group>"; };
 		7DF4D7FC80AF2344B9D0FE2C /* LangUndRundWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LangUndRundWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		932D59EC461069C39146A71B /* WatchCompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCompanionApp.swift; sourceTree = "<group>"; };
 		9900EAA7FC6EF97CABD7484F /* FRAKTUR-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "FRAKTUR-LICENSE.txt"; sourceTree = "<group>"; };
@@ -106,7 +110,9 @@
 				B79C5A788BB5804E9A1EBAEB /* Assets.xcassets */,
 				9900EAA7FC6EF97CABD7484F /* FRAKTUR-LICENSE.txt */,
 				EE6B8A3475CA7DA782B54060 /* KURRENT-LICENSE.txt */,
+				A11CE0040000000000000004 /* SUETTERLIN-LICENSE.txt */,
 				7AEF6BD98D4A0E47C009CE75 /* kurrent.ttf */,
+				A11CE0020000000000000002 /* suetterlin.ttf */,
 				7662EAAAA45690A34ACA3139 /* unifrakturmaguntia.ttf */,
 				C461DCB2757FF6B16589408D /* watchWords.json */,
 			);
@@ -199,7 +205,9 @@
 				4927A34455056E615D8EC9BB /* Assets.xcassets in Resources */,
 				7911F42FC0F2A5A5CD9EF9B4 /* FRAKTUR-LICENSE.txt in Resources */,
 				087924E50FE64A3F5ADF78D4 /* KURRENT-LICENSE.txt in Resources */,
+				A11CE0030000000000000003 /* SUETTERLIN-LICENSE.txt in Resources */,
 				1C3BA3353D29E74EA43313C4 /* kurrent.ttf in Resources */,
+				A11CE0010000000000000001 /* suetterlin.ttf in Resources */,
 				BCF5561FBAE4C1A5B24D1FEC /* unifrakturmaguntia.ttf in Resources */,
 				6CBB94AC61F3B643CCAE3B39 /* watchWords.json in Resources */,
 			);

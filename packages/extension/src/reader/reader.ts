@@ -3,12 +3,17 @@ import './reader.css';
 import type { AmbiguitySpan } from '@langs/core';
 import {
   ARTICLE_KEY_PREFIX,
+  clampLeading,
   FONT_SIZE_MAX,
   FONT_SIZE_MIN,
   FONT_SIZE_STEP,
+  isDisplayMode,
+  KURRENT_FONT_SIZE_MOBILE,
+  LEADING_STEP,
+  MODE_DEFAULT_FONT_SIZE,
   type ArticlePayload,
   type DisplayMode,
-  type LeadingMode,
+  type LeadingValue,
   type MeasureMode,
   type ThemeMode,
 } from '../shared/types';
@@ -23,6 +28,12 @@ import {
   resultToHtml,
 } from './convertDom';
 import { stripToTextOnly, toModernS } from './textOnly';
+import {
+  clipboardHtmlFromPaste,
+  htmlToPlainText,
+  plainToSimpleHtml,
+  sanitizeRichHtml,
+} from './richHtml';
 import { renderDrawerBodyPrecise } from '../learning/drawerRender';
 import {
   buildReportMailtoUrl,
@@ -38,26 +49,15 @@ interface ReaderState {
   displayMode: DisplayMode;
   theme: ThemeMode;
   measure: MeasureMode;
-  leading: LeadingMode;
+  leading: LeadingValue;
   fontSizes: Record<DisplayMode, number>;
   textOnly: boolean;
   drawerLiveCursor: boolean;
 }
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 function plainTextToArticle(text: string, title: string): ArticlePayload {
   const trimmed = text.trim();
-  /* Ein Block mit <br>: Overlay-Metrik = Textarea (kein Extra-p-Margin). */
-  const contentHtml = trimmed
-    ? `<p>${escapeHtml(trimmed).replace(/\n/g, '<br>')}</p>`
-    : '';
+  const contentHtml = plainToSimpleHtml(trimmed);
   const id = `paste-${Date.now().toString(36)}`;
   const resolvedTitle =
     title.trim() ||
@@ -73,6 +73,28 @@ function plainTextToArticle(text: string, title: string): ArticlePayload {
     contentHtml,
     textContent: trimmed,
     excerpt: trimmed.slice(0, 160),
+    createdAt: Date.now(),
+  };
+}
+
+function richHtmlToArticle(html: string, title: string): ArticlePayload {
+  const contentHtml = sanitizeRichHtml(html);
+  const text = htmlToPlainText(contentHtml);
+  const id = `paste-${Date.now().toString(36)}`;
+  const resolvedTitle =
+    title.trim() ||
+    text.split(/\n/)[0]?.slice(0, 80) ||
+    'Eingefügter Text';
+  return {
+    id,
+    title: resolvedTitle,
+    byline: '',
+    siteName: 'Eingefügt',
+    sourceUrl: 'about:blank',
+    lang: 'de',
+    contentHtml,
+    textContent: text,
+    excerpt: text.slice(0, 160),
     createdAt: Date.now(),
   };
 }
@@ -103,7 +125,7 @@ async function loadArticle(id: string): Promise<ArticlePayload | null> {
   return (data[key] as ArticlePayload | undefined) ?? null;
 }
 
-function autosizeTextarea(el: HTMLTextAreaElement): void {
+function autosizeEditor(el: HTMLElement): void {
   el.style.height = 'auto';
   el.style.height = `${Math.max(el.scrollHeight, 200)}px`;
 }
@@ -120,8 +142,8 @@ async function init(): Promise<void> {
       (navigator.platform === 'MacIntel' &&
         navigator.maxTouchPoints > 1 &&
         window.matchMedia('(hover: none)').matches));
-  /** iOS: Default Lesen; macOS-Host: immer Bearbeiten. */
-  let editMode = !iosHost;
+  /** Host: immer Bearbeiten beim Öffnen (iOS + macOS); Lesen nur nach „Fertig“. */
+  let editMode = true;
 
   const params = new URLSearchParams(location.search);
   let id = params.get('id');
@@ -153,14 +175,31 @@ async function init(): Promise<void> {
   }
 
   const settings = await loadSettings();
+  const SESSION_MODE_KEY = 'langs-session-display-mode';
+  const sessionModeRaw = sessionStorage.getItem(SESSION_MODE_KEY);
+  const sessionMode: DisplayMode | null = isDisplayMode(sessionModeRaw)
+    ? sessionModeRaw
+    : null;
+  /** Jedes Öffnen startet in Fraktur; Umschaltung gilt nur in dieser Session. */
+  const openMode: DisplayMode = sessionMode ?? 'fraktur';
+  const isMobileViewport = () =>
+    window.matchMedia('(max-width: 640px)').matches;
+  const fontSizes = { ...settings.fontSizes };
+  if (
+    isMobileViewport() &&
+    (fontSizes.kurrent === MODE_DEFAULT_FONT_SIZE.kurrent ||
+      fontSizes.kurrent === 64)
+  ) {
+    fontSizes.kurrent = KURRENT_FONT_SIZE_MOBILE;
+  }
   const state: ReaderState = {
     article: article ?? plainTextToArticle('', ''),
     overrides: {},
-    displayMode: settings.displayMode,
+    displayMode: openMode,
     theme: settings.theme,
     measure: settings.measure,
     leading: settings.leading,
-    fontSizes: { ...settings.fontSizes },
+    fontSizes,
     textOnly: settings.textOnly,
     drawerLiveCursor: settings.drawerLiveCursor,
   };
@@ -183,9 +222,7 @@ async function init(): Promise<void> {
   const editorTitle = document.getElementById(
     'editor-title',
   ) as HTMLInputElement;
-  const editorBody = document.getElementById(
-    'editor-body',
-  ) as HTMLTextAreaElement;
+  const editorBody = document.getElementById('editor-body') as HTMLElement;
   const displayGroup = document.getElementById('display-mode')!;
   const measureSelect = document.getElementById('measure') as HTMLSelectElement;
   const leadingMinus = document.getElementById(
@@ -201,8 +238,6 @@ async function init(): Promise<void> {
   const editModeBtn = document.getElementById(
     'btn-edit-mode',
   ) as HTMLButtonElement | null;
-
-  const LEADING_ORDER: LeadingMode[] = ['compact', 'normal', 'loose'];
 
   const footerEl = document.getElementById('app-footer');
   if (footerEl) {
@@ -269,11 +304,7 @@ async function init(): Promise<void> {
   }
 
   function stepLeading(delta: number): void {
-    const idx = LEADING_ORDER.indexOf(state.leading);
-    const next =
-      LEADING_ORDER[
-        Math.max(0, Math.min(LEADING_ORDER.length - 1, idx + delta))
-      ]!;
+    const next = clampLeading(state.leading + delta * LEADING_STEP);
     if (next === state.leading) return;
     state.leading = next;
     void saveSettings({ leading: state.leading });
@@ -320,11 +351,43 @@ async function init(): Promise<void> {
     } else if (editModeBtn) {
       editModeBtn.hidden = true;
     }
-    editorBody.readOnly = iosHost && !editMode;
+    editorBody.contentEditable = iosHost && !editMode ? 'false' : 'true';
     editorTitle.readOnly = iosHost && !editMode;
     if (iosHost && !editMode) {
       dismissKeyboard();
     }
+  }
+
+  function editorPlainText(): string {
+    return (editorBody.innerText || editorBody.textContent || '')
+      .replace(/\u00a0/g, ' ')
+      .replace(/\n$/, '');
+  }
+
+  function editorHtml(): string {
+    const raw = editorBody.innerHTML.trim();
+    if (!raw || raw === '<br>') return '';
+    return sanitizeRichHtml(raw);
+  }
+
+  function setEditorHtml(html: string): void {
+    editorBody.innerHTML = html || '';
+  }
+
+  function selectionPlainAndOffset(): {
+    text: string;
+    cursor: number;
+  } {
+    const text = editorPlainText();
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0 || !editorBody.contains(sel.anchorNode)) {
+      return { text, cursor: text.length };
+    }
+    const range = sel.getRangeAt(0).cloneRange();
+    range.selectNodeContents(editorBody);
+    range.setEnd(sel.anchorNode!, sel.anchorOffset);
+    const cursor = range.toString().replace(/\u00a0/g, ' ').length;
+    return { text, cursor };
   }
 
   function applyChrome(): void {
@@ -336,10 +399,12 @@ async function init(): Promise<void> {
         ? ' host-edit'
         : ' host-read'
       : '';
-    app!.className = `app theme-${state.theme} mode-${state.displayMode} measure-${state.measure} leading-${state.leading}${openClass}${hostClass}${iosClass}${modeClass}`;
+    app!.className = `app theme-${state.theme} mode-${state.displayMode} measure-${state.measure}${openClass}${hostClass}${iosClass}${modeClass}`;
     toolbar!.className = 'toolbar';
     document.documentElement.dataset.theme = state.theme;
     app!.style.setProperty('--reader-font-size', `${currentFontSize()}px`);
+    app!.style.setProperty('--reader-line-height', String(state.leading));
+    app!.style.setProperty('--host-line-height', String(state.leading));
     const bg = getComputedStyle(app!).getPropertyValue('--reader-bg').trim();
     if (bg) {
       document.documentElement.style.backgroundColor = bg;
@@ -534,7 +599,11 @@ async function init(): Promise<void> {
     const root = analysisRoot();
     const overrideMap = new Map(Object.entries(state.overrides));
     const titleResult = convertPlainTitle(art.title, overrideMap);
-    const hostVisual = hostMode ? { matchSourceVisual: true } : {};
+    /**
+     * Host Bearbeiten + Lesen: ſ-Regeln sichtbar (matchSourceVisual aus).
+     * Caret-Risiko in Fraktur/Kurrent bewusst akzeptiert — siehe Rule host-edit-s-rules.
+     */
+    const hostVisual = {};
     titleEl.innerHTML = resultToHtml(
       titleResult,
       state.displayMode,
@@ -600,12 +669,13 @@ async function init(): Promise<void> {
     modern: string;
     occurrence: number;
   } | null): void {
-    const text = editorBody.value;
+    const html = editorHtml();
+    const text = editorPlainText();
     const title = editorTitle.value;
     if (contentHost) {
       contentHost.dataset.placeholder = 'Text einfügen oder schreiben…';
     }
-    if (!text.trim()) {
+    if (!text.trim() && !html) {
       state.article = plainTextToArticle('', title);
       state.overrides = {};
       if (contentHost) contentHost.innerHTML = '';
@@ -618,20 +688,23 @@ async function init(): Promise<void> {
       if (drawerOpen) closeDrawer();
       return;
     }
-    state.article = plainTextToArticle(text, title);
+    state.article = html
+      ? richHtmlToArticle(html, title)
+      : plainTextToArticle(text, title);
+    if (state.article.id.startsWith('paste-') && article?.id) {
+      state.article.id = article.id;
+    }
     state.overrides = {};
     void persistArticle(state.article);
     const focus =
       cursorWord ??
       (state.drawerLiveCursor
-        ? wordAtCursor(
-            editorBody.value,
-            editorBody.selectionStart ?? editorBody.value.length,
-          )
+        ? (() => {
+            const { text: t, cursor } = selectionPlainAndOffset();
+            return wordAtCursor(t, cursor);
+          })()
         : null);
-    render(
-      focus ? { modern: focus.modern } : undefined,
-    );
+    render(focus ? { modern: focus.modern } : undefined);
     if (focus && state.drawerLiveCursor) {
       openDrawerForModernWord(focus.modern, focus.occurrence);
     }
@@ -653,9 +726,15 @@ async function init(): Promise<void> {
   wireChoiceGroup(displayGroup, (value) => {
     state.displayMode = value as DisplayMode;
     syncChoiceGroup(displayGroup, state.displayMode);
+    try {
+      sessionStorage.setItem(SESSION_MODE_KEY, state.displayMode);
+    } catch {
+      /* private mode */
+    }
     void saveSettings({ displayMode: state.displayMode });
     if (hostMode) renderHostLive();
     else render();
+    applyChrome();
   });
 
   measureSelect.addEventListener('change', () => {
@@ -687,7 +766,7 @@ async function init(): Promise<void> {
     state.fontSizes[state.displayMode] = next;
     void saveSettings({ fontSizes: { ...state.fontSizes } });
     applyChrome();
-    if (hostMode) autosizeTextarea(editorBody);
+    if (hostMode) autosizeEditor(editorBody);
   });
 
   document.getElementById('font-plus')!.addEventListener('click', () => {
@@ -695,12 +774,16 @@ async function init(): Promise<void> {
     state.fontSizes[state.displayMode] = next;
     void saveSettings({ fontSizes: { ...state.fontSizes } });
     applyChrome();
-    if (hostMode) autosizeTextarea(editorBody);
+    if (hostMode) autosizeEditor(editorBody);
   });
 
   if (hostMode) {
     if (article) {
-      editorBody.value = article.textContent || '';
+      if (article.contentHtml?.includes('<')) {
+        setEditorHtml(sanitizeRichHtml(article.contentHtml));
+      } else {
+        setEditorHtml(plainToSimpleHtml(article.textContent || ''));
+      }
       editorTitle.value =
         article.title === 'Eingefügter Text' ? '' : article.title;
     }
@@ -721,8 +804,8 @@ async function init(): Promise<void> {
     const syncDrawerToCursor = () => {
       if (iosHost) return;
       if (!state.drawerLiveCursor || liveCursorPaused) return;
-      const cursor = editorBody.selectionStart ?? editorBody.value.length;
-      const focus = wordAtCursor(editorBody.value, cursor);
+      const { text, cursor } = selectionPlainAndOffset();
+      const focus = wordAtCursor(text, cursor);
       const key = focus ? `${focus.modern}#${focus.occurrence}` : '';
       if (key === lastDrawerKey) return;
       lastDrawerKey = key;
@@ -731,9 +814,9 @@ async function init(): Promise<void> {
     };
 
     const reanalyzeAndTeach = () => {
-      const cursor = editorBody.selectionStart ?? editorBody.value.length;
+      const { text, cursor } = selectionPlainAndOffset();
       const focus = state.drawerLiveCursor
-        ? wordAtCursor(editorBody.value, cursor)
+        ? wordAtCursor(text, cursor)
         : null;
       lastDrawerKey = focus ? `${focus.modern}#${focus.occurrence}` : '';
       renderHostLive(focus);
@@ -746,7 +829,11 @@ async function init(): Promise<void> {
       if (e.key.toLowerCase() !== 'a') return;
       e.preventDefault();
       editorBody.focus();
-      editorBody.select();
+      const range = document.createRange();
+      range.selectNodeContents(editorBody);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(range);
     });
     editorTitle.addEventListener('keydown', (e) => {
       if (!(e.metaKey || e.ctrlKey) || e.altKey) return;
@@ -759,6 +846,48 @@ async function init(): Promise<void> {
       liveCursorPaused = false;
       reanalyzeAndTeach();
     });
+    editorBody.addEventListener('paste', (e) => {
+      const html = clipboardHtmlFromPaste(e);
+      if (!html) return;
+      e.preventDefault();
+      const clean = sanitizeRichHtml(html);
+      if (!clean) return;
+      // Einfügen an Cursor
+      const sel = window.getSelection();
+      if (sel && sel.rangeCount > 0 && editorBody.contains(sel.anchorNode)) {
+        sel.deleteFromDocument();
+        const temp = document.createElement('div');
+        temp.innerHTML = clean;
+        const frag = document.createDocumentFragment();
+        while (temp.firstChild) frag.appendChild(temp.firstChild);
+        sel.getRangeAt(0).insertNode(frag);
+        sel.collapseToEnd();
+      } else {
+        setEditorHtml(
+          editorHtml() ? `${editorHtml()}${clean}` : clean,
+        );
+      }
+      liveCursorPaused = false;
+      reanalyzeAndTeach();
+    });
+    editorBody.addEventListener('copy', (e) => {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !editorBody.contains(sel.anchorNode)) {
+        return;
+      }
+      e.preventDefault();
+      const range = sel.getRangeAt(0);
+      const container = document.createElement('div');
+      container.appendChild(range.cloneContents());
+      const rawHtml = sanitizeRichHtml(container.innerHTML);
+      const { html: converted } = convertHtmlFragment(
+        rawHtml || plainToSimpleHtml(sel.toString()),
+        new Map(Object.entries(state.overrides)),
+        state.displayMode,
+      );
+      e.clipboardData?.setData('text/html', converted);
+      e.clipboardData?.setData('text/plain', toModernS(sel.toString()));
+    });
     editorBody.addEventListener('keyup', () => {
       liveCursorPaused = false;
       syncDrawerToCursor();
@@ -767,8 +896,8 @@ async function init(): Promise<void> {
       if (iosHost && editMode) return;
       if (!canOpenDrawerFromWord()) return;
       liveCursorPaused = false;
-      const cursor = editorBody.selectionStart ?? editorBody.value.length;
-      const focus = wordAtCursor(editorBody.value, cursor);
+      const { text, cursor } = selectionPlainAndOffset();
+      const focus = wordAtCursor(text, cursor);
       if (!focus) {
         if (drawerOpen) closeDrawer();
         lastDrawerKey = '';
@@ -807,6 +936,8 @@ async function init(): Promise<void> {
         } else {
           dismissKeyboard();
           applyChrome();
+          // Lesemodus: Overlay mit Konvertierung aktualisieren
+          renderHostLive();
         }
       });
     }
@@ -818,6 +949,13 @@ async function init(): Promise<void> {
     ) as HTMLDetailsElement | null;
     if (settingsPanel) {
       settingsPanel.open = false;
+      const summary = settingsPanel.querySelector('summary');
+      // Mobile: native <details> + display:flex bricht oft den Summary-Toggle
+      summary?.addEventListener('click', (e) => {
+        if (!window.matchMedia('(max-width: 640px)').matches) return;
+        e.preventDefault();
+        settingsPanel.open = !settingsPanel.open;
+      });
       document.addEventListener('click', (e) => {
         if (!settingsPanel.open) return;
         const t = e.target as Node;
@@ -873,8 +1011,8 @@ async function init(): Promise<void> {
         : 'Nur per Mausklick aufs Wort. Einschalten: Drawer folgt dem Textcursor.';
       void saveSettings({ drawerLiveCursor: state.drawerLiveCursor });
       if (hostMode && state.drawerLiveCursor) {
-        const cursor = editorBody.selectionStart ?? editorBody.value.length;
-        const focus = wordAtCursor(editorBody.value, cursor);
+        const { text, cursor } = selectionPlainAndOffset();
+        const focus = wordAtCursor(text, cursor);
         if (focus) openDrawerForModernWord(focus.modern, focus.occurrence);
       }
       return;
@@ -1001,9 +1139,14 @@ async function init(): Promise<void> {
     }
   });
 
-  // Scroll/Wischen im Haupttext (≥ ~40px): Drawer + Tastatur zu
+  // Scroll/Wischen: Desktop schließt Drawer nicht; Mobile ≥ ~40px Drawer + Tastatur zu
   {
+    const isDesktopPointer = () =>
+      window.matchMedia('(min-width: 641px)').matches &&
+      window.matchMedia('(hover: hover)').matches;
+
     const dismissIfNeeded = () => {
+      if (isDesktopPointer()) return;
       if (drawerOpen || document.activeElement === editorBody) {
         dismissFloatingUi();
       }
@@ -1011,15 +1154,26 @@ async function init(): Promise<void> {
 
     let scrollAccum = 0;
     let lastY = window.scrollY;
+    let lastScrollDir = 0;
     window.addEventListener(
       'scroll',
       () => {
         const y = window.scrollY;
-        scrollAccum += Math.abs(y - lastY);
+        const dy = y - lastY;
         lastY = y;
-        if (scrollAccum < 40) return;
-        scrollAccum = 0;
-        dismissIfNeeded();
+        scrollAccum += Math.abs(dy);
+        if (scrollAccum >= 40) {
+          scrollAccum = 0;
+          dismissIfNeeded();
+        }
+        // Mobil: Toolbar bei Hochscrollen ein, bei Runterscrollen aus
+        if (!window.matchMedia('(max-width: 640px)').matches) return;
+        if (Math.abs(dy) < 10) return;
+        const dir = dy > 0 ? 1 : -1;
+        if (dir === lastScrollDir) {
+          app!.classList.toggle('toolbar-collapsed', dir > 0 && y > 24);
+        }
+        lastScrollDir = dir;
       },
       { passive: true },
     );
@@ -1037,11 +1191,15 @@ async function init(): Promise<void> {
       const te = e as TouchEvent;
       if ((te.target as HTMLElement).closest?.('.learn-drawer')) return;
       const y = te.touches[0]?.clientY ?? lastTouchY;
+      const dy = lastTouchY - y;
       touchAccum += Math.abs(y - lastTouchY);
       lastTouchY = y;
       if (touchAccum < 40) return;
       touchAccum = 0;
       dismissIfNeeded();
+      if (window.matchMedia('(max-width: 640px)').matches && Math.abs(dy) >= 10) {
+        app!.classList.toggle('toolbar-collapsed', dy > 0);
+      }
     };
     readerEl?.addEventListener('touchstart', onTouchStart, { passive: true });
     readerEl?.addEventListener('touchmove', onTouchMove, { passive: true });
@@ -1138,10 +1296,40 @@ async function init(): Promise<void> {
   if (hostMode) {
     applyChrome();
     renderHostLive();
-    if (editMode) editorBody.focus();
+    if (editMode) {
+      editorBody.focus();
+    }
   } else {
     render();
   }
+
+  // Extension + Host: Auswahl als HTML (konvertiert) + Plaintext in die Zwischenablage
+  document.addEventListener('copy', (e) => {
+    if (hostMode && editMode && editorBody.contains(window.getSelection()?.anchorNode ?? null)) {
+      return; // Host-Editor hat eigenen Handler
+    }
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    const anchor = sel.anchorNode;
+    const root = analysisRoot();
+    if (!anchor || (!root.contains(anchor) && !titleEl.contains(anchor) && !contentEl.contains(anchor))) {
+      return;
+    }
+    e.preventDefault();
+    const range = sel.getRangeAt(0);
+    const container = document.createElement('div');
+    container.appendChild(range.cloneContents());
+    // Visuell bereits konvertiert → HTML der Auswahl + modernes Plain
+    let html = container.innerHTML;
+    if (!html.trim()) {
+      html = plainToSimpleHtml(sel.toString());
+    }
+    e.clipboardData?.setData('text/html', html);
+    e.clipboardData?.setData(
+      'text/plain',
+      toModernS(sel.toString()),
+    );
+  });
 }
 
 void init();

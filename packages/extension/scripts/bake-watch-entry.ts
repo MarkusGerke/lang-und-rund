@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { convertLongS } from '@langs/core';
-import { matchPitfalls } from '../src/learning/matchPitfalls';
+import { matchPitfalls, pitfallCopy } from '../src/learning/matchPitfalls';
 import startWordsData from '../src/learning/startWords.json';
 import { encodeForDisplay } from '../src/reader/kurrentEncode';
 import type { DisplayMode } from '../src/shared/types';
@@ -23,7 +23,7 @@ interface StartWord {
   preferredMode: DisplayMode;
 }
 
-type ScriptMode = 'fraktur' | 'kurrent';
+type ScriptMode = 'fraktur' | 'kurrent' | 'suetterlin';
 
 interface WatchTip {
   id: string;
@@ -41,6 +41,7 @@ interface WatchWord {
   modern: string;
   fraktur: WatchWordMode;
   kurrent: WatchWordMode;
+  suetterlin: WatchWordMode;
 }
 
 function tipsFor(
@@ -62,7 +63,7 @@ function tipsFor(
     .map((h) => ({
       id: h.pitfall.id,
       title: h.pitfall.title,
-      confusion: h.pitfall.confusion,
+      confusion: pitfallCopy(h.pitfall, mode).confusion,
       glyphs: h.pitfall.glyphs.map((g) => encodeForDisplay(g, mode)),
     }));
 }
@@ -79,6 +80,10 @@ function bakeWord(row: StartWord): WatchWord {
       word: encodeForDisplay(converted, 'kurrent'),
       tips: tipsFor(row.modern, converted, 'kurrent'),
     },
+    suetterlin: {
+      word: encodeForDisplay(converted, 'suetterlin'),
+      tips: tipsFor(row.modern, converted, 'suetterlin'),
+    },
   };
 }
 
@@ -93,12 +98,16 @@ const payload = {
 
 writeFileSync(OUT_JSON, JSON.stringify(payload, null, 2) + '\n', 'utf8');
 
-for (const font of ['unifrakturmaguntia.ttf', 'kurrent.ttf']) {
+for (const font of ['unifrakturmaguntia.ttf', 'kurrent.ttf', 'suetterlin.ttf']) {
   const src = join(FONT_SRC, font);
   if (existsSync(src)) copyFileSync(src, join(OUT_DIR, font));
 }
 
-for (const lic of ['FRAKTUR-LICENSE.txt', 'KURRENT-LICENSE.txt']) {
+for (const lic of [
+  'FRAKTUR-LICENSE.txt',
+  'KURRENT-LICENSE.txt',
+  'SUETTERLIN-LICENSE.txt',
+]) {
   const src = join(FONT_SRC, lic);
   if (existsSync(src)) copyFileSync(src, join(OUT_DIR, lic));
 }

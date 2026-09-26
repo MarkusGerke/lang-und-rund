@@ -1,6 +1,11 @@
 import pitfallsData from './pitfalls.json';
 import type { DisplayMode } from '../shared/types';
 
+export interface PitfallModeText {
+  confusion?: string;
+  writing?: string;
+}
+
 export interface Pitfall {
   id: string;
   modes: DisplayMode[];
@@ -13,6 +18,11 @@ export interface Pitfall {
    * Sortierung der Hinweise; alle Wellen werden angezeigt.
    */
   wave: Partial<Record<DisplayMode, number>>;
+  /**
+   * Texte, die nur in einem Schriftmodus gelten.
+   * Grundtext bleibt für die übrigen Modi.
+   */
+  byMode?: Partial<Record<DisplayMode, PitfallModeText>>;
   match:
     | { type: 'letters'; any: string[] }
     | { type: 'pattern'; regex: string }
@@ -32,7 +42,18 @@ export interface PitfallHit {
   highlightIndexes: number[];
 }
 
-const ALL_MODES: DisplayMode[] = ['antiqua', 'fraktur', 'kurrent'];
+const ALL_MODES: DisplayMode[] = ['antiqua', 'fraktur', 'kurrent', 'suetterlin'];
+
+export function pitfallCopy(
+  pitfall: Pitfall,
+  mode?: DisplayMode,
+): { confusion: string; writing: string } {
+  const over = mode ? pitfall.byMode?.[mode] : undefined;
+  return {
+    confusion: over?.confusion ?? pitfall.confusion,
+    writing: over?.writing ?? pitfall.writing,
+  };
+}
 const pitfalls = pitfallsData.pitfalls as Pitfall[];
 
 export function pitfallWaveForMode(
@@ -176,10 +197,11 @@ export function escapeHtml(text: string): string {
     .replace(/"/g, '&quot;');
 }
 
-export function formatPitfallPlain(p: Pitfall): string {
+export function formatPitfallPlain(p: Pitfall, mode?: DisplayMode): string {
+  const copy = pitfallCopy(p, mode);
   const parts = [
-    `Verwechslungsgefahr: ${p.confusion}`,
-    `Schreibart: ${p.writing}`,
+    `Verwechslungsgefahr: ${copy.confusion}`,
+    `Schreibart: ${copy.writing}`,
   ];
   if (p.context) parts.push(`Kontext: ${p.context}`);
   return parts.join(' ');

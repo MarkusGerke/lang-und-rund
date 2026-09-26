@@ -9,19 +9,6 @@
     <main id="app" class="options">
       <h1>lang &amp; rund</h1>
       <p class="lead">Einstellungen werden synchronisiert, sofern der Browser das erlaubt.</p>
-      <nav class="options-legal" aria-label="Rechtliches">
-        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener">Github</a>
-        <span aria-hidden="true">·</span>
-        <a href="impressum.html">Impressum</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://x.com/MarkusGerke" target="_blank" rel="noopener"
-          ><span class="x-logo" aria-hidden="true"
-            ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.259 5.698L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg></span
-          ><span class="x-handle">MarkusGerke</span></a
-        >
-        <span aria-hidden="true">·</span>
-        <span class="app-version">v1.0.0</span>
-      </nav>
 
       <label class="field">
         Standard-Darstellung
@@ -29,11 +16,12 @@
           <option value="antiqua">Antiqua</option>
           <option value="fraktur" selected>Fraktur</option>
           <option value="kurrent">Kurrent</option>
+          <option value="suetterlin">Sütterlin</option>
         </select>
       </label>
 
       <label class="field">
-        Textbreite
+        Absatzbreite
         <select id="measure" class="select">
           <option value="narrow">Schmal</option>
           <option value="medium">Mittel</option>
@@ -42,16 +30,20 @@
       </label>
 
       <label class="field">
-        Zeilenabstand
-        <select id="leading" class="select">
-          <option value="compact">Eng</option>
-          <option value="normal" selected>Normal</option>
-          <option value="loose">Weit</option>
-        </select>
+        Zeilenabstand (line-height)
+        <input
+          id="leading"
+          type="number"
+          class="select"
+          min="0.7"
+          max="4"
+          step="0.05"
+          value="1.4"
+        />
       </label>
 
       <label class="field">
-        Farbschema
+        Farbwahl
         <select id="theme" class="select">
           <option value="light">Hell</option>
           <option value="sepia" selected>Sepia</option>
@@ -73,6 +65,10 @@
         <label class="field inline">
           Kurrent
           <input id="size-kurrent" type="number" min="14" max="80" step="2" />
+        </label>
+        <label class="field inline">
+          Sütterlin
+          <input id="size-suetterlin" type="number" min="14" max="80" step="2" />
         </label>
       </fieldset>
 

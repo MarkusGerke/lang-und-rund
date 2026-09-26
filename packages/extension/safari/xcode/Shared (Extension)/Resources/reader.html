@@ -7,20 +7,22 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>lang &amp; rund</title>
-    <script type="module" crossorigin src="./assets/reader-D0oVeF6c.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/feedback-BC6-Y1et.js">
-    <link rel="modulepreload" crossorigin href="./assets/drawerRender-Z-x6akoC.js">
-    <link rel="stylesheet" crossorigin href="./assets/reader-oH0gDsEB.css">
+    <script type="module" crossorigin src="./assets/reader-D2UJNPrh.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/feedback-Rg9i01ug.js">
+    <link rel="modulepreload" crossorigin href="./assets/drawerRender-fMQdznrl.js">
+    <link rel="stylesheet" crossorigin href="./assets/reader-BLFiaw6B.css">
   </head>
   <body>
-    <div id="app" class="app theme-sepia mode-fraktur measure-medium leading-normal">
+    <div id="app" class="app theme-sepia mode-fraktur measure-medium">
       <header id="toolbar" class="toolbar" role="toolbar" aria-label="Lesemodus">
-        <p class="toolbar-brand">lang &amp; rund</p>
-        <div class="toolbar-group toolbar-close-wrap">
-          <div class="toolbar-close-group">
-            <button type="button" id="btn-close" class="btn" title="Schließen (Esc)" aria-label="Schließen (Esc)">✕</button>
-            <kbd class="drawer-esc-hint" title="Schließen mit Escape">Esc</kbd>
+        <div class="toolbar-start">
+          <div class="toolbar-group toolbar-close-wrap">
+            <div class="toolbar-close-group">
+              <button type="button" id="btn-close" class="btn" title="Schließen (Esc)" aria-label="Schließen (Esc)">✕</button>
+            </div>
           </div>
+          <kbd class="drawer-esc-hint" title="Schließen mit Escape">Esc</kbd>
+          <p class="toolbar-brand">lang &amp; rund</p>
         </div>
         <button
           type="button"
@@ -59,10 +61,13 @@
                 <button type="button" class="segment-btn" data-value="kurrent">
                   Kurrent
                 </button>
+                <button type="button" class="segment-btn" data-value="suetterlin">
+                  Sütterlin
+                </button>
               </div>
             </div>
             <label class="ctrl ctrl-measure">
-              Breite
+              Absatzbreite
               <select id="measure" aria-label="Textbreite" class="select">
                 <option value="narrow">Schmal</option>
                 <option value="medium">Mittel</option>
@@ -96,7 +101,7 @@
               </div>
             </div>
             <div class="ctrl">
-              <span class="ctrl-label">Thema</span>
+              <span class="ctrl-label">Farbwahl</span>
               <div
                 class="theme-cubes"
                 id="theme"
@@ -146,7 +151,7 @@
               </div>
             </div>
             <label class="ctrl">
-              Medien aus
+              Medien ausblenden
               <button
                 type="button"
                 id="text-only-toggle"
@@ -174,11 +179,14 @@
           />
           <div class="live-stack host-only">
             <article id="content-host" class="content" aria-live="polite"></article>
-            <textarea
+            <div
               id="editor-body"
               class="content content-edit"
-              placeholder="Text einfügen oder schreiben…"
-            ></textarea>
+              contenteditable="true"
+              role="textbox"
+              aria-multiline="true"
+              data-placeholder="Text einfügen oder schreiben…"
+            ></div>
           </div>
           <h1 id="title" class="title"></h1>
           <article id="content" class="content"></article>

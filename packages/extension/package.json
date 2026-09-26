@@ -1,11 +1,12 @@
 {
   "name": "@langs/extension",
-  "version": "1.5.1",
+  "version": "1.8.3",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node scripts/build.mjs && node scripts/pack.mjs",
-    "build": "tsc -p tsconfig.json --noEmit && node scripts/build.mjs && node scripts/build-app.mjs && node scripts/pack.mjs",
+    "build": "tsc -p tsconfig.json --noEmit && node scripts/check-host-s-regeln.mjs && node scripts/build.mjs && node scripts/build-app.mjs && node scripts/pack.mjs",
+    "check:s-regeln": "node scripts/check-host-s-regeln.mjs",
     "build:chrome": "pnpm build",
     "build:firefox": "pnpm build",
     "bake:watch": "node scripts/bake-watch-data.mjs"

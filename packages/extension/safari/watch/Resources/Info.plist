@@ -12,6 +12,7 @@
 	<array>
 		<string>unifrakturmaguntia.ttf</string>
 		<string>kurrent.ttf</string>
+		<string>suetterlin.ttf</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
 	<string>de.langundrund.watch</string>
