@@ -17,7 +17,6 @@
         --muted: #6b563f;
         --line: #d4b896;
         --accent: #8b4513;
-        --paper: #fff8ee;
       }
       * { box-sizing: border-box; }
       html, body { margin: 0; background: var(--bg); color: var(--ink); }
@@ -25,119 +24,89 @@
       a { color: inherit; }
       .fraktur { font-family: "UnifrakturMaguntia", Georgia, serif; }
 
-      .b { min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 4.5rem; }
-      .b-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        padding: 0.7rem 1rem;
-        background: var(--surface);
-        border-bottom: 1px solid var(--line);
-      }
-      .b-brand { margin: 0; font-weight: 600; }
-      .b-modes { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-      .b-modes span {
-        padding: 0.35rem 0.7rem;
-        font-size: 0.8rem;
-        color: var(--muted);
-      }
-      .b-modes span.on { background: var(--ink); color: var(--surface); }
-      .b-body {
-        flex: 1;
-        display: grid;
-        grid-template-columns: 1fr min(22rem, 34vw);
-        min-height: 0;
-      }
-      .b-sheet { padding: 2.5rem 8vw 2rem; background: var(--paper); }
-      .b-kicker {
-        margin: 0 0 0.4rem;
-        font-size: 0.75rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .b-sheet h1 {
-        margin: 0 0 1.25rem;
-        font-size: clamp(2.4rem, 5vw, 4rem);
-        font-weight: 400;
-        line-height: 1.05;
-      }
-      .b-prose { margin: 0; max-width: 36rem; font-size: 1.05rem; line-height: 1.55; }
-      .b-drawer {
-        background: var(--surface);
-        border-left: 1px solid var(--line);
-        padding: 1.25rem 1.2rem 2rem;
+      .page {
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        gap: 1.1rem;
+        padding: 1.25rem 1.5rem 2rem;
       }
-      .b-drawer h2 { margin: 0; font-size: 0.95rem; }
-      .b-offer { margin: 0; }
-      .b-offer strong { display: block; font-size: 0.95rem; }
-      .b-offer p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.4; }
-      .b-offer em {
-        font-style: normal;
+      .stage {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .from {
+        margin: 0;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .word {
+        margin: 0.2rem 0 0;
+        font-size: clamp(6rem, 22vw, 16rem);
+        line-height: 0.85;
+        font-weight: 400;
+      }
+      .line {
+        max-width: 28rem;
+        margin: 1.25rem 0 0;
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+      .cta {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        background: var(--accent);
+        color: var(--surface);
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      .cta:hover { opacity: 0.92; }
+      .foot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem 1.25rem;
+        padding-top: 1rem;
+        font-size: 0.92rem;
+      }
+      .foot span { color: var(--muted); }
+      .foot a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+      .soon {
+        margin-left: 0.35rem;
         font-size: 0.68rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
       }
-      .b-go {
-        margin-top: auto;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        background: var(--accent);
-        color: var(--surface);
-        padding: 0.7rem 1rem;
-        border-radius: 8px;
-      }
-      .b-go:hover { opacity: 0.92; }
-
-      @media (max-width: 800px) {
-        .b-body { grid-template-columns: 1fr; }
-        .b-modes { display: none; }
-      }
     </style>
   </head>
   <body>
-    <div class="b">
-      <header class="b-bar">
-        <p class="b-brand">lang &amp; rund</p>
-        <div class="b-modes" aria-hidden="true">
-          <span>Antiqua</span>
-          <span class="on">Fraktur</span>
-          <span>Kurrent</span>
-          <span>Sütterlin</span>
-        </div>
-      </header>
-      <div class="b-body">
-        <section class="b-sheet">
-          <p class="b-kicker">Editor</p>
-          <h1 class="fraktur">daſs</h1>
-          <p class="b-prose">
-            Du schreibst modernen Text. Die Fläche zeigt ihn mit langem ſ.
-            Ein Wort anklicken öffnet die Lernhinweise, so wie in der App.
-          </p>
-        </section>
-        <aside class="b-drawer" aria-label="Angebote">
-          <h2>Wort lernen</h2>
-          <div class="b-offer">
-            <strong>Browser-Erweiterung</strong>
-            <p>Lesemodus für Webseiten, in vier Schriften. <em>folgt</em></p>
-          </div>
-          <div class="b-offer">
-            <strong>Apps</strong>
-            <p>Dieselbe Oberfläche für iPhone und Mac. <em>folgt</em></p>
-          </div>
-          <div class="b-offer">
-            <strong>Ziffernblatt</strong>
-            <p>Für die Apple Watch. <em>folgt</em></p>
-          </div>
-          <a class="b-go" href="/editor/">Im Browser öffnen</a>
-        </aside>
+    <div class="page">
+      <div class="stage">
+        <p class="from">dass</p>
+        <p class="word fraktur">daſs</p>
+        <p class="line">
+          Langes ſ und rundes s, nach den Regeln des Fraktursatzes.
+          Zum Lesen, Schreiben und Lernen.
+        </p>
+        <a class="cta" href="/editor/">Im Browser öffnen</a>
       </div>
+      <nav class="foot" aria-label="Angebote">
+        <span>Erweiterung <span class="soon">folgt</span></span>
+        <span>Apps <span class="soon">folgt</span></span>
+        <a href="/editor/">Editor</a>
+        <span>Ziffernblatt <span class="soon">folgt</span></span>
+      </nav>
     </div>
   </body>
 </html>

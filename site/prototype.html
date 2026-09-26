@@ -2,7 +2,7 @@
 <!--
   PROTOTYPE, throwaway.
   Three variants of the marketing start page, switchable via ?variant=
-  A Plakat · B Werkbank · C Satzspiegel
+  A Leiste · B Werkbank · C Satzspiegel
 -->
 <html lang="de">
   <head>
@@ -40,18 +40,19 @@
       html, body { margin: 0; background: var(--bg); color: var(--ink); }
       body { font-family: system-ui, -apple-system, sans-serif; }
       a { color: inherit; }
-      .variant { display: none; min-height: 100vh; }
-      .variant.is-on { display: block; }
+      .variant { display: none !important; min-height: 100vh; }
+      .variant.is-on.a,
+      .variant.is-on.b { display: flex !important; }
+      .variant.is-on.c { display: block !important; }
       .fraktur { font-family: "UnifrakturMaguntia", Georgia, serif; }
       .kurrent { font-family: "LangsKurrent", cursive; }
       .suetterlin { font-family: "LangsSuetterlin", cursive; }
 
-      /* —— A Plakat —— */
+      /* —— A Leiste (App-Leiste) —— */
       .a {
         min-height: 100vh;
-        display: flex;
         flex-direction: column;
-        padding: 1.25rem 1.5rem 5.5rem;
+        padding-bottom: 4.5rem;
       }
       .a-stage {
         flex: 1;
@@ -112,8 +113,12 @@
         color: var(--accent);
       }
 
-      /* —— B Werkbank —— */
-      .b { min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 4.5rem; }
+      /* —— B Werkbank (großes daſs) —— */
+      .b {
+        min-height: 100vh;
+        flex-direction: column;
+        padding: 1.25rem 1.5rem 5.5rem;
+      }
       .b-bar {
         display: flex;
         align-items: center;
@@ -294,24 +299,6 @@
   </head>
   <body>
     <article class="variant a" data-variant="A">
-      <div class="a-stage">
-        <p class="a-from">dass</p>
-        <p class="a-word fraktur">daſs</p>
-        <p class="a-line">
-          Langes ſ und rundes s, nach den Regeln des Fraktursatzes.
-          Zum Lesen, Schreiben und Lernen.
-        </p>
-        <a class="a-cta" href="/editor/">Im Browser öffnen</a>
-      </div>
-      <nav class="a-foot" aria-label="Angebote">
-        <span>Erweiterung <span class="a-soon">folgt</span></span>
-        <span>Apps <span class="a-soon">folgt</span></span>
-        <a href="/editor/">Editor</a>
-        <span>Ziffernblatt <span class="a-soon">folgt</span></span>
-      </nav>
-    </article>
-
-    <article class="variant b" data-variant="B">
       <header class="b-bar">
         <p class="b-brand">lang &amp; rund</p>
         <div class="b-modes" aria-hidden="true">
@@ -349,6 +336,24 @@
       </div>
     </article>
 
+    <article class="variant b" data-variant="B">
+      <div class="a-stage">
+        <p class="a-from">dass</p>
+        <p class="a-word fraktur">daſs</p>
+        <p class="a-line">
+          Langes ſ und rundes s, nach den Regeln des Fraktursatzes.
+          Zum Lesen, Schreiben und Lernen.
+        </p>
+        <a class="a-cta" href="/editor/">Im Browser öffnen</a>
+      </div>
+      <nav class="a-foot" aria-label="Angebote">
+        <span>Erweiterung <span class="a-soon">folgt</span></span>
+        <span>Apps <span class="a-soon">folgt</span></span>
+        <a href="/editor/">Editor</a>
+        <span>Ziffernblatt <span class="a-soon">folgt</span></span>
+      </nav>
+    </article>
+
     <article class="variant c" data-variant="C">
       <header class="c-mast">
         <strong>lang &amp; rund</strong>
@@ -383,12 +388,12 @@
 
     <div class="switcher" role="toolbar" aria-label="Prototyp-Variante">
       <button type="button" id="prev" aria-label="Vorherige Variante">←</button>
-      <p id="label">A · Plakat</p>
+      <p id="label">A · Leiste</p>
       <button type="button" id="next" aria-label="Nächste Variante">→</button>
     </div>
     <script>
       var order = ["A", "B", "C"];
-      var names = { A: "Plakat", B: "Werkbank", C: "Satzspiegel" };
+      var names = { A: "Leiste", B: "Werkbank", C: "Satzspiegel" };
       function current() {
         var q = new URLSearchParams(location.search).get("variant");
         return order.indexOf(q) >= 0 ? q : "A";
