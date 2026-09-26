@@ -38,6 +38,13 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKUIDelegate
         self.webView.backgroundColor = sepia
         self.webView.scrollView.backgroundColor = sepia
         self.view.backgroundColor = sepia
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(hideKeyboardAccessory),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
 #endif
 
         loadHostReader()
@@ -46,6 +53,9 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKUIDelegate
     deinit {
 #if os(macOS)
         webView?.removeObserver(self, forKeyPath: "title")
+#endif
+#if os(iOS)
+        NotificationCenter.default.removeObserver(self)
 #endif
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "openExternal")
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: "themeBg")
@@ -174,7 +184,42 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKUIDelegate
 #if os(macOS)
         syncWindowTitle()
 #endif
+#if os(iOS)
+        hideKeyboardAccessory()
+#endif
     }
+
+#if os(iOS)
+    /// System-Leiste über der Tastatur (↑↓ / ✓) ausblenden — mehrfach, weil WKWebView spät anlegt.
+    @objc private func hideKeyboardAccessory() {
+        let empty = UIView(frame: .zero)
+        func apply(to view: UIView) {
+            let name = String(describing: type(of: view))
+            if name.contains("WKContent") || name.contains("Input") || name.contains("Web") {
+                if view.responds(to: Selector(("setInputAccessoryView:"))) {
+                    view.perform(Selector(("setInputAccessoryView:")), with: empty)
+                }
+                if let item = view.value(forKey: "inputAssistantItem") as? UITextInputAssistantItem {
+                    item.leadingBarButtonGroups = []
+                    item.trailingBarButtonGroups = []
+                }
+            }
+            for child in view.subviews {
+                apply(to: child)
+            }
+        }
+        apply(to: webView)
+        // Erneut nach kurzer Verzögerung (Accessory oft erst beim Fokus)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
+            guard let self else { return }
+            apply(to: self.webView)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+            guard let self else { return }
+            apply(to: self.webView)
+        }
+    }
+#endif
 
 #if os(macOS)
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

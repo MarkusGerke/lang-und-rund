@@ -14,6 +14,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'LangsSuetterlin';
+  src: url('../fonts/suetterlin.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --reader-bg: #f3e7d3;
   --reader-text: #3f2e1e;
@@ -65,19 +73,48 @@ body {
   font-size: 1.05rem;
   font-weight: 600;
   flex-shrink: 0;
+  margin-right: auto;
+}
+
+.start-setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto 1.5rem;
+  text-align: center;
 }
 
 .start-homepage-hint {
-  font-size: 0.78rem;
+  margin: 0;
+  font-size: 0.9rem;
   color: var(--reader-muted);
-  white-space: nowrap;
-  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.start-url-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.start-page-url,
+.start-url-copy {
+  flex: 1 1 10rem;
+  min-width: 0;
+  min-height: var(--ctrl-height);
+  box-sizing: border-box;
 }
 
 .start-page-url {
-  flex: 1 1 10rem;
-  min-width: 0;
-  max-width: 28rem;
+  max-width: none;
+  display: flex;
+  align-items: center;
   padding: 0.35rem 0.55rem;
   font-family: ui-monospace, Menlo, monospace;
   font-size: 0.68rem;
@@ -97,10 +134,24 @@ body {
   flex-shrink: 0;
 }
 
+.start-mode-intro {
+  margin: 0 0 0.75rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--reader-secondary);
+  text-align: center;
+}
+
 .start-segment {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: stretch;
-  height: var(--ctrl-height);
+  height: auto;
+  min-height: var(--ctrl-height);
+  max-width: 100%;
   margin-left: auto;
   border: 1px solid var(--reader-border);
   border-radius: 6px;
@@ -115,6 +166,7 @@ body {
   border: 0;
   border-right: 1px solid var(--reader-border);
   padding: 0 0.85rem;
+  min-height: var(--ctrl-height);
   font: inherit;
   font-size: 0.9rem;
   line-height: 1;
@@ -205,6 +257,12 @@ body {
   font-synthesis: none;
 }
 
+.start-script.suetterlin-font {
+  font-family: 'LangsSuetterlin', cursive;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
 .start-script.antiqua-font,
 .antiqua-font {
   font-family: var(--font-body);
@@ -235,6 +293,13 @@ body {
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.start-hint-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
 }
 
 .start-hint-track::-webkit-scrollbar {
@@ -303,6 +368,10 @@ body {
 
 .start-hint-card .glyph-script.kurrent-font {
   font-family: 'LangsKurrent', cursive;
+}
+
+.start-hint-card .glyph-script.suetterlin-font {
+  font-family: 'LangsSuetterlin', cursive;
 }
 
 .start-hint-card .glyph-label {

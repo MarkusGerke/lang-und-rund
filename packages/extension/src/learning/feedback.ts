@@ -40,7 +40,10 @@ export function formatReportBody(ctx: ReportContext): string {
     ctx.hits.length === 0
       ? '(keine Lernhinweise für dieses Wort)'
       : ctx.hits
-          .map((h) => `- ${h.pitfall.title}: ${formatPitfallPlain(h.pitfall)}`)
+          .map(
+            (h) =>
+              `- ${h.pitfall.title}: ${formatPitfallPlain(h.pitfall, ctx.mode)}`,
+          )
           .join('\n');
 
   return [
@@ -108,7 +111,7 @@ export function renderDrawerFeedbackTile(): string {
   );
 }
 
-/** Footer: Startseite + Impressum + X (+ Github) + Version. */
+/** Footer: Startseite · Github · Impressum · Fehler melden · X · Version. */
 export function renderAppFooterLinks(
   impressumHref: string,
   options?: { includeStartPage?: boolean },
@@ -132,6 +135,13 @@ export function renderAppFooterLinks(
     );
   }
   parts.push(`<a href="${escapeHtml(impressumHref)}">Impressum</a>`);
+  const reportSubject = encodeURIComponent(`[${BRAND_NAME}] Feedback`);
+  const reportBody = encodeURIComponent(
+    `Hallo,\n\nich möchte Folgendes melden:\n\n\n\n— gemeldet via ${BRAND_NAME} v${APP_VERSION}\n`,
+  );
+  parts.push(
+    `<a href="mailto:${escapeHtml(FEEDBACK_EMAIL)}?subject=${reportSubject}&body=${reportBody}">Fehler melden</a>`,
+  );
   parts.push(xHandleLinkHtml());
   parts.push(
     `<span class="app-version" title="${escapeHtml(BRAND_NAME)}">v${escapeHtml(APP_VERSION)}</span>`,

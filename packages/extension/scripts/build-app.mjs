@@ -55,6 +55,7 @@ async function main() {
   let css = readFileSync(stylePath, 'utf8');
   const mag = b64Font('public/fonts/unifrakturmaguntia.ttf');
   const kur = b64Font('public/fonts/kurrent.ttf');
+  const sue = b64Font('public/fonts/suetterlin.ttf');
   if (mag) {
     css = css.replace(
       /url\((['"]?)(?:\.\.\/)?(?:\/)?fonts\/unifrakturmaguntia\.ttf\1\)/g,
@@ -65,6 +66,12 @@ async function main() {
     css = css.replace(
       /url\((['"]?)(?:\.\.\/)?(?:\/)?fonts\/kurrent\.ttf\1\)/g,
       `url(data:font/truetype;charset=utf-8;base64,${kur})`,
+    );
+  }
+  if (sue) {
+    css = css.replace(
+      /url\((['"]?)(?:\.\.\/)?(?:\/)?fonts\/suetterlin\.ttf\1\)/g,
+      `url(data:font/truetype;charset=utf-8;base64,${sue})`,
     );
   }
   writeFileSync(stylePath, css);
@@ -79,7 +86,8 @@ async function main() {
       )
     : '';
 
-  const mainHtml = `<!doctype html>
+  function shellHtml(assetPrefix) {
+    return `<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -88,18 +96,23 @@ async function main() {
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>lang &amp; rund</title>
-    <link rel="stylesheet" href="../Style.css" />
-    <script src="../Script.js" defer></script>
+    <link rel="stylesheet" href="${assetPrefix}Style.css" />
+    <script src="${assetPrefix}Script.js" defer></script>
   </head>
   <body>
 ${bodyInner}
   </body>
 </html>
 `;
+  }
 
+  // WKWebView: Main.html in Base.lproj, Assets eine Ebene höher
   const baseLproj = resolve(outDir, 'Base.lproj');
   mkdirSync(baseLproj, { recursive: true });
-  writeFileSync(resolve(baseLproj, 'Main.html'), mainHtml);
+  writeFileSync(resolve(baseLproj, 'Main.html'), shellHtml('../'));
+
+  // Website (langundrund.de): flache Pfade im Document Root
+  writeFileSync(resolve(outDir, 'index.html'), shellHtml('./'));
 
   if (existsSync(resolve(root, 'impressum.html'))) {
     cpSync(resolve(root, 'impressum.html'), resolve(outDir, 'impressum.html'));

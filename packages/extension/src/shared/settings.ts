@@ -1,10 +1,11 @@
 import {
   DEFAULT_SETTINGS,
+  isDisplayMode,
   MODE_DEFAULT_FONT_SIZE,
+  parseLeading,
   SETTINGS_KEY,
   type DisplayMode,
   type LangsSettings,
-  type LeadingMode,
   type MeasureMode,
 } from './types';
 
@@ -23,28 +24,21 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
       if (typeof fs[mode] === 'number') fontSizes[mode] = fs[mode];
     }
     // Alte Kurrent-Default 32 → neues Default 64 (2×)
-    if (fs.kurrent === 32) fontSizes.kurrent = MODE_DEFAULT_FONT_SIZE.kurrent;
+    if (fs.kurrent === 32 || fs.kurrent === 64) {
+      fontSizes.kurrent = MODE_DEFAULT_FONT_SIZE.kurrent;
+    }
+    // Sütterlin: frühere Desktop-Defaults → aktuelles Default
+    if (fs.suetterlin === 68 || fs.suetterlin === 44) {
+      fontSizes.suetterlin = MODE_DEFAULT_FONT_SIZE.suetterlin;
+    }
   } else if (typeof raw.fontSize === 'number') {
-    const mode =
-      raw.displayMode === 'fraktur' || raw.displayMode === 'kurrent'
-        ? (raw.displayMode as DisplayMode)
-        : 'fraktur';
+    const mode = isDisplayMode(raw.displayMode) ? raw.displayMode : 'fraktur';
     fontSizes[mode] = raw.fontSize;
   }
 
-  const displayMode: DisplayMode =
-    raw.displayMode === 'antiqua' ||
-    raw.displayMode === 'fraktur' ||
-    raw.displayMode === 'kurrent'
-      ? raw.displayMode
-      : 'fraktur';
-
-  const leading: LeadingMode =
-    raw.leading === 'compact' ||
-    raw.leading === 'normal' ||
-    raw.leading === 'loose'
-      ? raw.leading
-      : 'normal';
+  const displayMode: DisplayMode = isDisplayMode(raw.displayMode)
+    ? raw.displayMode
+    : 'fraktur';
 
   return {
     displayMode,
@@ -59,7 +53,7 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
       raw.measure === 'narrow' || raw.measure === 'wide'
         ? (raw.measure as MeasureMode)
         : 'medium',
-    leading,
+    leading: parseLeading(raw.leading),
     fontSizes,
     textOnly: raw.textOnly !== false,
     drawerLiveCursor: raw.drawerLiveCursor === true,
@@ -87,6 +81,10 @@ export async function saveSettings(
     ...patch,
     fontSizes: { ...current.fontSizes, ...(patch.fontSizes ?? {}) },
   };
+
+  if (typeof patch.leading === 'number') {
+    next.leading = parseLeading(patch.leading);
+  }
 
   if (typeof patch.fontSize === 'number') {
     const mode = patch.fontSizeMode ?? next.displayMode;

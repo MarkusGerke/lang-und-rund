@@ -1,4 +1,4 @@
-name: Deploy Editor to All-Inkl
+name: Deploy Host-App to All-Inkl
 
 on:
   push:
@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build editor
-        run: pnpm --filter @langs/editor build
+      - name: Build Host-App (Web)
+        run: pnpm --filter @langs/extension run build:app
 
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -36,9 +36,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          local-dir: ./packages/editor/dist/
+          local-dir: ./packages/extension/dist-app/
           server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/Base.lproj/**
