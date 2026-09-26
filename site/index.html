@@ -3,25 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lang &amp; rund — Fraktur, Kurrent und Sütterlin lernen</title>
+    <title>lang &amp; rund — Langes ſ und rundes s</title>
     <meta
       name="description"
-      content="Drei Schriften lernen: Fraktur, Kurrent und Sütterlin. Editor, Lernhinweise, später Erweiterung, Apps und Ziffernblatt."
+      content="Langes ſ und rundes s. Editor im Browser, später Erweiterung, Apps und Ziffernblatt."
     />
     <style>
       @font-face {
         font-family: "UnifrakturMaguntia";
         src: url("fonts/unifrakturmaguntia.ttf") format("truetype");
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "LangsKurrent";
-        src: url("fonts/kurrent.ttf") format("truetype");
-        font-display: swap;
-      }
-      @font-face {
-        font-family: "LangsSuetterlin";
-        src: url("fonts/suetterlin.ttf") format("truetype");
         font-display: swap;
       }
       :root {
@@ -32,8 +22,6 @@
         --line: #d4b896;
         --accent: #8b4513;
         --paper: #fff8ee;
-        --night: #1a120e;
-        --gold: #e4c9a0;
       }
       * { box-sizing: border-box; }
       html, body { margin: 0; background: var(--bg); color: var(--ink); }
@@ -45,10 +33,8 @@
       }
       a { color: inherit; }
       .fraktur { font-family: "UnifrakturMaguntia", Georgia, serif; }
-      .kurrent { font-family: "LangsKurrent", cursive; }
-      .suetterlin { font-family: "LangsSuetterlin", cursive; }
 
-      .bar {
+      .b-bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -57,96 +43,52 @@
         background: var(--surface);
         border-bottom: 1px solid var(--line);
       }
-      .brand { margin: 0; font-weight: 600; }
-      .modes {
+      .b-brand { margin: 0; font-weight: 600; }
+      .b-modes {
         display: flex;
         border: 1px solid var(--line);
         border-radius: 8px;
         overflow: hidden;
       }
-      .modes span {
+      .b-modes span {
         padding: 0.35rem 0.7rem;
         font-size: 0.8rem;
         color: var(--muted);
       }
-      .modes span.on {
+      .b-modes span.on {
         background: var(--ink);
         color: var(--surface);
       }
-
-      .body {
+      .b-body {
         flex: 1;
         display: grid;
         grid-template-columns: 1fr min(22rem, 34vw);
         min-height: 0;
       }
-      .sheet {
+      .b-sheet {
         padding: 2.5rem 8vw 2rem;
         background: var(--paper);
       }
-      .kicker {
+      .b-kicker {
         margin: 0 0 0.4rem;
         font-size: 0.75rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--muted);
       }
-      .sheet h1 {
-        margin: 0 0 0.35rem;
+      .b-sheet h1 {
+        margin: 0 0 1.25rem;
         font-size: clamp(2.4rem, 5vw, 4rem);
         font-weight: 400;
         line-height: 1.05;
       }
-      .sample-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.25rem 2rem;
-        margin: 0 0 1.4rem;
-        align-items: baseline;
-      }
-      .sample-row figure { margin: 0; }
-      .sample-row figcaption {
-        margin-top: 0.15rem;
-        font-size: 0.72rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .sample-row .kurrent,
-      .sample-row .suetterlin {
-        font-size: clamp(1.6rem, 3vw, 2.4rem);
-      }
-      .prose {
-        margin: 0 0 1.1rem;
+      .b-prose {
+        margin: 0;
         max-width: 36rem;
         font-size: 1.05rem;
         line-height: 1.55;
       }
-      .prose.muted { color: var(--muted); font-size: 0.98rem; }
-
-      .history {
-        margin: 1.5rem 0 0;
-        padding: 1.1rem 1.2rem;
-        max-width: 40rem;
-        background: var(--night);
-        color: var(--paper);
-        border-radius: 12px;
-      }
-      .history .when {
-        margin: 0 0 0.55rem;
-        font-size: 0.72rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--gold);
-      }
-      .history p {
-        margin: 0 0 0.55rem;
-        font-size: 0.92rem;
-        line-height: 1.45;
-      }
-      .history p:last-child { margin: 0; color: #eadccb; }
-
-      .drawer {
+      .b-drawer {
         background: var(--surface);
         border-left: 1px solid var(--line);
         padding: 1.25rem 1.2rem 2rem;
@@ -154,42 +96,23 @@
         flex-direction: column;
         gap: 1.1rem;
       }
-      .drawer h2 { margin: 0; font-size: 0.95rem; }
-      .learn {
-        padding: 0.85rem 0.9rem;
-        background: var(--paper);
-        border: 1px solid var(--line);
-        border-radius: 10px;
-      }
-      .learn p { margin: 0; font-size: 0.88rem; line-height: 1.4; color: var(--muted); }
-      .glyphs {
-        display: flex;
-        gap: 0.85rem;
-        margin-top: 0.65rem;
-        font-size: 1.7rem;
-      }
-      .glyphs span {
-        display: block;
-        font-size: 0.62rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .offer strong { display: block; font-size: 0.95rem; }
-      .offer p {
+      .b-drawer h2 { margin: 0; font-size: 0.95rem; }
+      .b-offer { margin: 0; }
+      .b-offer strong { display: block; font-size: 0.95rem; }
+      .b-offer p {
         margin: 0.2rem 0 0;
         color: var(--muted);
         font-size: 0.88rem;
         line-height: 1.4;
       }
-      .offer em {
+      .b-offer em {
         font-style: normal;
         font-size: 0.68rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
       }
-      .go {
+      .b-go {
         margin-top: auto;
         display: block;
         text-align: center;
@@ -199,128 +122,79 @@
         padding: 0.7rem 1rem;
         border-radius: 8px;
       }
-      .go:hover { opacity: 0.92; }
+      .b-go:hover { opacity: 0.92; }
 
       .site-footer {
-        padding: 1rem 1.2rem 1.4rem;
+        padding: 0.85rem 1.2rem 1.1rem;
         border-top: 1px solid var(--line);
+        background: var(--surface);
         color: var(--muted);
         font-size: 0.82rem;
-        background: var(--surface);
       }
       .site-footer nav {
         display: flex;
         flex-wrap: wrap;
         gap: 0.35rem 0.9rem;
-        margin-bottom: 0.45rem;
       }
-      .site-footer a { text-decoration: none; color: var(--accent); }
+      .site-footer a {
+        text-decoration: none;
+        color: var(--accent);
+      }
       .site-footer a:hover { text-decoration: underline; }
 
       @media (max-width: 800px) {
-        .body { grid-template-columns: 1fr; }
-        .modes { display: none; }
-        .drawer {
+        .b-body { grid-template-columns: 1fr; }
+        .b-modes { display: none; }
+        .b-drawer {
           border-left: 0;
           border-top: 1px solid var(--line);
         }
-        .go { margin-top: 0.5rem; }
+        .b-go { margin-top: 0.5rem; }
       }
     </style>
   </head>
   <body>
-    <header class="bar">
-      <p class="brand">lang &amp; rund</p>
-      <div class="modes" aria-hidden="true">
+    <header class="b-bar">
+      <p class="b-brand">lang &amp; rund</p>
+      <div class="b-modes" aria-hidden="true">
         <span>Antiqua</span>
         <span class="on">Fraktur</span>
         <span>Kurrent</span>
         <span>Sütterlin</span>
       </div>
     </header>
-
-    <div class="body">
-      <section class="sheet">
-        <p class="kicker">Editor</p>
+    <div class="b-body">
+      <section class="b-sheet">
+        <p class="b-kicker">Editor</p>
         <h1 class="fraktur">daſs</h1>
-        <div class="sample-row" aria-label="Drei Schriften">
-          <figure>
-            <div class="fraktur" style="font-size: clamp(1.8rem, 3.5vw, 2.6rem)">daſs</div>
-            <figcaption>Fraktur</figcaption>
-          </figure>
-          <figure>
-            <div class="kurrent">das#</div>
-            <figcaption>Kurrent</figcaption>
-          </figure>
-          <figure>
-            <div class="suetterlin">das#</div>
-            <figcaption>Sütterlin</figcaption>
-          </figure>
-        </div>
-        <p class="prose">
-          Du schreibst modernen Text. Die Fläche zeigt ihn mit langem ſ —
-          und wechselt auf Kurrent oder Sütterlin, wenn du die Schrift umstellst.
+        <p class="b-prose">
+          Du schreibst modernen Text. Die Fläche zeigt ihn mit langem ſ.
           Ein Wort anklicken öffnet die Lernhinweise, so wie in der App.
         </p>
-        <p class="prose muted">
-          Fraktur fürs Gedruckte, Kurrent für die Briefe, Sütterlin fürs Schulheft.
-          Drei Schriften, eine Fertigkeit — für Archive, Familienpapiere und alte Bücher.
-        </p>
-
-        <aside class="history" aria-labelledby="history-title">
-          <p class="when" id="history-title">3. Januar 1941</p>
-          <p>
-            Diese Schriften sind Alltagsgerät: älter als der Nationalsozialismus
-            und kein Erkennungszeichen einer Richtung.
-          </p>
-          <p>
-            Fraktur wurde erst als „deutsche Schrift“ vereinnahmt und an diesem Tag
-            per Bormann-Rundschreiben verboten. Fraktur und Schwabacher heißen darin
-            „Schwabacher Judenlettern“ — eine antisemitische Lüge. Schwabacher ist
-            keine jüdische Schrift. Antiqua wird angeordnet. Sütterlin und Kurrent
-            verschwinden aus der Schule.
-          </p>
-          <p>Wer sie heute liest, liest Archive und Familienbriefe. Dafür ist die Hilfe da.</p>
-        </aside>
       </section>
-
-      <aside class="drawer" aria-label="Angebote">
+      <aside class="b-drawer" aria-label="Angebote">
         <h2>Wort lernen</h2>
-        <div class="learn">
-          <p>Am Wort siehst du, welches s lang ist und wo u einen Bogen trägt.</p>
-          <div class="glyphs" aria-hidden="true">
-            <div class="kurrent">n<span>n</span></div>
-            <div class="kurrent">u<span>u mit Bogen</span></div>
-            <div class="fraktur">ſ<span>langes ſ</span></div>
-            <div>s<span>rundes s</span></div>
-          </div>
-        </div>
-        <div class="offer">
+        <div class="b-offer">
           <strong>Browser-Erweiterung</strong>
           <p>Lesemodus für Webseiten, in vier Schriften. <em>folgt</em></p>
         </div>
-        <div class="offer">
+        <div class="b-offer">
           <strong>Apps</strong>
           <p>Dieselbe Oberfläche für iPhone und Mac. <em>folgt</em></p>
         </div>
-        <div class="offer">
+        <div class="b-offer">
           <strong>Ziffernblatt</strong>
-          <p>Für die Apple Watch — ein eigenes Stück, nicht die App. <em>folgt</em></p>
+          <p>Für die Apple Watch. <em>folgt</em></p>
         </div>
-        <a class="go" href="/editor/">Im Browser öffnen</a>
+        <a class="b-go" href="/editor/">Im Browser öffnen</a>
       </aside>
     </div>
-
     <footer class="site-footer">
       <nav aria-label="Rechtliches">
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="/editor/">Editor</a>
       </nav>
-      <p>
-        Schriften lokal ausgeliefert: UnifrakturMaguntia (SIL OFL 1.1),
-        Deutsche Kurrent und Sütterlin HJZ (Hans J. Zinken).
-      </p>
     </footer>
   </body>
 </html>
