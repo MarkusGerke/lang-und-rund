@@ -219,6 +219,7 @@ async function init(): Promise<void> {
   const hintEl = document.getElementById('ambiguity-hint')!;
   const drawerEl = document.getElementById('learn-drawer')!;
   const drawerBody = document.getElementById('drawer-body')!;
+  const hostIntro = document.getElementById('host-intro');
   const editorTitle = document.getElementById(
     'editor-title',
   ) as HTMLInputElement;
@@ -470,6 +471,33 @@ async function init(): Promise<void> {
     applyChrome();
   }
 
+  /** Desktop: Lernpanel standardmäßig sichtbar (auch ohne aktives Wort). */
+  function isDesktopLearnPanel(): boolean {
+    return (
+      window.matchMedia('(min-width: 641px)').matches &&
+      window.matchMedia('(hover: hover)').matches
+    );
+  }
+
+  function showDrawerIdle(): void {
+    drawerBody.innerHTML =
+      `<p class="drawer-idle">` +
+      `Tippe oder setze den Cursor auf ein Wort mit ſ oder s — hier erscheinen dann ` +
+      `Lernhinweise zu Formen und Verwechslungsgefahren.` +
+      `</p>`;
+    lastReport = null;
+    drawerOpen = true;
+    drawerEl.classList.add('is-open');
+    drawerEl.setAttribute('aria-hidden', 'false');
+    applyChrome();
+  }
+
+  /** Schließen bzw. auf Desktop in den Ruhezustand zurück. */
+  function parkOrCloseDrawer(): void {
+    if (isDesktopLearnPanel()) showDrawerIdle();
+    else closeDrawer();
+  }
+
   function dismissKeyboard(): void {
     if (!hostMode) return;
     const active = document.activeElement as HTMLElement | null;
@@ -666,7 +694,7 @@ async function init(): Promise<void> {
       }
     }
     // Host-Live: Drawer nicht bei jedem Tastenanschlag schließen
-    if (drawerOpen && !hostMode) closeDrawer();
+    if (drawerOpen && !hostMode) parkOrCloseDrawer();
   }
 
   function renderHostLive(cursorWord?: {
@@ -686,12 +714,14 @@ async function init(): Promise<void> {
       contentEl.innerHTML = '';
       lastAmbiguities = [];
       hintEl.classList.add('hidden');
+      if (hostIntro) hostIntro.hidden = false;
       updateMeta();
       applyChrome();
       setWindowTitle();
-      if (drawerOpen) closeDrawer();
+      parkOrCloseDrawer();
       return;
     }
+    if (hostIntro) hostIntro.hidden = true;
     state.article = html
       ? richHtmlToArticle(html, title)
       : plainTextToArticle(text, title);
@@ -814,7 +844,7 @@ async function init(): Promise<void> {
       if (key === lastDrawerKey) return;
       lastDrawerKey = key;
       if (focus) openDrawerForModernWord(focus.modern, focus.occurrence);
-      else if (drawerOpen) closeDrawer();
+      else if (drawerOpen) parkOrCloseDrawer();
     };
 
     const reanalyzeAndTeach = () => {
@@ -903,7 +933,7 @@ async function init(): Promise<void> {
       const { text, cursor } = selectionPlainAndOffset();
       const focus = wordAtCursor(text, cursor);
       if (!focus) {
-        if (drawerOpen) closeDrawer();
+        if (drawerOpen) parkOrCloseDrawer();
         lastDrawerKey = '';
         return;
       }
@@ -922,7 +952,7 @@ async function init(): Promise<void> {
         lastDrawerKey = `${focus.modern}#${focus.occurrence}`;
         return;
       }
-      if (drawerOpen) closeDrawer();
+      if (drawerOpen) parkOrCloseDrawer();
       lastDrawerKey = '';
     });
     document.addEventListener('selectionchange', () => {
@@ -1305,6 +1335,10 @@ async function init(): Promise<void> {
     }
   } else {
     render();
+  }
+
+  if (isDesktopLearnPanel() && !drawerOpen) {
+    showDrawerIdle();
   }
 
   // Extension + Host: Auswahl als HTML (konvertiert) + Plaintext in die Zwischenablage

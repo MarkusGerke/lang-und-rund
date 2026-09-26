@@ -17,10 +17,9 @@
         <div class="toolbar-start">
           <div class="toolbar-group toolbar-close-wrap">
             <div class="toolbar-close-group">
-              <button type="button" id="btn-close" class="btn" title="Schließen (Esc)" aria-label="Schließen (Esc)">✕</button>
+              <button type="button" id="btn-close" class="btn" title="Schließen" aria-label="Schließen">✕</button>
             </div>
           </div>
-          <kbd class="drawer-esc-hint" title="Schließen mit Escape">Esc</kbd>
           <p class="toolbar-brand">lang &amp; rund</p>
         </div>
         <button
@@ -177,6 +176,17 @@
             autocomplete="off"
           />
           <div class="live-stack host-only">
+            <aside id="host-intro" class="host-intro" hidden>
+              <p class="host-intro-lead">
+                Editor für historische deutsche Schreibung
+              </p>
+              <p>
+                Schreibe oder füge modernen Text ein. Die Anzeige wandelt ihn in
+                langes ſ und rundes s um — je nach Schriftart (Fraktur, Kurrent,
+                Sütterlin). Tippe oder setze den Cursor auf ein markiertes Wort,
+                um rechts Lernhinweise zu sehen.
+              </p>
+            </aside>
             <article id="content-host" class="content" aria-live="polite"></article>
             <div
               id="editor-body"
@@ -205,8 +215,7 @@
             <div class="drawer-resize-handle" id="drawer-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drawer-Höhe anpassen" title="Ziehen zum Anpassen · Doppeltipp: Standardhöhe"></div>
             <h2 class="drawer-title">Wort lernen</h2>
             <div class="drawer-close-group">
-              <kbd class="drawer-esc-hint" title="Schließen mit Escape">Esc</kbd>
-              <button type="button" id="drawer-close" class="btn" aria-label="Drawer schließen (Esc)">✕</button>
+              <button type="button" id="drawer-close" class="btn" aria-label="Drawer schließen">✕</button>
             </div>
           </header>
           <div id="drawer-body" class="drawer-body"></div>

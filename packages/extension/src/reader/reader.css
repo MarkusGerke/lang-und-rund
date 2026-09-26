@@ -1706,6 +1706,52 @@ body {
   margin-bottom: 1rem;
 }
 
+.app.host-app .host-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0.15rem 0.1rem;
+  max-width: min(36rem, 100%);
+  pointer-events: none;
+  color: var(--reader-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.app.host-app .host-intro[hidden] {
+  display: none !important;
+}
+
+.app.host-app .host-intro-lead {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--reader-secondary);
+}
+
+.app.host-app .host-intro p {
+  margin: 0;
+}
+
+.app.host-app
+  .live-stack:has(#host-intro:not([hidden]))
+  #content-host:empty::before,
+.app.host-app
+  .live-stack:has(#host-intro:not([hidden]))
+  #editor-body:empty::before {
+  content: none;
+}
+
+.drawer-idle {
+  margin: 0;
+  padding: 0.25rem 0.1rem;
+  color: var(--reader-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 .app.host-app #content-host {
   display: block;
   min-height: min(60vh, 28rem);
