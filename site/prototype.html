@@ -1,8 +1,8 @@
 <!doctype html>
 <!--
-  PROTOTYPE, throwaway. Not the live homepage.
-  Three marketing variants, ?variant=A|B|C
-  A Film · B Bühne · C Kapitel
+  PROTOTYPE, throwaway.
+  Three variants of the marketing start page, switchable via ?variant=
+  A Plakat · B Werkbank · C Satzspiegel
 -->
 <html lang="de">
   <head>
@@ -26,465 +26,369 @@
         font-display: swap;
       }
       :root {
-        --night: #1a120e;
-        --cream: #f3e7d3;
-        --paper: #faf0e0;
-        --ink: #2a1c12;
+        --bg: #f3e7d3;
+        --surface: #faf0e0;
+        --ink: #3f2e1e;
         --muted: #6b563f;
         --line: #d4b896;
-        --accent: #9a3412;
+        --accent: #8b4513;
+        --paper: #fff8ee;
+        --night: #1a120e;
         --gold: #e4c9a0;
       }
       * { box-sizing: border-box; }
-      html, body { margin: 0; background: var(--cream); color: var(--ink); }
+      html, body { margin: 0; background: var(--bg); color: var(--ink); }
       body { font-family: system-ui, -apple-system, sans-serif; }
       a { color: inherit; }
-      .variant { display: none; }
+      .variant { display: none; min-height: 100vh; }
       .variant.is-on { display: block; }
       .fraktur { font-family: "UnifrakturMaguntia", Georgia, serif; }
       .kurrent { font-family: "LangsKurrent", cursive; }
       .suetterlin { font-family: "LangsSuetterlin", cursive; }
-      .go {
+
+      /* —— A Plakat —— */
+      .a {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem 1.5rem 5.5rem;
+      }
+      .a-stage {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .a-from {
+        margin: 0;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .a-word {
+        margin: 0.2rem 0 0;
+        font-size: clamp(6rem, 22vw, 16rem);
+        line-height: 0.85;
+        font-weight: 400;
+      }
+      .a-line {
+        max-width: 28rem;
+        margin: 1.25rem 0 0;
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+      .a-cta {
         display: inline-block;
-        padding: 0.75rem 1.1rem;
-        border-radius: 999px;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
         background: var(--accent);
-        color: var(--paper);
+        color: var(--surface);
         text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      .a-cta:hover { opacity: 0.92; }
+      .a-foot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem 1.25rem;
+        padding-top: 1rem;
         font-size: 0.92rem;
       }
-      .soon {
-        display: inline-block;
-        margin-left: 0.4rem;
-        padding: 0.12rem 0.4rem;
-        border-radius: 999px;
-        border: 1px solid currentColor;
-        font-size: 0.62rem;
+      .a-foot span { color: var(--muted); }
+      .a-foot a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+      .a-soon {
+        margin-left: 0.35rem;
+        font-size: 0.68rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        vertical-align: 0.15em;
+        color: var(--accent);
       }
-      .badges { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-      .badge {
-        display: inline-flex;
+
+      /* —— B Werkbank —— */
+      .b { min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 4.5rem; }
+      .b-bar {
+        display: flex;
         align-items: center;
-        gap: 0.45rem;
-        padding: 0.45rem 0.7rem;
-        border-radius: 10px;
-        border: 1px solid var(--line);
-        background: var(--paper);
-        font-size: 0.78rem;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1rem;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+      .b-brand { margin: 0; font-weight: 600; }
+      .b-modes { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+      .b-modes span {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .b-modes span.on { background: var(--ink); color: var(--surface); }
+      .b-body {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr min(22rem, 34vw);
+        min-height: 0;
+      }
+      .b-sheet { padding: 2.5rem 8vw 2rem; background: var(--paper); }
+      .b-kicker {
+        margin: 0 0 0.4rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .b-sheet h1 {
+        margin: 0 0 1.25rem;
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 400;
+        line-height: 1.05;
+      }
+      .b-prose { margin: 0; max-width: 36rem; font-size: 1.05rem; line-height: 1.55; }
+      .b-drawer {
+        background: var(--surface);
+        border-left: 1px solid var(--line);
+        padding: 1.25rem 1.2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+      }
+      .b-drawer h2 { margin: 0; font-size: 0.95rem; }
+      .b-offer { margin: 0; }
+      .b-offer strong { display: block; font-size: 0.95rem; }
+      .b-offer p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.4; }
+      .b-offer em {
+        font-style: normal;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .b-go {
+        margin-top: auto;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        background: var(--accent);
+        color: var(--surface);
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+      }
+      .b-go:hover { opacity: 0.92; }
+
+      /* —— C Satzspiegel —— */
+      .c { padding: 0 0 5rem; }
+      .c-mast {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 1.1rem 6vw 0.6rem;
+        border-bottom: 2px solid var(--ink);
+      }
+      .c-mast strong {
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+      }
+      .c-mast span { color: var(--muted); font-size: 0.85rem; }
+      .c-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.7fr);
+        gap: 2.5rem;
+        padding: 1.5rem 6vw 0;
+      }
+      .c-rule { margin: 0.8rem 0 1rem; border: 0; border-top: 1px solid var(--line); }
+      .c h1 {
+        margin: 0;
+        font-family: Georgia, "Iowan Old Style", Palatino, serif;
+        font-weight: 500;
+        font-size: clamp(2rem, 4vw, 3rem);
         line-height: 1.15;
       }
-      .badge b { display: block; font-size: 0.84rem; }
-      .badge span { color: var(--muted); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; }
-
-      .browser, .phone, .watch, .book, .letter, .notebook {
-        background: var(--paper);
-        color: var(--ink);
-        box-shadow: 0 18px 50px rgba(42, 28, 18, 0.18);
+      .c-essay { font-size: 1.08rem; line-height: 1.65; max-width: 38rem; }
+      .c-essay p { margin: 0 0 0.9rem; }
+      .c-drop {
+        float: left;
+        font-size: 4.2rem;
+        line-height: 0.8;
+        padding-right: 0.35rem;
       }
-      .browser { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
-      .browser-bar {
-        display: flex; align-items: center; gap: 0.4rem;
-        padding: 0.55rem 0.75rem; background: #efe2cc; border-bottom: 1px solid var(--line);
+      .c-index { list-style: none; margin: 1.4rem 0 0; padding: 0; }
+      .c-index li {
+        display: grid;
+        grid-template-columns: 2.2rem 1fr auto;
+        gap: 0.6rem;
+        padding: 0.7rem 0;
+        border-top: 1px solid var(--line);
+        align-items: baseline;
       }
-      .dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #c4a574; }
-      .url {
-        margin-left: 0.4rem; padding: 0.2rem 0.55rem; border-radius: 999px;
-        background: var(--paper); font-size: 0.72rem; color: var(--muted);
+      .c-index a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+      .c-num { color: var(--muted); font-variant-numeric: tabular-nums; }
+      .c-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
       }
-      .screen { padding: 1rem 1.1rem 1.2rem; }
-      .phone {
-        width: 210px; border-radius: 28px; padding: 0.55rem; border: 1px solid var(--line);
+      .c-side {
+        position: sticky;
+        top: 1rem;
+        align-self: start;
+        padding-top: 0.4rem;
       }
-      .phone-screen {
-        border-radius: 22px; overflow: hidden; background: var(--cream); min-height: 320px;
+      .c-side .fraktur {
+        display: block;
+        font-size: clamp(5rem, 12vw, 9rem);
+        line-height: 0.85;
       }
-      .phone-top {
-        display: flex; justify-content: space-between; padding: 0.55rem 0.8rem 0.2rem;
-        font-size: 0.68rem; color: var(--muted);
-      }
-      .watch {
-        width: 148px; height: 148px; border-radius: 36px; padding: 0.45rem;
-        background: var(--night); color: var(--cream); border: 1px solid #3a2a20;
-      }
-      .watch-face {
-        height: 100%; border-radius: 28px; border: 1px solid var(--gold);
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-      }
-      .watch-face strong { font-size: 1.7rem; font-weight: 560; letter-spacing: 0.04em; }
-      .watch-face em { font-style: normal; font-size: 0.72rem; color: var(--gold); }
-      .book { display: grid; grid-template-columns: 1fr 1fr; border-radius: 6px 14px 14px 6px; overflow: hidden; }
-      .book p { margin: 0; padding: 1rem; font-size: 1.35rem; line-height: 1.35; }
-      .book p + p { border-left: 1px solid var(--line); }
-      .letter { padding: 1.1rem 1.2rem; border-radius: 2px; transform: rotate(-1.5deg); }
-      .letter p { margin: 0; font-size: 1.55rem; line-height: 1.45; }
-      .notebook { background: repeating-linear-gradient(var(--paper), var(--paper) 1.7rem, #ecd9b8 1.72rem); border-radius: 4px 12px 12px 4px; padding: 1.2rem 1rem 1.4rem 1.4rem; }
-      .notebook p { margin: 0; font-size: 1.45rem; line-height: 1.7rem; }
-
-      /* —— A Film —— */
-      .a { background: var(--night); color: var(--cream); padding-bottom: 5rem; }
-      .a-hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8vh 6vw 4rem; }
-      .a-hero p { margin: 0; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); }
-      .a-hero h1 { margin: 0.6rem 0 0; font-size: clamp(3rem, 8vw, 6.4rem); line-height: 0.92; font-weight: 560; max-width: 14ch; }
-      .a-hero .lead { margin-top: 1.2rem; max-width: 34rem; font-size: 1.15rem; line-height: 1.45; color: #e7d7c2; letter-spacing: 0; text-transform: none; }
-      .a-hero .go { margin-top: 1.6rem; }
-      .a-band { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; padding: 4.5rem 6vw; background: var(--cream); color: var(--ink); }
-      .a-band:nth-child(even) { background: var(--paper); }
-      .a-band h2 { margin: 0 0 0.4rem; font-size: clamp(2rem, 4vw, 3.2rem); }
-      .a-band .why { margin: 0; color: var(--muted); font-size: 1.02rem; line-height: 1.5; }
-      .a-learn, .a-history, .a-products { padding: 4rem 6vw; }
-      .a-learn { background: var(--night); }
-      .a-learn h2, .a-products h2 { margin: 0 0 0.4rem; font-size: 2rem; }
-      .pair { display: flex; gap: 1.5rem; margin-top: 1.4rem; }
-      .pair div { font-size: 2.4rem; }
-      .pair small { display: block; margin-top: 0.25rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
-      .a-history { background: #241810; }
-      .a-history ol { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-      .a-history li { border-top: 1px solid #5c4636; padding-top: 0.7rem; }
-      .a-history strong { display: block; margin-bottom: 0.35rem; color: var(--gold); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
-      .a-history p { margin: 0; font-size: 0.92rem; line-height: 1.45; color: #eadccb; }
-      .a-products { background: var(--cream); color: var(--ink); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: center; }
-      .offers { display: grid; gap: 0.8rem; margin-top: 1rem; }
-      .offers article { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 0.7rem; }
-      .offers h3 { margin: 0; font-size: 1.05rem; }
-      .offers p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.9rem; }
-
-      /* —— B Bühne —— */
-      .b { background: #f6f1ea; color: var(--ink); padding-bottom: 5.5rem; }
-      .b-top { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2rem; padding: 7vh 5vw 2rem; align-items: end; }
-      .b-top h1 { margin: 0; font-size: clamp(3.2rem, 6vw, 5.4rem); line-height: 0.92; letter-spacing: -0.03em; }
-      .b-top .lead { margin: 1rem 0 0; max-width: 36rem; font-size: 1.12rem; line-height: 1.45; color: var(--muted); }
-      .b-stage { display: grid; grid-template-columns: 1.4fr 210px 148px; gap: 1rem; align-items: end; padding: 0 5vw 2rem; }
-      .b-scripts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; padding: 1rem 5vw 3rem; }
-      .b-scripts h2 { margin: 0 0 0.35rem; font-size: 1.35rem; }
-      .b-scripts p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .b-history { margin: 0 5vw; display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center; padding: 1.4rem 1.5rem; background: var(--night); color: var(--cream); border-radius: 18px; }
-      .b-history .date { font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 0.9; color: var(--gold); }
-      .b-history p { margin: 0 0 0.55rem; line-height: 1.45; }
-      .b-history p:last-child { margin: 0; color: #eadccb; }
-      .b-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 3rem 5vw 0; }
-      .b-split h2 { margin: 0 0 0.4rem; font-size: 2rem; }
-      .glyph-row { display: flex; gap: 1rem; margin-top: 0.8rem; font-size: 2.6rem; }
-      .glyph-row span { display: block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-
-      /* —— C Kapitel —— */
-      .c { scroll-snap-type: y mandatory; }
-      .c section { min-height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; padding: 6rem 7vw 5rem; }
-      .c .kicker { margin: 0; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.72rem; color: var(--accent); }
-      .c h2 { margin: 0.4rem 0 0.6rem; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 0.95; max-width: 16ch; }
-      .c .txt { margin: 0; max-width: 36rem; font-size: 1.08rem; line-height: 1.5; color: var(--muted); }
-      .c-open { background: var(--night); color: var(--cream); }
-      .c-open .kicker { color: var(--gold); }
-      .c-open .txt { color: #eadccb; }
-      .c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
-      .c-hist { background: var(--night); color: var(--cream); }
-      .c-hist .when { margin: 0; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; color: var(--gold); }
-      .c-end { background: var(--ink); color: var(--cream); }
-      .c-end .grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; margin-top: 1.4rem; }
-      .c-end h3 { margin: 0; font-size: 1.25rem; }
-      .c-end p { margin: 0.25rem 0 0; color: #eadccb; }
+      .c-side p { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.9rem; }
 
       .switcher {
-        position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%);
-        z-index: 30; display: flex; align-items: center; gap: 0.35rem;
-        padding: 0.35rem; background: #1c1917; color: #faf0e0;
-        border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+        position: fixed;
+        left: 50%;
+        bottom: 1rem;
+        transform: translateX(-50%);
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem;
+        background: #1c1917;
+        color: #faf0e0;
+        border-radius: 999px;
+        box-shadow: 0 10px 30px rgba(63, 46, 30, 0.28);
+        font-family: system-ui, sans-serif;
       }
       .switcher button {
-        width: 2rem; height: 2rem; border: 0; border-radius: 999px;
-        background: transparent; color: inherit; cursor: pointer; font-size: 1rem;
+        width: 2rem;
+        height: 2rem;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-size: 1rem;
       }
-      .switcher p { margin: 0; min-width: 10rem; text-align: center; font-size: 0.82rem; }
-      @media (max-width: 900px) {
-        .a-band, .a-history ol, .a-products, .b-top, .b-stage, .b-scripts, .b-history, .b-split, .c-row, .c-end .grid4 {
-          grid-template-columns: 1fr;
-        }
-        .b-stage { justify-items: center; }
-        .phone { width: min(210px, 70vw); }
+      .switcher button:hover { background: rgba(250, 240, 224, 0.12); }
+      .switcher p {
+        margin: 0;
+        min-width: 11rem;
+        text-align: center;
+        font-size: 0.82rem;
+      }
+      @media (max-width: 800px) {
+        .b-body, .c-grid { grid-template-columns: 1fr; }
+        .b-modes { display: none; }
+        .c-side { position: static; }
       }
     </style>
   </head>
   <body>
     <article class="variant a" data-variant="A">
-      <header class="a-hero">
-        <p>Fraktur · Kurrent · Sütterlin</p>
-        <h1>Lies den Brief. Lies das Buch. Lies das Heft.</h1>
-        <p class="lead">Drei verschiedene Schriften, eine Fertigkeit. lang &amp; rund zeigt dir den Unterschied und übt mit dir — für Kinder und für Leute, die spät anfangen.</p>
-        <a class="go" href="https://langundrund.de/editor/">Editor öffnen</a>
-      </header>
-
-      <section class="a-band">
-        <div>
-          <h2 class="fraktur">Fraktur</h2>
-          <p class="why">Die gebrochene Druckschrift der Bücher, Zeitungen und Urkunden. Seit Jahrhunderten. Das lange ſ steht im Wort, das runde s am Ende.</p>
-        </div>
-        <div class="book" aria-hidden="true">
-          <p class="fraktur">Liebeſte, daſs ich Dir ſchreibe.</p>
-          <p class="fraktur">Ein Buch, keine Parole.</p>
-        </div>
-      </section>
-      <section class="a-band">
-        <div class="letter" aria-hidden="true">
-          <p class="kurrent">Liebeste,<br />das# ich Dir<br />schreibe.</p>
-        </div>
-        <div>
-          <h2>Kurrent</h2>
-          <p class="why">Die verbundene Handschrift der Briefe und Akten. Andere Züge als die Druckschrift. n und u liegen so nah, dass man den Bogen über dem u braucht.</p>
-        </div>
-      </section>
-      <section class="a-band">
-        <div>
-          <h2>Sütterlin</h2>
-          <p class="why">Ab 1911 die Schulschrift. Steiler, in Heften, auf Postkarten, in Familienpapieren. Nicht Kurrent, nicht Fraktur — eine eigene Form.</p>
-        </div>
-        <div class="notebook" aria-hidden="true">
-          <p class="suetterlin">Heute schreiben wir.<br />da# Hau#</p>
-        </div>
-      </section>
-
-      <section class="a-learn">
-        <h2>Wort lernen, am konkreten Wort.</h2>
-        <p class="lead" style="color:#eadccb;max-width:36rem">Tippe oder setze den Cursor. Der Hinweis zeigt, wo ſ und s sich trennen und wo n und u sich verwechseln.</p>
-        <div class="pair">
-          <div>n <small>ohne Bogen</small></div>
-          <div>u <small>mit Bogen</small></div>
-          <div class="fraktur">ſ <small>lang</small></div>
-          <div>s <small>rund</small></div>
-        </div>
-      </section>
-
-      <section class="a-history">
-        <h2 style="margin:0;font-size:2rem">Alltagsschrift, kein Abzeichen.</h2>
-        <ol>
-          <li>
-            <strong>Vor jeder Partei</strong>
-            <p>Bücher, Briefe, Schulhefte, Behörden. Die Schriften sind älter als der Nationalsozialismus und keiner Richtung zugeordnet.</p>
-          </li>
-          <li>
-            <strong>Zuerst vereinnahmt</strong>
-            <p>Fraktur wurde als „deutsche Schrift“ politisch besetzt — und blieb trotzdem eine Druckschrift.</p>
-          </li>
-          <li>
-            <strong>3. Januar 1941</strong>
-            <p>Das Bormann-Rundschreiben verbietet Fraktur und Schwabacher und nennt sie „Schwabacher Judenlettern“. Das ist eine antisemitische Lüge. Schwabacher ist keine jüdische Schrift. Antiqua wird befohlen.</p>
-          </li>
-          <li>
-            <strong>Auch die Schule</strong>
-            <p>Sütterlin und Kurrent verschwinden aus dem Unterricht, ersetzt durch eine lateinische Schreibschrift. Heute liest du sie für Archiv, Familie und alte Bücher.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="a-products">
-        <div>
-          <h2>Die Hilfe, an vier Stellen.</h2>
-          <div class="offers">
-            <article>
-              <div><h3>Editor</h3><p>Sofort schreiben. Die Schrift wechselt, während du tippst.</p></div>
-              <a class="go" href="https://langundrund.de/editor/">Öffnen</a>
-            </article>
-            <article>
-              <div><h3>Browser-Erweiterung</h3><p>Webseiten im Lesemodus, in der Schrift, die du übst.</p></div>
-              <span class="badge"><span>Chrome · Firefox · Safari</span><b>folgt</b></span>
-            </article>
-            <article>
-              <div><h3>Apps</h3><p>Dieselbe Fläche auf iPhone und Mac.</p></div>
-              <span class="badge"><span>App Store</span><b>folgt</b></span>
-            </article>
-            <article>
-              <div><h3>Ziffernblatt</h3><p>Die Schrift am Handgelenk. Ein eigenes Stück, nicht die App.</p></div>
-              <span class="badge"><span>Apple Watch</span><b>folgt</b></span>
-            </article>
-          </div>
-        </div>
-        <div class="watch" aria-hidden="true">
-          <div class="watch-face">
-            <strong>10:41</strong>
-            <em class="fraktur">ſ</em>
-          </div>
-        </div>
-      </section>
+      <div class="a-stage">
+        <p class="a-from">dass</p>
+        <p class="a-word fraktur">daſs</p>
+        <p class="a-line">
+          Langes ſ und rundes s, nach den Regeln des Fraktursatzes.
+          Zum Lesen, Schreiben und Lernen.
+        </p>
+        <a class="a-cta" href="/editor/">Im Browser öffnen</a>
+      </div>
+      <nav class="a-foot" aria-label="Angebote">
+        <span>Erweiterung <span class="a-soon">folgt</span></span>
+        <span>Apps <span class="a-soon">folgt</span></span>
+        <a href="/editor/">Editor</a>
+        <span>Ziffernblatt <span class="a-soon">folgt</span></span>
+      </nav>
     </article>
 
     <article class="variant b" data-variant="B">
-      <header class="b-top">
-        <div>
-          <h1>Drei Schriften lernen. Nicht eine davon auswendig raten.</h1>
-          <p class="lead">Fraktur fürs Gedruckte, Kurrent für die Briefe, Sütterlin fürs Schulheft. lang &amp; rund zeigt die Form, den Unterschied und die Falle — und lässt dich sofort schreiben.</p>
-        </div>
-        <div>
-          <a class="go" href="https://langundrund.de/editor/">Im Browser schreiben</a>
-          <div class="badges" style="margin-top:0.8rem">
-            <span class="badge"><span>Erweiterung</span><b>folgt</b></span>
-            <span class="badge"><span>iPhone</span><b>folgt</b></span>
-            <span class="badge"><span>Mac</span><b>folgt</b></span>
-            <span class="badge"><span>Ziffernblatt</span><b>folgt</b></span>
-          </div>
+      <header class="b-bar">
+        <p class="b-brand">lang &amp; rund</p>
+        <div class="b-modes" aria-hidden="true">
+          <span>Antiqua</span>
+          <span class="on">Fraktur</span>
+          <span>Kurrent</span>
+          <span>Sütterlin</span>
         </div>
       </header>
-      <div class="b-stage">
-        <div class="browser">
-          <div class="browser-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">langundrund.de/editor</span></div>
-          <div class="screen">
-            <p class="fraktur" style="margin:0;font-size:2rem;line-height:1.3">Liebeſte, daſs ich Dir ſchreibe.</p>
-            <p style="margin:0.8rem 0 0;color:var(--muted);font-size:0.85rem">Fraktur · Bücher und Drucke</p>
+      <div class="b-body">
+        <section class="b-sheet">
+          <p class="b-kicker">Editor</p>
+          <h1 class="fraktur">daſs</h1>
+          <p class="b-prose">
+            Du schreibst modernen Text. Die Fläche zeigt ihn mit langem ſ.
+            Ein Wort anklicken öffnet die Lernhinweise, so wie in der App.
+          </p>
+        </section>
+        <aside class="b-drawer" aria-label="Angebote">
+          <h2>Wort lernen</h2>
+          <div class="b-offer">
+            <strong>Browser-Erweiterung</strong>
+            <p>Lesemodus für Webseiten, in vier Schriften. <em>folgt</em></p>
           </div>
-        </div>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-top"><span>9:41</span><span>lang &amp; rund</span></div>
-            <p class="kurrent" style="margin:1rem 0.9rem;font-size:1.7rem;line-height:1.4">Liebeste, das# ich Dir schreibe.</p>
-            <p style="margin:0 0.9rem;color:var(--muted);font-size:0.8rem">Kurrent · Briefe</p>
+          <div class="b-offer">
+            <strong>Apps</strong>
+            <p>Dieselbe Oberfläche für iPhone und Mac. <em>folgt</em></p>
           </div>
-        </div>
-        <div class="watch" aria-hidden="true">
-          <div class="watch-face">
-            <em>Sütterlin</em>
-            <strong class="suetterlin" style="font-size:1.4rem;font-weight:400">da#</strong>
-            <em>folgt</em>
+          <div class="b-offer">
+            <strong>Ziffernblatt</strong>
+            <p>Für die Apple Watch. <em>folgt</em></p>
           </div>
-        </div>
+          <a class="b-go" href="/editor/">Im Browser öffnen</a>
+        </aside>
       </div>
-      <section class="b-scripts">
-        <div>
-          <h2>Fraktur</h2>
-          <p>Gebrochen, gedruckt, seit Jahrhunderten in Büchern und Urkunden. ſ und s sind zwei Zeichen mit einer Regel.</p>
-        </div>
-        <div>
-          <h2>Kurrent</h2>
-          <p>Verbunden, geschrieben, die Handschrift der Akten. n und u trennt oft nur der Bogen.</p>
-        </div>
-        <div>
-          <h2>Sütterlin</h2>
-          <p>Die Schulform ab 1911. Eigene Buchstaben, nicht „ein bisschen Kurrent“. Hefte, Karten, Nachlässe.</p>
-        </div>
-      </section>
-      <section class="b-history">
-        <p class="date">3.1.<br />1941</p>
-        <div>
-          <p>Diese Schriften sind Alltagsgerät: älter als der Nationalsozialismus und kein Erkennungszeichen einer Richtung.</p>
-          <p>Fraktur wurde erst als „deutsche Schrift“ vereinnahmt und an diesem Tag per Bormann-Rundschreiben verboten. Fraktur und Schwabacher heißen darin „Schwabacher Judenlettern“ — eine antisemitische Lüge. Schwabacher ist keine jüdische Schrift. Antiqua wird angeordnet. Sütterlin und Kurrent verschwinden aus der Schule, eine lateinische Schreibschrift kommt an ihre Stelle.</p>
-          <p>Wer sie heute liest, liest Archive, Familienbriefe und alte Bücher. Dafür ist die Hilfe da.</p>
-        </div>
-      </section>
-      <section class="b-split">
-        <div>
-          <h2>Lernhinweise, nicht Rätselraten.</h2>
-          <p style="margin:0;color:var(--muted);max-width:34rem">Am Wort siehst du, welches s lang ist und wo u einen Bogen trägt. Dieselbe Hilfe in Fraktur, Kurrent und Sütterlin.</p>
-          <div class="glyph-row">
-            <div class="kurrent">n<span>n</span></div>
-            <div class="kurrent">u<span>u mit Bogen</span></div>
-            <div class="fraktur">ſ<span>langes ſ</span></div>
-            <div>s<span>rundes s</span></div>
-          </div>
-        </div>
-        <div>
-          <h2>Ziffernblatt, extra.</h2>
-          <p style="margin:0 0 1rem;color:var(--muted)">Nicht die App am Handgelenk, sondern ein Ziffernblatt. Es folgt. Der Editor ist schon offen.</p>
-          <a class="go" href="https://langundrund.de/editor/">Editor öffnen</a>
-        </div>
-      </section>
     </article>
 
     <article class="variant c" data-variant="C">
-      <section class="c-open">
-        <p class="kicker">Für alle, die anfangen</p>
-        <h2>Fraktur, Kurrent, Sütterlin. Drei Schriften, eine Übung.</h2>
-        <p class="txt">Kinder und Senioren lesen damit dasselbe: Bücher, Briefe, Schulhefte. lang &amp; rund erklärt den Unterschied und lässt dich schreiben, statt nur zu staunen.</p>
-        <p style="margin:1.4rem 0 0"><a class="go" href="https://langundrund.de/editor/">Sofort im Editor</a></p>
-      </section>
-      <section>
-        <div class="c-row">
-          <div>
-            <p class="kicker">01 · Druck</p>
-            <h2 class="fraktur">Fraktur</h2>
-            <p class="txt">Die Schrift der Bücher und Urkunden. Gebrochene Formen, langes ſ im Satz. Anders als jede Handschrift auf dem nächsten Blatt.</p>
+      <header class="c-mast">
+        <strong>lang &amp; rund</strong>
+        <span>Langes ſ · rundes s</span>
+      </header>
+      <div class="c-grid">
+        <div>
+          <hr class="c-rule" />
+          <h1>Ein Werkzeug für die alte s-Schreibung.</h1>
+          <div class="c-essay">
+            <p>
+              <span class="fraktur c-drop">ſ</span>
+              Im Fraktursatz ist nicht jedes s gleich. Am Silbenanfang steht das lange ſ,
+              am Ende das runde s. lang &amp; rund setzt diese Unterscheidung beim Lesen
+              von Seiten, beim Schreiben und beim Üben der Formen.
+            </p>
+            <p>Vier Wege, dasselbe zu tun. Nur der Editor ist schon offen.</p>
           </div>
-          <div class="book" aria-hidden="true">
-            <p class="fraktur">daſs</p>
-            <p class="fraktur">ſ</p>
-          </div>
+          <ol class="c-index">
+            <li><span class="c-num">01</span><span>Browser-Erweiterung</span><span class="c-tag">folgt</span></li>
+            <li><span class="c-num">02</span><span>Apps für iPhone und Mac</span><span class="c-tag">folgt</span></li>
+            <li><span class="c-num">03</span><a href="/editor/">Editor im Browser</a><span class="c-tag">offen</span></li>
+            <li><span class="c-num">04</span><span>Ziffernblatt</span><span class="c-tag">folgt</span></li>
+          </ol>
         </div>
-      </section>
-      <section style="background:var(--paper)">
-        <div class="c-row">
-          <div class="letter" aria-hidden="true">
-            <p class="kurrent">Liebeste, das# ich Dir schreibe.</p>
-          </div>
-          <div>
-            <p class="kicker">02 · Hand</p>
-            <h2>Kurrent</h2>
-            <p class="txt">Briefe und Akten, jahrhundertelang. Die Buchstaben hängen zusammen. n und u verwechselt du, bis der Bogen sitzt.</p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="c-row">
-          <div>
-            <p class="kicker">03 · Schule</p>
-            <h2>Sütterlin</h2>
-            <p class="txt">Ab 1911 die Schrift der Hefte. Steiler als Kurrent, eine eigene Schulform. Postkarten und Familienpapiere stehen in ihr.</p>
-          </div>
-          <div class="notebook" aria-hidden="true">
-            <p class="suetterlin">Heute schreiben wir.</p>
-          </div>
-        </div>
-      </section>
-      <section class="c-hist">
-        <p class="when">1941</p>
-        <h2>Verboten. Nicht erfunden.</h2>
-        <p class="txt" style="color:#eadccb">Die drei Schriften waren Alltag, älter als jede Parteifarbe, kein Zeichen einer Richtung. Fraktur wurde als „deutsche Schrift“ vereinnahmt und am 3. Januar 1941 per Bormann-Rundschreiben verboten. Darin heißen Fraktur und Schwabacher „Schwabacher Judenlettern“. Das ist eine antisemitische Lüge. Schwabacher ist keine jüdische Schrift. Antiqua wird befohlen. Sütterlin und Kurrent werden aus dem Unterricht genommen und durch eine lateinische Schreibschrift ersetzt.</p>
-        <p class="txt" style="color:#eadccb;margin-top:0.8rem">Heute ist das Lesen eine Fertigkeit für Archiv, Dachboden und altes Buch. Die Hilfe dazu ist lang &amp; rund.</p>
-      </section>
-      <section>
-        <p class="kicker">Lernen</p>
-        <h2>Das Wort zeigt die Falle.</h2>
-        <p class="txt">ſ oder s. n oder u. Der Hinweis hängt am Wort, in der Schrift, die du gerade übst — nicht in einem Merkzettel daneben.</p>
-        <div class="glyph-row" style="margin-top:1.2rem">
-          <div class="kurrent">n<span>n</span></div>
-          <div class="kurrent">u<span>u</span></div>
-          <div class="fraktur">ſ<span>lang</span></div>
-          <div>s<span>rund</span></div>
-        </div>
-      </section>
-      <section class="c-end">
-        <p class="kicker" style="color:var(--gold)">Wohin damit</p>
-        <h2>Schreiben jetzt. Der Rest folgt.</h2>
-        <div class="grid4">
-          <article>
-            <h3>Editor</h3>
-            <p>Tippen, sofort die historische Form sehen.</p>
-            <p style="margin-top:0.6rem"><a class="go" href="https://langundrund.de/editor/">Öffnen</a></p>
-          </article>
-          <article>
-            <h3>Browser-Erweiterung</h3>
-            <p>Seiten lesen in der Schrift, die du lernst.</p>
-            <span class="badge" style="margin-top:0.6rem;background:transparent;color:var(--cream);border-color:#5c4636"><span>folgt</span><b>Chrome, Firefox, Safari</b></span>
-          </article>
-          <article>
-            <h3>iPhone und Mac</h3>
-            <p>Dieselbe Übung als App.</p>
-            <span class="badge" style="margin-top:0.6rem;background:transparent;color:var(--cream);border-color:#5c4636"><span>App Store</span><b>folgt</b></span>
-          </article>
-          <article>
-            <div class="watch" style="margin-bottom:0.6rem" aria-hidden="true"><div class="watch-face"><strong>10:41</strong><em class="fraktur">ſ</em></div></div>
-            <h3>Ziffernblatt</h3>
-            <p>Eigenes Versprechen für die Apple Watch. Folgt.</p>
-          </article>
-        </div>
-      </section>
+        <aside class="c-side">
+          <span class="fraktur">daſs</span>
+          <p>aus „dass“</p>
+        </aside>
+      </div>
     </article>
 
     <div class="switcher" role="toolbar" aria-label="Prototyp-Variante">
       <button type="button" id="prev" aria-label="Vorherige Variante">←</button>
-      <p id="label">A · Film</p>
+      <p id="label">A · Plakat</p>
       <button type="button" id="next" aria-label="Nächste Variante">→</button>
     </div>
     <script>
       var order = ["A", "B", "C"];
-      var names = { A: "Film", B: "Bühne", C: "Kapitel" };
+      var names = { A: "Plakat", B: "Werkbank", C: "Satzspiegel" };
       function current() {
         var q = new URLSearchParams(location.search).get("variant");
         return order.indexOf(q) >= 0 ? q : "A";
