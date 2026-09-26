@@ -56,6 +56,8 @@ jobs:
           mkdir -p site-dist/fonts
           cp site/index.html site-dist/index.html
           cp site/fonts/unifrakturmaguntia.ttf site-dist/fonts/
+          cp site/fonts/kurrent.ttf site-dist/fonts/
+          cp site/fonts/suetterlin.ttf site-dist/fonts/
           cp site/fonts/FRAKTUR-LICENSE.txt site-dist/fonts/
           cp packages/extension/impressum.html site-dist/impressum.html
           cp packages/extension/datenschutz.html site-dist/datenschutz.html
