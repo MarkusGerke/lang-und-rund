@@ -44,8 +44,18 @@ export function sanitizeRichHtml(html: string): string {
         parent.removeChild(el);
         continue;
       }
+      // WebKit trennt Zeilen mit <div>. Beim Auflösen einen Umbruch behalten.
+      if (el.tagName === 'DIV') {
+        const startsWithBr = el.firstChild?.nodeName === 'BR';
+        if (el.previousSibling && !startsWithBr) {
+          parent.insertBefore(document.createElement('br'), el);
+        }
+        while (el.firstChild) parent.insertBefore(el.firstChild, el);
+        parent.removeChild(el);
+        continue;
+      }
       // Span u. a. → Inhalt behalten
-      if (!isAllowed(el) || el.tagName === 'DIV') {
+      if (!isAllowed(el)) {
         while (el.firstChild) parent.insertBefore(el.firstChild, el);
         parent.removeChild(el);
         continue;
@@ -72,7 +82,8 @@ export function sanitizeRichHtml(html: string): string {
   out.querySelectorAll('p,h1,h2,h3,li,blockquote').forEach((el) => {
     if (!(el.textContent ?? '').trim() && !el.querySelector('br')) el.remove();
   });
-  return out.innerHTML.trim();
+  // Kein .trim() — trailing/leading Spaces müssen für Caret-Mapping erhalten bleiben.
+  return out.innerHTML;
 }
 
 export function htmlToPlainText(html: string): string {
@@ -83,20 +94,46 @@ export function htmlToPlainText(html: string): string {
   d.querySelectorAll('p,h1,h2,h3,li,blockquote').forEach((el) => {
     el.append('\n');
   });
-  return (d.textContent ?? '').replace(/\n{3,}/g, '\n\n').trim();
+  // Trailing Spaces behalten (nur übermäßige Leerzeilen glätten).
+  return (d.textContent ?? '').replace(/\n{3,}/g, '\n\n');
 }
 
-/** Plaintext → minimales HTML (<p> + <br>). */
+/** Plaintext → minimales HTML (<p>/<h1–h3> + <br>); Zeilen mit `# `/`## `/`### `. */
 export function plainToSimpleHtml(text: string): string {
-  const trimmed = text.trim();
-  if (!trimmed) return '';
+  // Nur prüfen ob inhaltlich leer — Spaces am Ende für Live-Caret behalten.
+  if (!text.trim()) return '';
   const escape = (s: string) =>
     s
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
-  return `<p>${escape(trimmed).replace(/\n/g, '<br>')}</p>`;
+  const blocks: string[] = [];
+  let paraLines: string[] = [];
+  const flushPara = () => {
+    if (!paraLines.length) return;
+    blocks.push(`<p>${paraLines.map(escape).join('<br>')}</p>`);
+    paraLines = [];
+  };
+  const lines = text.split('\n');
+  while (lines.length > 0 && lines[0] === '') lines.shift();
+  while (lines.length > 0 && lines[lines.length - 1] === '') lines.pop();
+  for (const line of lines) {
+    const heading = line.match(/^(#{1,3})\s+(.*)$/);
+    if (heading) {
+      flushPara();
+      const level = heading[1].length;
+      blocks.push(`<h${level}>${escape(heading[2])}</h${level}>`);
+      continue;
+    }
+    if (line === '') {
+      flushPara();
+      continue;
+    }
+    paraLines.push(line);
+  }
+  flushPara();
+  return blocks.join('');
 }
 
 /**

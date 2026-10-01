@@ -2,10 +2,7 @@ import type { AmbiguitySpan } from '@langs/core';
 import type { DisplayMode } from '../shared/types';
 import { encodeForDisplay } from '../reader/kurrentEncode';
 import { toModernS } from '../reader/textOnly';
-import {
-  renderDrawerFeedbackTile,
-  type ReportContext,
-} from './feedback';
+import { type ReportContext } from './feedback';
 import {
   escapeHtml,
   matchPitfalls,
@@ -338,8 +335,7 @@ export function renderDrawerBodyPrecise(
     (groups.length > 0
       ? renderGroupedPitfallCards(groups, mode)
       : `<p class="drawer-empty">Keine Lernhinweise für dieses Wort.</p>`) +
-    `</section>` +
-    renderDrawerFeedbackTile();
+    `</section>`;
 
   return {
     html,

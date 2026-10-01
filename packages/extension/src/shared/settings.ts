@@ -1,6 +1,7 @@
 import {
   DEFAULT_SETTINGS,
   isDisplayMode,
+  isThemeMode,
   MODE_DEFAULT_FONT_SIZE,
   parseLeading,
   SETTINGS_KEY,
@@ -36,19 +37,13 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
     fontSizes[mode] = raw.fontSize;
   }
 
-  const displayMode: DisplayMode = isDisplayMode(raw.displayMode)
-    ? raw.displayMode
-    : 'fraktur';
+  const storedMode = isDisplayMode(raw.displayMode) ? raw.displayMode : 'fraktur';
+  const displayMode: DisplayMode =
+    storedMode === 'antiqua' ? 'fraktur' : storedMode;
 
   return {
     displayMode,
-    theme:
-      raw.theme === 'dark' ||
-      raw.theme === 'light' ||
-      raw.theme === 'sepia' ||
-      raw.theme === 'graphite'
-        ? raw.theme
-        : 'sepia',
+    theme: isThemeMode(raw.theme) ? raw.theme : 'sepia',
     measure:
       raw.measure === 'narrow' || raw.measure === 'wide'
         ? (raw.measure as MeasureMode)

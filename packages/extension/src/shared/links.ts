@@ -3,7 +3,14 @@ export const BRAND_NAME = 'lang & rund';
 export const BRAND_NAME_SHORT = 'lang & rund';
 
 /** App-Version (mit Manifest abgleichen). */
-export const APP_VERSION = '1.8.4';
+export const APP_VERSION = '1.17.2';
+
+/**
+ * Footer-Hinweis: Regelwerk ist heuristisch/KI-gestützt.
+ * Ganz unten in der UI anzeigen.
+ */
+export const RULES_AI_DISCLAIMER =
+  'Das Regelwerk für langes und rundes s wurde KI-gestützt erzeugt; es kann zu Fehlern kommen.';
 
 /** macOS/iOS-Host: Fenstertitel ohne Artikel. */
 export const WINDOW_TITLE_CLAIM =

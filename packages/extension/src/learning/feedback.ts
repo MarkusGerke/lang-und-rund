@@ -3,6 +3,7 @@ import {
   BRAND_NAME,
   FEEDBACK_EMAIL,
   REPO_URL,
+  RULES_AI_DISCLAIMER,
   START_PAGE_PATH,
   X_HANDLE,
   X_URL,
@@ -111,7 +112,15 @@ export function renderDrawerFeedbackTile(): string {
   );
 }
 
-/** Footer: Startseite · Github · Impressum · Fehler melden · X · Version. */
+function siblingPage(baseHref: string, file: string): string {
+  try {
+    return new URL(file, baseHref).href;
+  } catch {
+    return file;
+  }
+}
+
+/** Footer: Startseite · Github · Impressum · Datenschutz · Fehler melden · X · Version. */
 export function renderAppFooterLinks(
   impressumHref: string,
   options?: { includeStartPage?: boolean },
@@ -135,6 +144,9 @@ export function renderAppFooterLinks(
     );
   }
   parts.push(`<a href="${escapeHtml(impressumHref)}">Impressum</a>`);
+  parts.push(
+    `<a href="${escapeHtml(siblingPage(impressumHref, 'datenschutz.html'))}">Datenschutz</a>`,
+  );
   const reportSubject = encodeURIComponent(`[${BRAND_NAME}] Feedback`);
   const reportBody = encodeURIComponent(
     `Hallo,\n\nich möchte Folgendes melden:\n\n\n\n— gemeldet via ${BRAND_NAME} v${APP_VERSION}\n`,
@@ -148,7 +160,10 @@ export function renderAppFooterLinks(
   );
   return (
     `<footer class="app-footer">` +
+    `<div class="app-footer-links">` +
     parts.join(`<span class="app-footer-sep" aria-hidden="true">·</span>`) +
+    `</div>` +
+    `<p class="app-footer-disclaimer">${escapeHtml(RULES_AI_DISCLAIMER)}</p>` +
     `</footer>`
   );
 }

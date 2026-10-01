@@ -1,5 +1,21 @@
 export type DisplayMode = 'antiqua' | 'fraktur' | 'kurrent' | 'suetterlin';
-export type ThemeMode = 'light' | 'sepia' | 'graphite' | 'dark';
+export type ThemeMode =
+  | 'light'
+  | 'sepia'
+  | 'graphite'
+  | 'dark'
+  | 'lagune'
+  | 'salbei'
+  | 'flieder'
+  | 'koralle'
+  | 'tiefsee'
+  | 'wald'
+  | 'honig'
+  | 'pflaume'
+  | 'himmel'
+  | 'rost'
+  | 'schiefer'
+  | 'rose';
 export type MeasureMode = 'narrow' | 'medium' | 'wide';
 
 /** Zeilenhöhe als Multiplikator (CSS line-height). */
@@ -46,6 +62,29 @@ export const MODE_DEFAULT_FONT_SIZE: Record<DisplayMode, number> = {
   suetterlin: 36,
 };
 
+const THEME_MODES: readonly ThemeMode[] = [
+  'light',
+  'sepia',
+  'graphite',
+  'dark',
+  'lagune',
+  'salbei',
+  'flieder',
+  'koralle',
+  'tiefsee',
+  'wald',
+  'honig',
+  'pflaume',
+  'himmel',
+  'rost',
+  'schiefer',
+  'rose',
+];
+
+export function isThemeMode(value: unknown): value is ThemeMode {
+  return typeof value === 'string' && (THEME_MODES as readonly string[]).includes(value);
+}
+
 export function isDisplayMode(value: unknown): value is DisplayMode {
   return (
     value === 'antiqua' ||
@@ -61,7 +100,12 @@ export function isHandScript(mode: DisplayMode): boolean {
 }
 
 /** Soft-Cap gegen Extremwerte; Plus/Minus clampen hier. */
-export const LEADING_MIN = 0.7;
+export const LEADING_MIN = 0.5;
+/**
+ * Kurrent auf dem Mac: Standard-Zeilenabstand liegt 16 Klicks unter dem
+ * allgemeinen Wert (Schrift hat viel Leerraum in der em-Box).
+ */
+export const KURRENT_MAC_LEADING_CLICKS = 16;
 export const LEADING_MAX = 4;
 export const LEADING_STEP = 0.05;
 export const LEADING_DEFAULT = 1.4;
