@@ -94,6 +94,9 @@ if [[ -d "$DIST_APP" && -f "$DIST_APP/Style.css" && -f "$DIST_APP/Script.js" ]];
   if [[ -f "$DIST_APP/impressum.html" ]]; then
     cp "$DIST_APP/impressum.html" "$APP_RES/impressum.html"
   fi
+  if [[ -f "$DIST_APP/datenschutz.html" ]]; then
+    cp "$DIST_APP/datenschutz.html" "$APP_RES/datenschutz.html"
+  fi
   echo "→ Host-App UI (Main.html / Style.css / Script.js) eingesetzt"
 else
   echo "Hinweis: dist-app fehlt — pnpm --filter @langs/extension build ausführen." >&2
@@ -236,6 +239,86 @@ p.write_text(text2, encoding="utf-8")
 print(f"→ Xcode MARKETING_VERSION = {short} ({n}×), CURRENT_PROJECT_VERSION = {build} ({n2}×)")
 PY
   fi
+fi
+
+# App-Icon und iOS-Startbildschirm überleben den Converter (der das Xcode-Projekt neu schreibt).
+BRANDING="$EXT_DIR/safari/branding"
+ASSETS="$OUT_DIR/Shared (App)/Assets.xcassets"
+if [[ -d "$BRANDING" && -d "$ASSETS" ]]; then
+  for name in AppIcon.appiconset MacAppIcon.appiconset LargeIcon.imageset LaunchBackground.colorset; do
+    if [[ -d "$BRANDING/$name" ]]; then
+      rm -rf "$ASSETS/$name"
+      cp -R "$BRANDING/$name" "$ASSETS/$name"
+    fi
+  done
+  echo "→ App-Icon (hell/dunkel) und Startbildschirm-Farbe eingesetzt"
+fi
+
+# Extension-Resources: Converter/manuelle Kopien lassen reader.html manchmal ohne
+# gebaute CSS/JS-Links (Dev-Script-Tag). Explizit aus dist-chrome nachziehen.
+EXT_RES="$OUT_DIR/Shared (Extension)/Resources"
+if [[ -d "$EXT_RES" && -f "$DIST_CHROME/reader.html" ]]; then
+  for f in reader.html options.html start.html impressum.html datenschutz.html background.js content.js; do
+    if [[ -f "$DIST_CHROME/$f" ]]; then
+      cp "$DIST_CHROME/$f" "$EXT_RES/$f"
+    fi
+  done
+  if [[ -d "$DIST_CHROME/assets" ]]; then
+    rm -rf "$EXT_RES/assets"
+    cp -R "$DIST_CHROME/assets" "$EXT_RES/assets"
+  fi
+  if [[ -d "$DIST_CHROME/icons" ]]; then
+    mkdir -p "$EXT_RES/icons"
+    cp -R "$DIST_CHROME/icons/." "$EXT_RES/icons/"
+  fi
+  if [[ -d "$DIST_CHROME/fonts" ]]; then
+    rm -rf "$EXT_RES/fonts"
+    cp -R "$DIST_CHROME/fonts" "$EXT_RES/fonts"
+  fi
+  # Doppelte Converter-Artefakte (reader 2.html etc.) entfernen
+  find "$EXT_RES" -maxdepth 1 -name '* 2.*' -delete 2>/dev/null || true
+  find "$EXT_RES/icons" -name '* 2.*' -delete 2>/dev/null || true
+  find "$EXT_RES/icons" -name '* 3.*' -delete 2>/dev/null || true
+  echo "→ Extension-Resources aus dist-chrome synchronisiert (Lesemodus-CSS/JS)"
+fi
+
+# macOS-Target: eigenes Icon-Set. Das gemeinsame iOS-AppIcon erzeugt auf
+# macOS 26+ sonst einen leeren Kasten (Icon-Stack ohne Mac-Bitmaps).
+PBX_ICON="$OUT_DIR/LangUndRund.xcodeproj/project.pbxproj"
+if [[ -f "$PBX_ICON" ]]; then
+  python3 - "$PBX_ICON" <<'PY'
+from pathlib import Path
+import sys
+text = Path(sys.argv[1]).read_text(encoding="utf-8")
+parts = text.split("isa = XCBuildConfiguration;")
+out = [parts[0]]
+for part in parts[1:]:
+    if "SDKROOT = macosx;" in part and "PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app;" in part and ".Extension" not in part.split("PRODUCT_BUNDLE_IDENTIFIER", 1)[-1][:80]:
+        part = part.replace(
+            "ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;",
+            "ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;",
+            1,
+        )
+    out.append("isa = XCBuildConfiguration;" + part)
+Path(sys.argv[1]).write_text("".join(out), encoding="utf-8")
+print("→ macOS-App-Icon: MacAppIcon")
+PY
+fi
+
+LAUNCH="$OUT_DIR/iOS (App)/Base.lproj/LaunchScreen.storyboard"
+if [[ -f "$LAUNCH" ]] && ! grep -q 'name="LaunchBackground"' "$LAUNCH"; then
+  python3 - "$LAUNCH" <<'PY'
+from pathlib import Path
+import sys
+p = Path(sys.argv[1])
+text = p.read_text(encoding="utf-8")
+old = '<color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>'
+new = '<color key="backgroundColor" name="LaunchBackground"/>'
+if old not in text:
+    raise SystemExit("LaunchScreen-Hintergrund nicht gefunden")
+p.write_text(text.replace(old, new, 1), encoding="utf-8")
+print("→ iOS-Startbildschirm nutzt LaunchBackground")
+PY
 fi
 
 echo "→ Watch-Daten backen & Xcode-Projekt erzeugen…"

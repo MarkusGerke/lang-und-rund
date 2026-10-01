@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1D5E0023067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0013067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0033067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0013067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0123067AACF003717F1 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0113067AACF003717F1 /* impressum.html */; };
+		A1D5E0133067AACF003717F1 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0113067AACF003717F1 /* impressum.html */; };
+		A1D5E0153067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0143067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0163067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0143067AACF003717F1 /* datenschutz.html */; };
 		C9B7D57D3067AACF003717F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D57C3067AACF003717F6 /* AppDelegate.swift */; };
 		C9B7D57F3067AACF003717F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D57E3067AACF003717F6 /* SceneDelegate.swift */; };
 		C9B7D5823067AACF003717F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5803067AACF003717F6 /* LaunchScreen.storyboard */; };
@@ -92,6 +98,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A1D5E0013067AACF003717F1 /* datenschutz.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = datenschutz.html; path = Resources/datenschutz.html; sourceTree = "<group>"; };
+		A1D5E0113067AACF003717F1 /* impressum.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = impressum.html; sourceTree = "<group>"; };
+		A1D5E0143067AACF003717F1 /* datenschutz.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = datenschutz.html; sourceTree = "<group>"; };
 		C9B7D56D3067AACE003717F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
 		C9B7D56E3067AACE003717F6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		C9B7D56F3067AACE003717F6 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
@@ -179,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				C9B7D56C3067AACE003717F6 /* Main.html */,
+				A1D5E0113067AACF003717F1 /* impressum.html */,
+				A1D5E0143067AACF003717F1 /* datenschutz.html */,
 				C9B7D56E3067AACE003717F6 /* Icon.png */,
 				C9B7D56F3067AACE003717F6 /* Style.css */,
 				C9B7D5703067AACE003717F6 /* Script.js */,
@@ -255,6 +266,7 @@
 				C9B7D5CB3067AACF003717F6 /* icons */,
 				C9B7D5CC3067AACF003717F6 /* manifest.json */,
 				C9B7D5CD3067AACF003717F6 /* impressum.html */,
+				A1D5E0013067AACF003717F1 /* datenschutz.html */,
 				C9B7D5CE3067AACF003717F6 /* options.html */,
 				C9B7D5CF3067AACF003717F6 /* content.js */,
 				C9B7D5D03067AACF003717F6 /* background.js.map */,
@@ -389,6 +401,8 @@
 				C9B7D5A93067AACF003717F6 /* Icon.png in Resources */,
 				C9B7D5823067AACF003717F6 /* LaunchScreen.storyboard in Resources */,
 				C9B7D5A73067AACF003717F6 /* Main.html in Resources */,
+				A1D5E0123067AACF003717F1 /* impressum.html in Resources */,
+				A1D5E0153067AACF003717F1 /* datenschutz.html in Resources */,
 				C9B7D5AD3067AACF003717F6 /* Script.js in Resources */,
 				C9B7D5B13067AACF003717F6 /* Assets.xcassets in Resources */,
 				C9B7D5853067AACF003717F6 /* Main.storyboard in Resources */,
@@ -404,6 +418,8 @@
 				C9B7D5AE3067AACF003717F6 /* Script.js in Resources */,
 				C9B7D5B23067AACF003717F6 /* Assets.xcassets in Resources */,
 				C9B7D5A83067AACF003717F6 /* Main.html in Resources */,
+				A1D5E0133067AACF003717F1 /* impressum.html in Resources */,
+				A1D5E0163067AACF003717F1 /* datenschutz.html in Resources */,
 			);
 		};
 		C9B7D5953067AACF003717F6 /* Resources */ = {
@@ -412,6 +428,7 @@
 				C9B7D5DE3067AACF003717F6 /* background.js in Resources */,
 				C9B7D5E73067AACF003717F6 /* fonts in Resources */,
 				C9B7D5E43067AACF003717F6 /* impressum.html in Resources */,
+				A1D5E0033067AACF003717F1 /* datenschutz.html in Resources */,
 				C9B7D5E13067AACF003717F6 /* reader.html in Resources */,
 				C9B7D5E53067AACF003717F6 /* options.html in Resources */,
 				C9B7D5E03067AACF003717F6 /* start.html in Resources */,
@@ -428,6 +445,7 @@
 				C9B7D5D33067AACF003717F6 /* background.js in Resources */,
 				C9B7D5DC3067AACF003717F6 /* fonts in Resources */,
 				C9B7D5D93067AACF003717F6 /* impressum.html in Resources */,
+				A1D5E0023067AACF003717F1 /* datenschutz.html in Resources */,
 				C9B7D5D63067AACF003717F6 /* reader.html in Resources */,
 				C9B7D5DA3067AACF003717F6 /* options.html in Resources */,
 				C9B7D5D53067AACF003717F6 /* start.html in Resources */,
@@ -637,11 +655,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "LangUndRund Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -649,7 +667,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -671,11 +689,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "LangUndRund Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -683,7 +701,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -707,12 +725,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LangUndRund;
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -723,7 +743,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -748,12 +768,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LangUndRund;
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -764,7 +786,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -789,14 +811,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "LangUndRund Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -804,7 +826,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -825,14 +847,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "LangUndRund Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -840,7 +862,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -860,10 +882,11 @@
 		C9B7D5C33067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund (macOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -871,7 +894,9 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LangUndRund;
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -879,7 +904,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -902,10 +927,11 @@
 		C9B7D5C43067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund (macOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 1172;
 				DEVELOPMENT_TEAM = L87AFF5UW2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -913,7 +939,9 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = LangUndRund;
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -921,7 +949,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.17.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
