@@ -36,6 +36,8 @@ export interface LangsSettings {
    * Aus = Wort nur per Mausklick im Drawer öffnen.
    */
   drawerLiveCursor: boolean;
+  /** Klick/Tap auf markiertes Wort öffnet den Lern-Drawer. */
+  drawerWordClick: boolean;
   forceGerman: boolean | null;
 }
 
@@ -105,9 +107,9 @@ export const LEADING_MIN = 0.5;
  * Kurrent auf dem Mac: Standard-Zeilenabstand liegt 16 Klicks unter dem
  * allgemeinen Wert (Schrift hat viel Leerraum in der em-Box).
  */
-export const KURRENT_MAC_LEADING_CLICKS = 16;
+export const KURRENT_MAC_LEADING_CLICKS = 8;
 export const LEADING_MAX = 4;
-export const LEADING_STEP = 0.05;
+export const LEADING_STEP = 0.1;
 export const LEADING_DEFAULT = 1.4;
 
 const LEGACY_LEADING: Record<string, number> = {
@@ -118,7 +120,12 @@ const LEGACY_LEADING: Record<string, number> = {
 
 export function clampLeading(value: number): LeadingValue {
   const n = Math.round(value / LEADING_STEP) * LEADING_STEP;
-  return Math.min(LEADING_MAX, Math.max(LEADING_MIN, Number(n.toFixed(2))));
+  return Math.min(LEADING_MAX, Math.max(LEADING_MIN, Number(n.toFixed(1))));
+}
+
+export function snapFontSize(value: number): number {
+  const n = Math.round(value / FONT_SIZE_STEP) * FONT_SIZE_STEP;
+  return Math.min(FONT_SIZE_MAX, Math.max(FONT_SIZE_MIN, n));
 }
 
 /** Alte Enum-Werte und Zahlen → Multiplikator. */
@@ -142,6 +149,7 @@ export const DEFAULT_SETTINGS: LangsSettings = {
   fontSizes: { ...MODE_DEFAULT_FONT_SIZE },
   textOnly: true,
   drawerLiveCursor: false,
+  drawerWordClick: true,
   forceGerman: null,
 };
 
@@ -153,4 +161,4 @@ export const ARTICLE_KEY_PREFIX = 'langs-article:';
 
 export const FONT_SIZE_MIN = 14;
 export const FONT_SIZE_MAX = 80;
-export const FONT_SIZE_STEP = 2;
+export const FONT_SIZE_STEP = 8;

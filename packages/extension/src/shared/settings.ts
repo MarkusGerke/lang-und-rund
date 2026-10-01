@@ -1,3 +1,5 @@
+import { isHostAppMode } from './chromePolyfill';
+import { readSettingsFromUrl, writeSettingsToUrl } from './settingsUrl';
 import {
   DEFAULT_SETTINGS,
   isDisplayMode,
@@ -52,6 +54,7 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
     fontSizes,
     textOnly: raw.textOnly !== false,
     drawerLiveCursor: raw.drawerLiveCursor === true,
+    drawerWordClick: raw.drawerWordClick !== false,
     forceGerman:
       raw.forceGerman === true || raw.forceGerman === false
         ? raw.forceGerman
@@ -60,6 +63,10 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
 }
 
 export async function loadSettings(): Promise<LangsSettings> {
+  if (isHostAppMode()) {
+    const fromUrl = readSettingsFromUrl();
+    return migrate(fromUrl ?? undefined);
+  }
   const data = await chrome.storage.sync.get(SETTINGS_KEY);
   return migrate(data[SETTINGS_KEY] as Record<string, unknown> | undefined);
 }
@@ -89,6 +96,10 @@ export async function saveSettings(
   delete (next as { fontSize?: number }).fontSize;
   delete (next as { fontSizeMode?: DisplayMode }).fontSizeMode;
 
-  await chrome.storage.sync.set({ [SETTINGS_KEY]: next });
+  if (isHostAppMode()) {
+    writeSettingsToUrl(next);
+  } else {
+    await chrome.storage.sync.set({ [SETTINGS_KEY]: next });
+  }
   return next;
 }

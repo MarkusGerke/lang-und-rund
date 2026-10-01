@@ -4,14 +4,13 @@ import type { AmbiguitySpan } from '@langs/core';
 import {
   ARTICLE_KEY_PREFIX,
   clampLeading,
-  FONT_SIZE_MAX,
-  FONT_SIZE_MIN,
   FONT_SIZE_STEP,
   isDisplayMode,
   KURRENT_FONT_SIZE_MOBILE,
   KURRENT_MAC_LEADING_CLICKS,
   LEADING_STEP,
   MODE_DEFAULT_FONT_SIZE,
+  snapFontSize,
   type ArticlePayload,
   type DisplayMode,
   type LeadingValue,
@@ -19,6 +18,7 @@ import {
   type ThemeMode,
 } from '../shared/types';
 import { loadSettings, saveSettings } from '../shared/settings';
+import { writeSettingsToUrl } from '../shared/settingsUrl';
 import {
   installChromePolyfill,
   isHostAppMode,
@@ -54,6 +54,7 @@ interface ReaderState {
   fontSizes: Record<DisplayMode, number>;
   textOnly: boolean;
   drawerLiveCursor: boolean;
+  drawerWordClick: boolean;
 }
 
 /** Titel: explizit, sonst erstes H1, sonst erste Zeile. */
@@ -210,7 +211,22 @@ async function init(): Promise<void> {
     fontSizes,
     textOnly: settings.textOnly,
     drawerLiveCursor: settings.drawerLiveCursor,
+    drawerWordClick: settings.drawerWordClick,
   };
+
+  if (hostMode) {
+    writeSettingsToUrl({
+      ...settings,
+      displayMode: state.displayMode,
+      fontSizes: state.fontSizes,
+      leading: state.leading,
+      drawerLiveCursor: state.drawerLiveCursor,
+      drawerWordClick: state.drawerWordClick,
+      textOnly: state.textOnly,
+      theme: state.theme,
+      measure: state.measure,
+    });
+  }
 
   let lastAmbiguities: AmbiguitySpan[] = [];
   let lastReport: ReportContext | null = null;
@@ -252,6 +268,12 @@ async function init(): Promise<void> {
   const textOnlyToggle = document.getElementById(
     'text-only-toggle',
   ) as HTMLButtonElement;
+  const drawerLiveCursorToggle = document.getElementById(
+    'drawer-live-cursor-toggle',
+  ) as HTMLButtonElement | null;
+  const drawerWordClickToggle = document.getElementById(
+    'drawer-word-click-toggle',
+  ) as HTMLButtonElement | null;
   const editModeBtn = document.getElementById(
     'btn-edit-mode',
   ) as HTMLButtonElement | null;
@@ -362,7 +384,7 @@ async function init(): Promise<void> {
       syncSizeInputs();
       return;
     }
-    const next = Math.min(FONT_SIZE_MAX, Math.max(FONT_SIZE_MIN, n));
+    const next = snapFontSize(n);
     if (next === currentFontSize()) {
       syncSizeInputs();
       return;
@@ -375,7 +397,7 @@ async function init(): Promise<void> {
 
   function syncSizeInputs(): void {
     if (leadingValueInput) {
-      leadingValueInput.value = String(displayedLeading());
+      leadingValueInput.value = displayedLeading().toFixed(1);
     }
     if (fontSizeValueInput) {
       fontSizeValueInput.value = String(currentFontSize());
@@ -386,6 +408,12 @@ async function init(): Promise<void> {
   syncChoiceGroup(themeGroup, state.theme);
   measureSelect.value = state.measure;
   setSwitch(textOnlyToggle, state.textOnly);
+  if (drawerLiveCursorToggle) {
+    setSwitch(drawerLiveCursorToggle, state.drawerLiveCursor);
+  }
+  if (drawerWordClickToggle) {
+    setSwitch(drawerWordClickToggle, state.drawerWordClick);
+  }
 
   function currentFontSize(): number {
     return state.fontSizes[state.displayMode];
@@ -1102,6 +1130,7 @@ async function init(): Promise<void> {
   }
 
   function canOpenDrawerFromWord(): boolean {
+    if (!state.drawerWordClick) return false;
     if (!hostMode) return true;
     if (iosHost) return !editMode;
     return true;
@@ -1187,10 +1216,6 @@ async function init(): Promise<void> {
     const { html, report } = renderDrawerBodyPrecise(
       { converted, modern, ambiguity },
       state.displayMode,
-      {
-        drawerLiveCursor: state.drawerLiveCursor,
-        showLiveCursorToggle: hostMode && !iosHost,
-      },
     );
     lastReport = {
       ...report,
@@ -1465,8 +1490,29 @@ async function init(): Promise<void> {
     else render();
   });
 
+  drawerLiveCursorToggle?.addEventListener('click', () => {
+    state.drawerLiveCursor = !state.drawerLiveCursor;
+    setSwitch(drawerLiveCursorToggle, state.drawerLiveCursor);
+    drawerLiveCursorToggle.title = state.drawerLiveCursor
+      ? 'Drawer folgt dem Textcursor. Ausschalten: nur per Mausklick aufs Wort.'
+      : 'Nur per Mausklick aufs Wort. Einschalten: Drawer folgt dem Textcursor.';
+    void saveSettings({ drawerLiveCursor: state.drawerLiveCursor });
+    if (hostMode && state.drawerLiveCursor) {
+      const { text, cursor } = selectionPlainAndOffset();
+      const focus = wordAtCursor(text, cursor);
+      if (focus) openDrawerForModernWord(focus.modern, focus.occurrence);
+    }
+  });
+
+  drawerWordClickToggle?.addEventListener('click', () => {
+    state.drawerWordClick = !state.drawerWordClick;
+    setSwitch(drawerWordClickToggle, state.drawerWordClick);
+    void saveSettings({ drawerWordClick: state.drawerWordClick });
+    if (!state.drawerWordClick && drawerOpen) parkOrCloseDrawer();
+  });
+
   document.getElementById('font-minus')!.addEventListener('click', () => {
-    const next = Math.max(FONT_SIZE_MIN, currentFontSize() - FONT_SIZE_STEP);
+    const next = snapFontSize(currentFontSize() - FONT_SIZE_STEP);
     state.fontSizes[state.displayMode] = next;
     void saveSettings({ fontSizes: { ...state.fontSizes } });
     applyChrome();
@@ -1474,7 +1520,7 @@ async function init(): Promise<void> {
   });
 
   document.getElementById('font-plus')!.addEventListener('click', () => {
-    const next = Math.min(FONT_SIZE_MAX, currentFontSize() + FONT_SIZE_STEP);
+    const next = snapFontSize(currentFontSize() + FONT_SIZE_STEP);
     state.fontSizes[state.displayMode] = next;
     void saveSettings({ fontSizes: { ...state.fontSizes } });
     applyChrome();
@@ -1662,9 +1708,9 @@ async function init(): Promise<void> {
             editorBody.contains(sel.anchorNode)
           ) {
             e.preventDefault();
-            const next = zoomIn
-              ? Math.min(FONT_SIZE_MAX, currentFontSize() + FONT_SIZE_STEP)
-              : Math.max(FONT_SIZE_MIN, currentFontSize() - FONT_SIZE_STEP);
+            const next = snapFontSize(
+              currentFontSize() + (zoomIn ? FONT_SIZE_STEP : -FONT_SIZE_STEP),
+            );
             state.fontSizes[state.displayMode] = next;
             void saveSettings({ fontSizes: { ...state.fontSizes } });
             applyChrome();
@@ -1902,28 +1948,6 @@ async function init(): Promise<void> {
   }
 
   drawerBody.addEventListener('click', (e) => {
-    const liveToggle = (
-      (e.target as HTMLElement).closest('.drawer-live-toggle') ??
-      (e.target as HTMLElement)
-        .closest('.drawer-follow-ctrl')
-        ?.querySelector('.drawer-live-toggle')
-    ) as HTMLButtonElement | null;
-    if (liveToggle) {
-      e.preventDefault();
-      state.drawerLiveCursor = !state.drawerLiveCursor;
-      setSwitch(liveToggle, state.drawerLiveCursor);
-      liveToggle.title = state.drawerLiveCursor
-        ? 'Drawer folgt dem Textcursor. Ausschalten: nur per Mausklick aufs Wort.'
-        : 'Nur per Mausklick aufs Wort. Einschalten: Drawer folgt dem Textcursor.';
-      void saveSettings({ drawerLiveCursor: state.drawerLiveCursor });
-      if (hostMode && state.drawerLiveCursor) {
-        const { text, cursor } = selectionPlainAndOffset();
-        const focus = wordAtCursor(text, cursor);
-        if (focus) openDrawerForModernWord(focus.modern, focus.occurrence);
-      }
-      return;
-    }
-
     const reportBtn = (e.target as HTMLElement).closest(
       '[data-report="mail"]',
     ) as HTMLElement | null;
