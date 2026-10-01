@@ -22,7 +22,21 @@ cd packages/extension/safari/watch && xcodegen generate
 open LangUndRundWatch.xcodeproj
 ```
 
-## Verhalten (v1)
+`bake:watch` schreibt auch `Sources/ClockNumberWords.generated.swift` (0…59 mit ſ/s über `convertLongS`).
 
-- Fraktur/Kurrent per Horizontal-Swipe, Antiqua darunter, Kurz-Hinweise (`confusion`)
+## Verhalten
+
+### Fraktur-Ziffernblatt (Default)
+- Live-Zeit als Wörter; **horizontal wischen** wechselt **Fraktur ↔ Sütterlin**
+- **UHR** dazwischen (Sans, gesperrt)
+- 24h, exakte Minute; bei `:00` nur Stunde + UHR
+- Gesprochen: Stunde **ein** Uhr / Minute **eins** (`1:01` → ein / UHR / eins); sonst Standard-Kardinalzahlen (`sechzehn`, `einundzwanzig`, …)
+- Komposita nach `und` umgebrochen; Sütterlin mit Font-Encoding (`ſ`→`s`, Schluss-s→`#`)
+- **Tippen:** Farben — System-Palette + RGB-Slider (Digital Crown) für Schrift und Hintergrund (wird gemerkt)
+- Langer Druck: Wortlernen
+- Always-On: gleiches Layout, gedimmt
+
+### Wortlernen
+- Fraktur / Kurrent / Sütterlin per Horizontal-Swipe
 - Tap aufs Wort = nächstes Wort
+- Toolbar **Uhr** zurück zum Ziffernblatt
