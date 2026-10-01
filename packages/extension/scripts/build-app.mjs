@@ -121,7 +121,54 @@ ${bodyInner}
     cpSync(resolve(root, 'datenschutz.html'), resolve(outDir, 'datenschutz.html'));
   }
 
+  syncSafariXcodeIfPresent(outDir);
+
   console.log('Host-App UI →', outDir);
+}
+
+/** Xcode-Projekt mit dist-app / dist-chrome halten (ohne vollen build-safari-Lauf). */
+function syncSafariXcodeIfPresent(distApp) {
+  const xcode = resolve(root, 'safari/xcode');
+  if (!existsSync(xcode)) return;
+
+  const appRes = resolve(xcode, 'Shared (App)/Resources');
+  if (existsSync(appRes)) {
+    mkdirSync(resolve(appRes, 'Base.lproj'), { recursive: true });
+    for (const rel of [
+      'Base.lproj/Main.html',
+      'Script.js',
+      'Style.css',
+      'impressum.html',
+      'datenschutz.html',
+    ]) {
+      const src = resolve(distApp, rel);
+      if (existsSync(src)) cpSync(src, resolve(appRes, rel));
+    }
+    console.log('→ Safari Host-App Resources synchronisiert');
+  }
+
+  const distChrome = resolve(root, 'dist-chrome');
+  const extRes = resolve(xcode, 'Shared (Extension)/Resources');
+  if (existsSync(extRes) && existsSync(distChrome)) {
+    for (const f of [
+      'reader.html',
+      'options.html',
+      'start.html',
+      'impressum.html',
+      'datenschutz.html',
+      'background.js',
+      'content.js',
+    ]) {
+      const src = resolve(distChrome, f);
+      if (existsSync(src)) cpSync(src, resolve(extRes, f));
+    }
+    const assetsSrc = resolve(distChrome, 'assets');
+    if (existsSync(assetsSrc)) {
+      rmSync(resolve(extRes, 'assets'), { recursive: true, force: true });
+      cpSync(assetsSrc, resolve(extRes, 'assets'), { recursive: true });
+    }
+    console.log('→ Safari Extension Resources synchronisiert');
+  }
 }
 
 main().catch((err) => {

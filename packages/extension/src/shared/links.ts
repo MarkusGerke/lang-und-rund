@@ -3,7 +3,7 @@ export const BRAND_NAME = 'lang & rund';
 export const BRAND_NAME_SHORT = 'lang & rund';
 
 /** App-Version (mit Manifest abgleichen). */
-export const APP_VERSION = '1.17.4';
+export const APP_VERSION = '1.17.6';
 
 /**
  * Footer-Hinweis: Regelwerk ist heuristisch/KI-gestützt.
@@ -38,3 +38,7 @@ export const X_URL = `https://x.com/${X_HANDLE}`;
 
 /** Impressum (Extension-interne Seite). */
 export const IMPRESSUM_PATH = 'impressum.html';
+
+/** App Store — `null`, bis die App gelistet ist (siehe auch site/shell.js). */
+export const IOS_APP_STORE_URL: string | null = null;
+export const MAC_APP_STORE_URL: string | null = null;

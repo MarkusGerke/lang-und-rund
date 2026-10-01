@@ -2027,7 +2027,7 @@ body {
 }
 
 /* Host-Editor: Medien-Toggle unnötig (kein Web-Artikel). */
-.app.host-app .media-toggle-ctrl {
+.app.host-app label.media-toggle-ctrl:has(#text-only-toggle) {
   display: none !important;
 }
 
