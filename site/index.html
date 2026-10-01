@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lang &amp; rund</title>
+    <style>
+      @font-face {
+        font-family: "UnifrakturMaguntia";
+        src: url("fonts/unifrakturmaguntia.ttf") format("truetype");
+        font-display: swap;
+      }
+      :root {
+        --bg: #f3e7d3;
+        --surface: #faf0e0;
+        --ink: #3f2e1e;
+        --muted: #6b563f;
+        --line: #d4b896;
+        --accent: #8b4513;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--ink); }
+      body { font-family: system-ui, -apple-system, sans-serif; }
+      a { color: inherit; }
+      .fraktur { font-family: "UnifrakturMaguntia", Georgia, serif; }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem 1.5rem 2rem;
+      }
+      .stage {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .from {
+        margin: 0;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .word {
+        margin: 0.2rem 0 0;
+        font-size: clamp(6rem, 22vw, 16rem);
+        line-height: 0.85;
+        font-weight: 400;
+      }
+      .line {
+        max-width: 28rem;
+        margin: 1.25rem 0 0;
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+      .cta {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        background: var(--accent);
+        color: var(--surface);
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      .cta:hover { opacity: 0.92; }
+      .foot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem 1.25rem;
+        padding-top: 1rem;
+        font-size: 0.92rem;
+      }
+      .foot span { color: var(--muted); }
+      .foot a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+      .soon {
+        margin-left: 0.35rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="stage">
+        <p class="from">dass</p>
+        <p class="word fraktur">daſs</p>
+        <p class="line">
+          Langes ſ und rundes s, nach den Regeln des Fraktursatzes.
+          Zum Lesen, Schreiben und Lernen.
+        </p>
+        <a class="cta" href="/editor/">Im Browser öffnen</a>
+      </div>
+      <nav class="foot" aria-label="Angebote">
+        <span>Erweiterung <span class="soon">folgt</span></span>
+        <span>Apps <span class="soon">folgt</span></span>
+        <a href="/editor/">Editor</a>
+        <span>Ziffernblatt <span class="soon">folgt</span></span>
+      </nav>
+    </div>
+  </body>
+</html>

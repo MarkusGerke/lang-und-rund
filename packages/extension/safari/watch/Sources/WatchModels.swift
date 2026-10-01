@@ -3,6 +3,7 @@ import Foundation
 enum ScriptMode: String, CaseIterable, Identifiable {
   case fraktur
   case kurrent
+  case suetterlin
 
   var id: String { rawValue }
 
@@ -10,6 +11,7 @@ enum ScriptMode: String, CaseIterable, Identifiable {
     switch self {
     case .fraktur: return "UnifrakturMaguntia"
     case .kurrent: return "Deutsche Kurrent"
+    case .suetterlin: return "Suetterlin HJZ 1911 Italic2024-03"
     }
   }
 }
@@ -30,6 +32,7 @@ struct WatchWord: Codable, Identifiable {
   let modern: String
   let fraktur: WatchWordMode
   let kurrent: WatchWordMode
+  let suetterlin: WatchWordMode
 
   var id: String { modern }
 
@@ -37,6 +40,7 @@ struct WatchWord: Codable, Identifiable {
     switch mode {
     case .fraktur: return fraktur
     case .kurrent: return kurrent
+    case .suetterlin: return suetterlin
     }
   }
 }
@@ -60,6 +64,7 @@ enum WatchData {
             modern: "Haus",
             fraktur: WatchWordMode(word: "Haus", tips: []),
             kurrent: WatchWordMode(word: "Haus", tips: []),
+            suetterlin: WatchWordMode(word: "Haus", tips: []),
           ),
         ],
       )

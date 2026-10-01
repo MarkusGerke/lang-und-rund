@@ -37,6 +37,11 @@ function pack(target) {
     cpSync(kurrentTtf, resolve(fontsOut, 'kurrent.ttf'));
   }
 
+  const suetterlinTtf = resolve(root, 'public/fonts/suetterlin.ttf');
+  if (existsSync(suetterlinTtf)) {
+    cpSync(suetterlinTtf, resolve(fontsOut, 'suetterlin.ttf'));
+  }
+
   const notice = resolve(root, 'public/READABILITY-LICENSE.md');
   if (existsSync(notice)) {
     cpSync(notice, resolve(out, 'READABILITY-LICENSE.md'));
