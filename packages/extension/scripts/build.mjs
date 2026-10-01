@@ -24,6 +24,7 @@ async function main() {
           reader: resolve(root, 'reader.html'),
           options: resolve(root, 'options.html'),
           impressum: resolve(root, 'impressum.html'),
+          datenschutz: resolve(root, 'datenschutz.html'),
           start: resolve(root, 'start.html'),
         },
       },

@@ -117,6 +117,9 @@ ${bodyInner}
   if (existsSync(resolve(root, 'impressum.html'))) {
     cpSync(resolve(root, 'impressum.html'), resolve(outDir, 'impressum.html'));
   }
+  if (existsSync(resolve(root, 'datenschutz.html'))) {
+    cpSync(resolve(root, 'datenschutz.html'), resolve(outDir, 'datenschutz.html'));
+  }
 
   console.log('Host-App UI →', outDir);
 }
