@@ -202,6 +202,10 @@ describe('convertLongS', () => {
       expect(convertLongS('Deutschland').output).toBe('Deutſchland');
       expect(convertLongS('widersprechen').output).toBe('widerſprechen');
       expect(convertLongS('Angst').output).toBe('Angſt');
+      // Kein Genitiv-Fugen-s nur wegen „…hs“ (früh|stück, roh|stoff, kuh|stall)
+      expect(convertLongS('Frühstück').output).toBe('Frühſtück');
+      expect(convertLongS('Rohstoff').output).toBe('Rohſtoff');
+      expect(convertLongS('Kuhstall').output).toBe('Kuhſtall');
     });
 
     it('setzt Fugen-s vor Vokal und Ortsnamen', () => {

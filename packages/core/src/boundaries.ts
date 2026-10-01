@@ -34,7 +34,7 @@ const COMMON_FUGEN_PATTERN = /(leben|krieg|geistes|landes|volkes)s(?=[a-zäöü�
  * Nicht vor Digraph ſch / Stamm-ſt / Stamm-ſp (siehe findGenitiveLinkingS).
  */
 const GENITIVE_LEFT_ENDINGS =
-  /(?:chts|nds|lgs|lfs|tags|nks|lks|oks|nis|ismus|urs|hs|es|ions|ons|gs|ens|iegs|ugs)$/i;
+  /(?:chts|chs|nds|lgs|lfs|tags|nks|lks|oks|nis|ismus|urs|es|ions|ons|gs|ens|iegs|ugs)$/i;
 
 /**
  * Flexions-s: Stamm endet auf s, Suffix folgt (-en, -er, -em, -es, -eln).
@@ -147,14 +147,9 @@ function findGenitiveLinkingS(word: string): SBoundary[] {
     if (!GENITIVE_LEFT_ENDINGS.test(left)) continue;
     if (/gs$/i.test(left) && left.length < 5) continue;
 
-    const rest = lower.slice(i + 1);
-
-    // Vor t/p: nur klare Kompositumfugen (Hilfs|truppen), kein Stamm-ſt und
-    // kein „Land|st…“-Muster (nds vor t → oft ſt-Anlaut des Zweitglieds)
+    // Vor t/p: nicht still rund setzen — Mehrdeutigkeit über findChoicePoints.
     if (next === 't' || next === 'p') {
-      if (STEM_ST_REMAINDERS.test(rest)) continue;
-      if (rest.length < 4) continue;
-      if (/nds$/i.test(left)) continue;
+      continue;
     }
 
     // Vor Vokal nur bei klaren Genitiv-Endungen (Kriegs|ende). Lebens|… über COMMON_FUGEN.
@@ -212,9 +207,11 @@ function applyPrefixBoundaries(
 export function collectBoundaries(word: string): Map<number, 'round' | 'long'> {
   const boundaries = new Map<number, 'round' | 'long'>();
 
-  // 1a. Fugen-s (-ung/-tion/…)
+  // 1a. Fugen-s (-ung/-tion/…) — vor st/sp → Mehrdeutigkeit, nicht still rund
   for (const match of word.matchAll(LINKING_S_PATTERN)) {
     const sIndex = match.index! + match[0].length - 1;
+    const next = word[sIndex + 1]?.toLowerCase();
+    if (next === 't' || next === 'p') continue;
     addBoundary(boundaries, { index: sIndex, variant: 'round' });
   }
 
@@ -227,9 +224,11 @@ export function collectBoundaries(word: string): Map<number, 'round' | 'long'> {
   // 1c. Ortsnamen-Fuge
   applySingleSPatternRounds(word, PLACE_FUGEN_PATTERN, boundaries);
 
-  // 1d. Häufige Fugen Leben|s|…, Krieg|s|…
+  // 1d. Häufige Fugen Leben|s|…, Krieg|s|… — vor st/sp → Mehrdeutigkeit
   for (const match of word.matchAll(COMMON_FUGEN_PATTERN)) {
     const sIndex = match.index! + match[0].length - 1;
+    const next = word[sIndex + 1]?.toLowerCase();
+    if (next === 't' || next === 'p') continue;
     addBoundary(boundaries, { index: sIndex, variant: 'round' });
   }
 
@@ -267,14 +266,55 @@ export function collectBoundaries(word: string): Map<number, 'round' | 'long'> {
 
 /**
  * Linke Seite wie bei Wachs|tube: Fugen-Ende, das auch als Stamm ohne s
- * lesbar ist (Wach|stube). Nur diese Klasse braucht manuelle Wahl.
+ * lesbar ist (Wach|stube).
  */
 const FUGEN_LIKE_LEFT = /(?:chs|nds)$/i;
 
+function pushUnique(points: number[], i: number): void {
+  if (!points.includes(i)) points.push(i);
+}
+
 /**
- * Positionen, an denen rund vs. lang die Lesart ändert und der Schreiber
- * entscheiden muss (unklare Wortfuge vor ſt/ſp).
- * Klassiker laut Wikipedia Fraktursatz: Wachs|tube vs. Wach|stube.
+ * Ob an sIndex eine Genitiv-/Listen-Fuge vor st/sp plausibel ist
+ * (dann Mehrdeutigkeit statt stiller Rund-Entscheidung).
+ */
+function isFugenCandidateBeforeStSp(word: string, sIndex: number): boolean {
+  const lower = word.toLowerCase();
+  const next = lower[sIndex + 1];
+  if (next !== 't' && next !== 'p') return false;
+
+  const rest = lower.slice(sIndex + 1);
+  if (STEM_ST_REMAINDERS.test(rest)) return false;
+  if (rest.length < 4) return false;
+
+  const left = lower.slice(0, sIndex + 1);
+  if (left.length < 4) return false;
+  if (/nds$/i.test(left) && next === 't') {
+    // Land|st… eher Silbenanlaut — trotzdem Choice (klassisch), über FUGEN_LIKE
+    return FUGEN_LIKE_LEFT.test(left);
+  }
+
+  if (GENITIVE_LEFT_ENDINGS.test(left)) return true;
+  if (FUGEN_LIKE_LEFT.test(left)) return true;
+
+  // Listen-Fugen (Bildung|s|…, Leben|s|…)
+  const before = lower.slice(0, sIndex + 1);
+  if (
+    /(ung|tion|ion|heit|keit|schaft|ierung|ment|ling|nis|tum|werk)s$/i.test(
+      before,
+    )
+  ) {
+    return true;
+  }
+  if (/(leben|krieg|geistes|landes|volkes)s$/i.test(before)) return true;
+
+  return false;
+}
+
+/**
+ * Positionen, an denen rund vs. lang die Lesart ändert (Fuge vor ſt/ſp).
+ * Jede heuristische Genitiv-/Fugen-Entscheidung vor st/sp wird hier
+ * zur Mehrdeutigkeit — Default bleibt Fuge (rund), Nutzer kann ſ wählen.
  */
 export function findChoicePoints(word: string): number[] {
   const lower = word.toLowerCase();
@@ -288,17 +328,12 @@ export function findChoicePoints(word: string): number[] {
     const next = lower[i + 1];
     if (next !== 't' && next !== 'p') continue;
 
-    const rest = lower.slice(i + 1);
-    if (STEM_ST_REMAINDERS.test(rest)) continue;
-    if (rest.length < 4) continue;
-
-    const left = lower.slice(0, i + 1);
     const leftStem = lower.slice(0, i);
-    // Lange Lesart braucht Stamm ≥ 4 (Wach|…); „Mün|ster…“ ausscheiden
-    if (leftStem.length < 4) continue;
-    if (!FUGEN_LIKE_LEFT.test(left)) continue;
+    if (leftStem.length < 3) continue;
 
-    points.push(i);
+    if (isFugenCandidateBeforeStSp(word, i)) {
+      pushUnique(points, i);
+    }
   }
 
   return points;

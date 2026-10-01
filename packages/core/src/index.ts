@@ -23,6 +23,14 @@ export {
 export type { SBoundary } from './boundaries';
 
 export {
+  EXCEPTION_LEXICON,
+  applyExceptionCasing,
+  lookupException,
+  confirmedExceptions,
+} from './exceptions';
+export type { ExceptionEntry } from './exceptions';
+
+export {
   detectGerman,
   isGermanLangTag,
   scoreGermanText,

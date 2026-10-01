@@ -11,6 +11,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
+    "test:gold": "vitest run src/goldCorpus.test.ts",
+    "gold:generate": "GOLD_GENERATE=1 vitest run src/goldCorpus.generate.test.ts",
     "dev": "vitest"
   },
   "devDependencies": {

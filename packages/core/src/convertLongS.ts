@@ -4,6 +4,10 @@ import {
   hyphenLeftBoundaries,
   ROUND_S_PREFIXES,
 } from './boundaries';
+import {
+  applyExceptionCasing,
+  lookupException,
+} from './exceptions';
 import type {
   AmbiguityCandidate,
   AmbiguitySpan,
@@ -252,6 +256,13 @@ function convertToken(
   tokenStart: number,
   stableId?: string,
 ): { segment: ConvertedSegment; ambiguity?: AmbiguitySpan } {
+  // Ausnahme-Wörterbuch schlägt Heuristik und Mehrdeutigkeit
+  const exception = lookupException(token);
+  if (exception) {
+    const text = applyExceptionCasing(token, exception.output);
+    return { segment: { type: 'text', text } };
+  }
+
   const ambiguityDef = resolveAmbiguityDefinition(token);
 
   if (ambiguityDef) {
@@ -283,7 +294,7 @@ function wordNeedsStableId(token: string): boolean {
 
 /**
  * Konvertiert modernen deutschen Text in historische ſ/s-Schreibung.
- * Basiert auf heuristischen Grenzregeln, nicht auf Wörterbuch-Ersetzung.
+ * Heuristische Grenzregeln + Ausnahme-Wörterbuch; kein vollständiges Lexikon.
  */
 export function convertLongS(
   input: string,
