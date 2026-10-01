@@ -4,6 +4,80 @@ import WatchKit
 #endif
 
 struct ContentView: View {
+  @AppStorage(ClockAppearanceStore.foregroundKey)
+  private var foregroundHex = ClockAppearanceStore.defaultForegroundHex
+  @AppStorage(ClockAppearanceStore.backgroundKey)
+  private var backgroundHex = ClockAppearanceStore.defaultBackgroundHex
+  @AppStorage("clock.script")
+  private var scriptRaw = ClockScript.fraktur.rawValue
+
+  @State private var showLearning = false
+  @State private var showColors = false
+  @State private var foreground = Color(hexRGBA: ClockAppearanceStore.defaultForegroundHex)
+  @State private var background = Color(hexRGBA: ClockAppearanceStore.defaultBackgroundHex)
+  @State private var clockScript: ClockScript = .fraktur
+
+  var body: some View {
+    Group {
+      if showLearning {
+        WordLearningRoot(onClose: { showLearning = false })
+      } else {
+        TabView(selection: $clockScript) {
+          ClockFaceView(
+            script: .fraktur,
+            foreground: foreground,
+            background: background,
+            onOpenColors: { showColors = true },
+            onOpenLearning: { showLearning = true }
+          )
+          .tag(ClockScript.fraktur)
+
+          ClockFaceView(
+            script: .suetterlin,
+            foreground: foreground,
+            background: background,
+            onOpenColors: { showColors = true },
+            onOpenLearning: { showLearning = true }
+          )
+          .tag(ClockScript.suetterlin)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .automatic))
+        .onChange(of: clockScript) { _, newValue in
+          scriptRaw = newValue.rawValue
+        }
+      }
+    }
+    .onAppear {
+      loadColors()
+      clockScript = ClockScript(rawValue: scriptRaw) ?? .fraktur
+    }
+    .sheet(isPresented: $showColors, onDismiss: persistColors) {
+      ClockColorSettingsView(
+        foreground: $foreground,
+        background: $background,
+        onDone: {
+          persistColors()
+          showColors = false
+        }
+      )
+    }
+  }
+
+  private func loadColors() {
+    foreground = Color(hexRGBA: foregroundHex)
+    background = Color(hexRGBA: backgroundHex)
+  }
+
+  private func persistColors() {
+    foregroundHex = foreground.hexRGBA()
+    backgroundHex = background.hexRGBA()
+  }
+}
+
+/// Bestehendes Wortlernen (Fraktur / Kurrent / Sütterlin).
+struct WordLearningRoot: View {
+  var onClose: () -> Void
+
   @State private var mode: ScriptMode = .fraktur
   @State private var index: Int = 0
 
@@ -32,6 +106,11 @@ struct ContentView: View {
     }
     .tabViewStyle(.page(indexDisplayMode: .automatic))
     .onAppear(perform: pickInitial)
+    .toolbar {
+      ToolbarItem(placement: .topBarLeading) {
+        Button("Uhr") { onClose() }
+      }
+    }
   }
 
   private func pickInitial() {

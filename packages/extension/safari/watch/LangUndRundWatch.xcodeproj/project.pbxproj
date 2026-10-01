@@ -9,18 +9,21 @@
 /* Begin PBXBuildFile section */
 		087924E50FE64A3F5ADF78D4 /* KURRENT-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE6B8A3475CA7DA782B54060 /* KURRENT-LICENSE.txt */; };
 		1C3BA3353D29E74EA43313C4 /* kurrent.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AEF6BD98D4A0E47C009CE75 /* kurrent.ttf */; };
-		A11CE0010000000000000001 /* suetterlin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A11CE0020000000000000002 /* suetterlin.ttf */; };
-		A11CE0030000000000000003 /* SUETTERLIN-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = A11CE0040000000000000004 /* SUETTERLIN-LICENSE.txt */; };
 		21A4C0688105051F7B76A7FA /* WatchModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84FA46D3FFFCF67745A29E3 /* WatchModels.swift */; };
 		34B8338DA5255437BD547D82 /* LangUndRundWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB5DC6347B0F6AAE35B9C0 /* LangUndRundWatchApp.swift */; };
+		3519143FFF907A1658E499AA /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EEE3077A91342A775EB99 /* ClockFaceView.swift */; };
 		4927A34455056E615D8EC9BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B79C5A788BB5804E9A1EBAEB /* Assets.xcassets */; };
 		6CBB94AC61F3B643CCAE3B39 /* watchWords.json in Resources */ = {isa = PBXBuildFile; fileRef = C461DCB2757FF6B16589408D /* watchWords.json */; };
 		7911F42FC0F2A5A5CD9EF9B4 /* FRAKTUR-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9900EAA7FC6EF97CABD7484F /* FRAKTUR-LICENSE.txt */; };
 		7EF054D1FFD9C09103876BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 131CB5AD86F29F4A1DA8D09A /* Assets.xcassets */; };
+		823437478584C1CD69261FF6 /* ClockNumberWords.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED2B460AE0C2BAB62A93DDB /* ClockNumberWords.generated.swift */; };
 		9336D868768C1EDB40AE4207 /* LangUndRundWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 7DF4D7FC80AF2344B9D0FE2C /* LangUndRundWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A801C4AE5D847A8CDAA8FD57 /* WatchCompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932D59EC461069C39146A71B /* WatchCompanionApp.swift */; };
 		BCF5561FBAE4C1A5B24D1FEC /* unifrakturmaguntia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7662EAAAA45690A34ACA3139 /* unifrakturmaguntia.ttf */; };
+		C590140739A7F51F8A0139E4 /* SUETTERLIN-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 791359011EC918BC3A0A3020 /* SUETTERLIN-LICENSE.txt */; };
+		DF30D920B61D559EEF4900DD /* ClockColorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40790FCBA735D39CF62D9B0 /* ClockColorSettings.swift */; };
 		F1D6CC1546E5DF6DF64E48CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98A3AD09AD56C97B4C9F461 /* ContentView.swift */; };
+		F3C69CD01DC46D2D3F3F473A /* suetterlin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFA9188221D35BCD90D2A596 /* suetterlin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,21 +51,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		129EEE3077A91342A775EB99 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		131CB5AD86F29F4A1DA8D09A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1ED2B460AE0C2BAB62A93DDB /* ClockNumberWords.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockNumberWords.generated.swift; sourceTree = "<group>"; };
 		7662EAAAA45690A34ACA3139 /* unifrakturmaguntia.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = unifrakturmaguntia.ttf; sourceTree = "<group>"; };
-		76B543206C4054ED2646837F /* LangUndRundWatchCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LangUndRundWatchCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76B543206C4054ED2646837F /* LangUndRundWatchCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LangUndRundWatchCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		791359011EC918BC3A0A3020 /* SUETTERLIN-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SUETTERLIN-LICENSE.txt"; sourceTree = "<group>"; };
 		7AEF6BD98D4A0E47C009CE75 /* kurrent.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kurrent.ttf; sourceTree = "<group>"; };
-		A11CE0020000000000000002 /* suetterlin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = suetterlin.ttf; sourceTree = "<group>"; };
-		A11CE0040000000000000004 /* SUETTERLIN-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SUETTERLIN-LICENSE.txt; sourceTree = "<group>"; };
 		7DF4D7FC80AF2344B9D0FE2C /* LangUndRundWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LangUndRundWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		932D59EC461069C39146A71B /* WatchCompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCompanionApp.swift; sourceTree = "<group>"; };
 		9900EAA7FC6EF97CABD7484F /* FRAKTUR-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "FRAKTUR-LICENSE.txt"; sourceTree = "<group>"; };
 		A98A3AD09AD56C97B4C9F461 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B79C5A788BB5804E9A1EBAEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B84FA46D3FFFCF67745A29E3 /* WatchModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModels.swift; sourceTree = "<group>"; };
+		C40790FCBA735D39CF62D9B0 /* ClockColorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockColorSettings.swift; sourceTree = "<group>"; };
 		C461DCB2757FF6B16589408D /* watchWords.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = watchWords.json; sourceTree = "<group>"; };
 		D8AB5DC6347B0F6AAE35B9C0 /* LangUndRundWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangUndRundWatchApp.swift; sourceTree = "<group>"; };
 		EE6B8A3475CA7DA782B54060 /* KURRENT-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "KURRENT-LICENSE.txt"; sourceTree = "<group>"; };
+		EFA9188221D35BCD90D2A596 /* suetterlin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = suetterlin.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -79,6 +85,9 @@
 		506AD118BBF5BEF61C9C3949 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C40790FCBA735D39CF62D9B0 /* ClockColorSettings.swift */,
+				129EEE3077A91342A775EB99 /* ClockFaceView.swift */,
+				1ED2B460AE0C2BAB62A93DDB /* ClockNumberWords.generated.swift */,
 				A98A3AD09AD56C97B4C9F461 /* ContentView.swift */,
 				D8AB5DC6347B0F6AAE35B9C0 /* LangUndRundWatchApp.swift */,
 				B84FA46D3FFFCF67745A29E3 /* WatchModels.swift */,
@@ -110,9 +119,9 @@
 				B79C5A788BB5804E9A1EBAEB /* Assets.xcassets */,
 				9900EAA7FC6EF97CABD7484F /* FRAKTUR-LICENSE.txt */,
 				EE6B8A3475CA7DA782B54060 /* KURRENT-LICENSE.txt */,
-				A11CE0040000000000000004 /* SUETTERLIN-LICENSE.txt */,
 				7AEF6BD98D4A0E47C009CE75 /* kurrent.ttf */,
-				A11CE0020000000000000002 /* suetterlin.ttf */,
+				791359011EC918BC3A0A3020 /* SUETTERLIN-LICENSE.txt */,
+				EFA9188221D35BCD90D2A596 /* suetterlin.ttf */,
 				7662EAAAA45690A34ACA3139 /* unifrakturmaguntia.ttf */,
 				C461DCB2757FF6B16589408D /* watchWords.json */,
 			);
@@ -167,12 +176,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					43EA5573EACEDDCB7FAFF59C = {
-						ProvisioningStyle = Automatic;
-					};
-					BA20FBE41D9F6890975923F6 = {
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -205,9 +211,9 @@
 				4927A34455056E615D8EC9BB /* Assets.xcassets in Resources */,
 				7911F42FC0F2A5A5CD9EF9B4 /* FRAKTUR-LICENSE.txt in Resources */,
 				087924E50FE64A3F5ADF78D4 /* KURRENT-LICENSE.txt in Resources */,
-				A11CE0030000000000000003 /* SUETTERLIN-LICENSE.txt in Resources */,
+				C590140739A7F51F8A0139E4 /* SUETTERLIN-LICENSE.txt in Resources */,
 				1C3BA3353D29E74EA43313C4 /* kurrent.ttf in Resources */,
-				A11CE0010000000000000001 /* suetterlin.ttf in Resources */,
+				F3C69CD01DC46D2D3F3F473A /* suetterlin.ttf in Resources */,
 				BCF5561FBAE4C1A5B24D1FEC /* unifrakturmaguntia.ttf in Resources */,
 				6CBB94AC61F3B643CCAE3B39 /* watchWords.json in Resources */,
 			);
@@ -236,6 +242,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF30D920B61D559EEF4900DD /* ClockColorSettings.swift in Sources */,
+				3519143FFF907A1658E499AA /* ClockFaceView.swift in Sources */,
+				823437478584C1CD69261FF6 /* ClockNumberWords.generated.swift in Sources */,
 				F1D6CC1546E5DF6DF64E48CF /* ContentView.swift in Sources */,
 				34B8338DA5255437BD547D82 /* LangUndRundWatchApp.swift in Sources */,
 				21A4C0688105051F7B76A7FA /* WatchModels.swift in Sources */,
@@ -257,14 +266,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
-				INFOPLIST_KEY_CFBundleShortVersionString = 1.3.4;
-				INFOPLIST_KEY_CFBundleVersion = 134;
+				INFOPLIST_KEY_CFBundleShortVersionString = 1.6.0;
+				INFOPLIST_KEY_CFBundleVersion = 160;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.langundrund.watch;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.watch.watchkitapp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -275,14 +288,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
-				INFOPLIST_KEY_CFBundleShortVersionString = 1.3.4;
-				INFOPLIST_KEY_CFBundleVersion = 134;
+				INFOPLIST_KEY_CFBundleShortVersionString = 1.6.0;
+				INFOPLIST_KEY_CFBundleVersion = 160;
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.langundrund.watch;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.watch.watchkitapp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -325,7 +342,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 134;
+				CURRENT_PROJECT_VERSION = 160;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -340,10 +357,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.3.4;
+				MARKETING_VERSION = 1.6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -356,6 +374,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund Watch";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -408,7 +427,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 134;
+				CURRENT_PROJECT_VERSION = 160;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -429,11 +448,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.3.4;
+				MARKETING_VERSION = 1.6.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -446,6 +466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = L87AFF5UW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund Watch";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
