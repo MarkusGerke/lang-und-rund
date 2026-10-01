@@ -3,6 +3,7 @@ import { loadSettings, saveSettings } from '../shared/settings';
 import {
   MODE_DEFAULT_FONT_SIZE,
   parseLeading,
+  snapFontSize,
   type DisplayMode,
   type MeasureMode,
   type ThemeMode,
@@ -87,11 +88,18 @@ async function init(): Promise<void> {
       leading: parseLeading(leading.value),
       theme: theme.value as ThemeMode,
       fontSizes: {
-        antiqua: Number(sizeAntiqua.value) || MODE_DEFAULT_FONT_SIZE.antiqua,
-        fraktur: Number(sizeFraktur.value) || MODE_DEFAULT_FONT_SIZE.fraktur,
-        kurrent: Number(sizeKurrent.value) || MODE_DEFAULT_FONT_SIZE.kurrent,
-        suetterlin:
+        antiqua: snapFontSize(
+          Number(sizeAntiqua.value) || MODE_DEFAULT_FONT_SIZE.antiqua,
+        ),
+        fraktur: snapFontSize(
+          Number(sizeFraktur.value) || MODE_DEFAULT_FONT_SIZE.fraktur,
+        ),
+        kurrent: snapFontSize(
+          Number(sizeKurrent.value) || MODE_DEFAULT_FONT_SIZE.kurrent,
+        ),
+        suetterlin: snapFontSize(
           Number(sizeSuetterlin.value) || MODE_DEFAULT_FONT_SIZE.suetterlin,
+        ),
       },
       forceGerman:
         forceVal === 'yes' ? true : forceVal === 'no' ? false : null,

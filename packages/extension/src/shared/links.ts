@@ -3,7 +3,7 @@ export const BRAND_NAME = 'lang & rund';
 export const BRAND_NAME_SHORT = 'lang & rund';
 
 /** App-Version (mit Manifest abgleichen). */
-export const APP_VERSION = '1.17.3';
+export const APP_VERSION = '1.17.4';
 
 /**
  * Footer-Hinweis: Regelwerk ist heuristisch/KI-gestützt.
@@ -24,8 +24,10 @@ export const REPO_URL: string | null =
 
 export const REPO_ISSUES_URL = REPO_URL ? `${REPO_URL}/issues/new` : null;
 
-/** Fehlerberichte ohne GitHub-Konto. */
-export const FEEDBACK_EMAIL = 'fehler@langundrund.de';
+/** Öffentliche Kontaktadresse (Impressum, Fehler melden). */
+export const CONTACT_EMAIL = 'post@langundrund.de';
+
+export const FEEDBACK_EMAIL = CONTACT_EMAIL;
 
 /** Wort-Startseite (Extension; später auch Domain). */
 export const START_PAGE_PATH = 'start.html';

@@ -285,7 +285,6 @@ function renderAmbiguitySection(amb: AmbiguitySpan): string {
 export function renderDrawerBodyPrecise(
   ctx: DrawerWordContext,
   mode: DisplayMode,
-  options?: { drawerLiveCursor?: boolean; showLiveCursorToggle?: boolean },
 ): { html: string; hits: PitfallHit[]; report: ReportContext } {
   const hits = matchPitfalls(ctx.converted, mode);
   const convertedHighlights = allHighlightIndexes(hits);
@@ -302,20 +301,8 @@ export function renderDrawerBodyPrecise(
   const kurrentPreview = encodeForDisplay(ctx.converted, 'kurrent');
   const suetterlinPreview = encodeForDisplay(ctx.converted, 'suetterlin');
 
-  const liveOn = options?.drawerLiveCursor === true;
-  const liveToggle =
-    options?.showLiveCursorToggle === true
-      ? `<label class="drawer-follow-ctrl">` +
-        `<span class="drawer-follow-label">Livevorschau mittels Cursor</span>` +
-        `<button type="button" class="switch drawer-live-toggle" role="switch" ` +
-        `aria-checked="${liveOn ? 'true' : 'false'}" ` +
-        `title="${liveOn ? 'Drawer folgt dem Textcursor. Ausschalten: nur per Mausklick aufs Wort.' : 'Nur per Mausklick aufs Wort. Einschalten: Drawer folgt dem Textcursor.'}">` +
-        `<span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>` +
-        `</button></label>`
-      : '';
   const html =
     `<div class="drawer-word-block">` +
-    liveToggle +
     `<p class="drawer-kicker">In Antiqua</p>` +
     `<p class="drawer-modern">${renderHighlightedWord(modernAligned, modernHighlights)}</p>` +
     (showConverted
