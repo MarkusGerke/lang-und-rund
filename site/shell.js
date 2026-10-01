@@ -36,9 +36,10 @@
 
   var THEME_KEY = 'langs-landing-theme';
 
+  /** Apple-Logo (klassische Silhouette, fill via currentColor). */
   var APPLE_SVG =
-    '<svg class="apple-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">' +
-    '<path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.47-.12-1.08.507-2.25 1.23-3.04.856-.96 2.242-1.68 2.934-1.51zm2.403 15.73c-.612 1.32-1.35 2.58-2.43 2.61-1.03.04-1.35-.67-2.52-.67-1.19 0-1.55.65-2.51.69-1.01.05-1.78-1.08-2.39-2.4-1.3-2.79-1.29-6.05.57-7.75.8-.74 1.87-1.17 2.93-1.13 1.15.05 1.67.67 2.52.67.84 0 1.43-.68 2.55-.65 1.08.04 2.01.58 2.61 1.49-2.3 1.37-1.93 4.93.38 5.87-.47 1.22-.9 2.44-1.53 3.74z"/>' +
+    '<svg class="apple-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 814 1000" aria-hidden="true">' +
+    '<path fill="currentColor" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-163-39.5c-77.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.2 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.9 32.4-55.9 83.6-55.9 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 140.3-71.3z"/>' +
     '</svg>';
 
   function esc(s) {
@@ -52,6 +53,11 @@
   function editorHref() {
     if (location.protocol === 'file:') return 'editor/index.html';
     return SITE.editorHref;
+  }
+
+  function homeHref() {
+    if (location.protocol === 'file:') return 'index.html';
+    return './';
   }
 
   function pickTheme() {
@@ -138,24 +144,16 @@
     );
   }
 
-  function renderHeader(active) {
-    var ed = editorHref();
+  function renderHeader() {
     return (
       '<header class="landing-toolbar" role="banner">' +
-      '<a class="landing-brand" href="./">lang &amp; rund</a>' +
-      '<nav class="landing-nav" aria-label="Seitennavigation">' +
-      '<a href="' +
-      esc(ed) +
-      '"' +
-      (active === 'editor' ? ' class="is-active"' : '') +
-      '>Editor</a>' +
-      '<a href="impressum.html"' +
-      (active === 'impressum' ? ' class="is-active"' : '') +
-      '>Impressum</a>' +
-      '<a href="datenschutz.html"' +
-      (active === 'datenschutz' ? ' class="is-active"' : '') +
-      '>Datenschutz</a>' +
-      '</nav></header>'
+      '<a class="landing-logo-link" href="' +
+      esc(homeHref()) +
+      '" aria-label="' +
+      esc(SITE.brand) +
+      '">' +
+      '<span class="landing-toolbar-logo" role="img" aria-hidden="true"></span>' +
+      '</a></header>'
     );
   }
 
@@ -176,7 +174,7 @@
     return (
       '<span class="btn btn-store is-disabled" id="' +
       id +
-      '" title="Demnächst im App Store" aria-disabled="true">' +
+      '" title="Bald im App Store" aria-disabled="true">' +
       APPLE_SVG +
       '<span>' +
       esc(label) +
@@ -191,9 +189,8 @@
     applyTheme(root);
 
     var headerSlot = document.getElementById('landing-header');
-    var active = root.getAttribute('data-nav-active') || '';
     if (headerSlot) {
-      headerSlot.outerHTML = renderHeader(active);
+      headerSlot.outerHTML = renderHeader();
     }
 
     var footerSlot = document.getElementById('landing-footer');
@@ -204,8 +201,8 @@
     var cta = document.getElementById('landing-cta-row');
     if (cta) {
       cta.innerHTML =
-        storeButton('App Store', SITE.iosAppStoreUrl, 'store-ios') +
-        storeButton('Mac App Store', SITE.macAppStoreUrl, 'store-mac') +
+        storeButton('Bald im App Store', SITE.iosAppStoreUrl, 'store-ios') +
+        storeButton('Bald im Mac App Store', SITE.macAppStoreUrl, 'store-mac') +
         '<a class="btn btn-secondary" href="' +
         esc(editorHref()) +
         '">Im Browser öffnen</a>';
