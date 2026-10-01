@@ -152,7 +152,8 @@ function convertWordCore(
       continue;
     }
 
-    if (isLast) {
+    // Wortfinal rund — außer alleinstehendes s (Wortanfang / noch tippend nach Leerzeichen)
+    if (isLast && chars.length > 1) {
       result += toRoundS(isUpper);
     } else {
       result += toLongS(isUpper);

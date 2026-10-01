@@ -20,6 +20,12 @@ describe('convertLongS', () => {
       expect(result.output).toBe('ſein');
     });
 
+    it('setzt alleinstehendes s nach Leerzeichen lang (Wortanfang, nicht Schluss-s)', () => {
+      expect(convertLongS('s').output).toBe('ſ');
+      expect(convertLongS(' s').output).toBe(' ſ');
+      expect(convertLongS('Haus s').output).toBe('Haus ſ');
+    });
+
     it('wandelt mittleres s in ſ um', () => {
       const result = convertLongS('Wasser');
       expect(result.output).toBe('Waſser');

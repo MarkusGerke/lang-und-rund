@@ -3,7 +3,7 @@ export const BRAND_NAME = 'lang & rund';
 export const BRAND_NAME_SHORT = 'lang & rund';
 
 /** App-Version (mit Manifest abgleichen). */
-export const APP_VERSION = '1.17.2';
+export const APP_VERSION = '1.17.3';
 
 /**
  * Footer-Hinweis: Regelwerk ist heuristisch/KI-gestützt.
