@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impressum · lang &amp; rund</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f4ef;
+        --text: #1c1917;
+        --muted: #57534e;
+        --accent: #9a3412;
+        --border: #d6d3d1;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+      }
+      .site-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem 1rem;
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        background: #fffdf9;
+      }
+      .site-brand {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .site-brand:hover {
+        color: var(--accent);
+      }
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        font-size: 0.9rem;
+      }
+      .site-nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .site-nav a:hover {
+        text-decoration: underline;
+      }
+      main {
+        max-width: 36rem;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 3rem;
+      }
+      h1 {
+        font-size: 1.35rem;
+        margin: 0 0 1rem;
+      }
+      h2 {
+        font-size: 1rem;
+        margin: 1.5rem 0 0.4rem;
+      }
+      p,
+      address {
+        margin: 0 0 0.75rem;
+        font-style: normal;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      a {
+        color: var(--accent);
+      }
+      ul.muted {
+        padding-left: 1.2rem;
+        margin: 0 0 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-brand" id="home-link" href="/">lang &amp; rund</a>
+      <nav class="site-nav" aria-label="Seitennavigation">
+        <a id="editor-link" href="/editor/">Editor</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Impressum</h1>
+      <p class="muted">
+        Angaben gemäß §&nbsp;5 DDG für die Website langundrund.de sowie die Apps und
+        Browser-Erweiterungen „lang &amp; rund“.
+      </p>
+
+      <h2>Anbieter</h2>
+      <address>
+        Markus Gerke<br />
+        c/o POSTFLEX PFX-447-312<br />
+        Emsdettener Straße 10<br />
+        48268 Greven<br />
+        Deutschland
+      </address>
+
+      <p>
+        <a href="datenschutz.html">Datenschutzerklärung</a>
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Fehler und Hinweise:
+        <a href="mailto:fehler@langundrund.de">fehler@langundrund.de</a>
+      </p>
+      <p>
+        X:
+        <a href="https://x.com/MarkusGerke" target="_blank" rel="noopener">@MarkusGerke</a>
+      </p>
+      <p>
+        Quellcode:
+        <a href="https://github.com/MarkusGerke/lang-und-rund" target="_blank" rel="noopener"
+          >github.com/MarkusGerke/lang-und-rund</a
+        >
+      </p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p class="muted">
+        Die Konvertierung historischer Schreibungen und die Lernhinweise erfolgen nach bestem
+        Wissen, können aber unvollständig oder fehlerhaft sein. Eine Gewähr für Richtigkeit wird
+        nicht übernommen.
+      </p>
+
+      <h2>Drittanbieter / Lizenzen</h2>
+      <p class="muted">
+        Fraktur-, Kurrent- und Sütterlin-Schriften werden lokal mit der Erweiterung ausgeliefert und nicht
+        von externen Servern (z.&nbsp;B. Google Fonts) geladen.
+      </p>
+      <ul class="muted">
+        <li>
+          <strong>UnifrakturMaguntia</strong> — SIL Open Font License 1.1
+          (<a
+            href="https://github.com/MarkusGerke/lang-und-rund/blob/main/packages/extension/public/fonts/FRAKTUR-LICENSE.txt"
+            target="_blank"
+            rel="noopener"
+            >Lizenztext</a
+          >)
+        </li>
+        <li>
+          <strong>Deutsche Kurrent</strong> (Hans J. Zinken) — Freeware
+          (<a
+            href="https://github.com/MarkusGerke/lang-und-rund/blob/main/packages/extension/public/fonts/KURRENT-LICENSE.txt"
+            target="_blank"
+            rel="noopener"
+            >Hinweis</a
+          >,
+          <a href="https://zinken.net/Fonts/Kurrent.html" target="_blank" rel="noopener">zinken.net</a>)
+        </li>
+        <li>
+          <strong>Sütterlin / Deutsche Ausgangsschrift 1911</strong> (Hans J. Zinken) — Freeware
+          (<a
+            href="https://github.com/MarkusGerke/lang-und-rund/blob/main/packages/extension/public/fonts/SUETTERLIN-LICENSE.txt"
+            target="_blank"
+            rel="noopener"
+            >Hinweis</a
+          >,
+          <a href="https://zinken.net/Fonts/Suetterlin.html" target="_blank" rel="noopener">zinken.net</a>)
+        </li>
+        <li>
+          <strong>Mozilla Readability</strong> — Apache License 2.0
+          (<a
+            href="https://github.com/MarkusGerke/lang-und-rund/blob/main/packages/extension/public/READABILITY-LICENSE.md"
+            target="_blank"
+            rel="noopener"
+            >Lizenztext</a
+          >)
+        </li>
+        <li><strong>Eigener Code</strong> — MIT (Repository)</li>
+      </ul>
+    </main>
+    <script>
+      (function () {
+        var home = document.getElementById('home-link');
+        var editor = document.getElementById('editor-link');
+        if (!home) return;
+        var proto = location.protocol;
+        if (proto === 'http:' || proto === 'https:') {
+          home.href = '/';
+          if (editor) editor.href = '/editor/';
+          return;
+        }
+        if (proto === 'file:') {
+          home.href = 'Base.lproj/Main.html';
+          if (editor) editor.href = 'Base.lproj/Main.html';
+          return;
+        }
+        try {
+          home.href = chrome.runtime.getURL('start.html');
+        } catch (e) {
+          home.href = 'start.html';
+        }
+        if (editor) editor.hidden = true;
+      })();
+    </script>
+  </body>
+</html>

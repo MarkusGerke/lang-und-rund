@@ -1,0 +1,1019 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1D5E0023067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0013067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0033067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0013067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0123067AACF003717F1 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0113067AACF003717F1 /* impressum.html */; };
+		A1D5E0133067AACF003717F1 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0113067AACF003717F1 /* impressum.html */; };
+		A1D5E0153067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0143067AACF003717F1 /* datenschutz.html */; };
+		A1D5E0163067AACF003717F1 /* datenschutz.html in Resources */ = {isa = PBXBuildFile; fileRef = A1D5E0143067AACF003717F1 /* datenschutz.html */; };
+		C9B7D57D3067AACF003717F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D57C3067AACF003717F6 /* AppDelegate.swift */; };
+		C9B7D57F3067AACF003717F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D57E3067AACF003717F6 /* SceneDelegate.swift */; };
+		C9B7D5823067AACF003717F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5803067AACF003717F6 /* LaunchScreen.storyboard */; };
+		C9B7D5853067AACF003717F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5833067AACF003717F6 /* Main.storyboard */; };
+		C9B7D58E3067AACF003717F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D58D3067AACF003717F6 /* AppDelegate.swift */; };
+		C9B7D5913067AACF003717F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D58F3067AACF003717F6 /* Main.storyboard */; };
+		C9B7D5983067AACF003717F6 /* LangUndRund Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C9B7D5973067AACF003717F6 /* LangUndRund Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C9B7D5A23067AACF003717F6 /* LangUndRund Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C9B7D5A13067AACF003717F6 /* LangUndRund Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C9B7D5A73067AACF003717F6 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D56C3067AACE003717F6 /* Main.html */; };
+		C9B7D5A83067AACF003717F6 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D56C3067AACE003717F6 /* Main.html */; };
+		C9B7D5A93067AACF003717F6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D56E3067AACE003717F6 /* Icon.png */; };
+		C9B7D5AA3067AACF003717F6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D56E3067AACE003717F6 /* Icon.png */; };
+		C9B7D5AB3067AACF003717F6 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D56F3067AACE003717F6 /* Style.css */; };
+		C9B7D5AC3067AACF003717F6 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D56F3067AACE003717F6 /* Style.css */; };
+		C9B7D5AD3067AACF003717F6 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5703067AACE003717F6 /* Script.js */; };
+		C9B7D5AE3067AACF003717F6 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5703067AACE003717F6 /* Script.js */; };
+		C9B7D5AF3067AACF003717F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D5713067AACE003717F6 /* ViewController.swift */; };
+		C9B7D5B03067AACF003717F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D5713067AACE003717F6 /* ViewController.swift */; };
+		C9B7D5B13067AACF003717F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5723067AACF003717F6 /* Assets.xcassets */; };
+		C9B7D5B23067AACF003717F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5723067AACF003717F6 /* Assets.xcassets */; };
+		C9B7D5B33067AACF003717F6 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D5743067AACF003717F6 /* SafariWebExtensionHandler.swift */; };
+		C9B7D5B43067AACF003717F6 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B7D5743067AACF003717F6 /* SafariWebExtensionHandler.swift */; };
+		C9B7D5D33067AACF003717F6 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C63067AACF003717F6 /* background.js */; };
+		C9B7D5D43067AACF003717F6 /* READABILITY-LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C73067AACF003717F6 /* READABILITY-LICENSE.md */; };
+		C9B7D5D53067AACF003717F6 /* start.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C83067AACF003717F6 /* start.html */; };
+		C9B7D5D63067AACF003717F6 /* reader.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C93067AACF003717F6 /* reader.html */; };
+		C9B7D5D73067AACF003717F6 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CB3067AACF003717F6 /* icons */; };
+		C9B7D5D83067AACF003717F6 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CC3067AACF003717F6 /* manifest.json */; };
+		C9B7D5D93067AACF003717F6 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CD3067AACF003717F6 /* impressum.html */; };
+		C9B7D5DA3067AACF003717F6 /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CE3067AACF003717F6 /* options.html */; };
+		C9B7D5DB3067AACF003717F6 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CF3067AACF003717F6 /* content.js */; };
+		C9B7D5DC3067AACF003717F6 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5D13067AACF003717F6 /* fonts */; };
+		C9B7D5DD3067AACF003717F6 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5D23067AACF003717F6 /* assets */; };
+		C9B7D5DE3067AACF003717F6 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C63067AACF003717F6 /* background.js */; };
+		C9B7D5DF3067AACF003717F6 /* READABILITY-LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C73067AACF003717F6 /* READABILITY-LICENSE.md */; };
+		C9B7D5E03067AACF003717F6 /* start.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C83067AACF003717F6 /* start.html */; };
+		C9B7D5E13067AACF003717F6 /* reader.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5C93067AACF003717F6 /* reader.html */; };
+		C9B7D5E23067AACF003717F6 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CB3067AACF003717F6 /* icons */; };
+		C9B7D5E33067AACF003717F6 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CC3067AACF003717F6 /* manifest.json */; };
+		C9B7D5E43067AACF003717F6 /* impressum.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CD3067AACF003717F6 /* impressum.html */; };
+		C9B7D5E53067AACF003717F6 /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CE3067AACF003717F6 /* options.html */; };
+		C9B7D5E63067AACF003717F6 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5CF3067AACF003717F6 /* content.js */; };
+		C9B7D5E73067AACF003717F6 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5D13067AACF003717F6 /* fonts */; };
+		C9B7D5E83067AACF003717F6 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C9B7D5D23067AACF003717F6 /* assets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9B7D5993067AACF003717F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9B7D5663067AACE003717F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9B7D5963067AACF003717F6;
+			remoteInfo = "LangUndRund Extension (iOS)";
+		};
+		C9B7D5A33067AACF003717F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9B7D5663067AACE003717F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9B7D5A03067AACF003717F6;
+			remoteInfo = "LangUndRund Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C9B7D5BA3067AACF003717F6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				C9B7D5983067AACF003717F6 /* LangUndRund Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+		C9B7D5C13067AACF003717F6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				C9B7D5A23067AACF003717F6 /* LangUndRund Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1D5E0013067AACF003717F1 /* datenschutz.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = datenschutz.html; path = Resources/datenschutz.html; sourceTree = "<group>"; };
+		A1D5E0113067AACF003717F1 /* impressum.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = impressum.html; sourceTree = "<group>"; };
+		A1D5E0143067AACF003717F1 /* datenschutz.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = datenschutz.html; sourceTree = "<group>"; };
+		C9B7D56D3067AACE003717F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		C9B7D56E3067AACE003717F6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		C9B7D56F3067AACE003717F6 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		C9B7D5703067AACE003717F6 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		C9B7D5713067AACE003717F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C9B7D5723067AACF003717F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9B7D5743067AACF003717F6 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		C9B7D5793067AACF003717F6 /* LangUndRund.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LangUndRund.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B7D57C3067AACF003717F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C9B7D57E3067AACF003717F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C9B7D5813067AACF003717F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C9B7D5843067AACF003717F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C9B7D5863067AACF003717F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B7D58B3067AACF003717F6 /* LangUndRund.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LangUndRund.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B7D58D3067AACF003717F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C9B7D5903067AACF003717F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C9B7D5923067AACF003717F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B7D5973067AACF003717F6 /* LangUndRund Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "LangUndRund Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B7D59C3067AACF003717F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B7D5A13067AACF003717F6 /* LangUndRund Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "LangUndRund Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B7D5A63067AACF003717F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B7D5C63067AACF003717F6 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = Resources/background.js; sourceTree = "<group>"; };
+		C9B7D5C73067AACF003717F6 /* READABILITY-LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "READABILITY-LICENSE.md"; path = "Resources/READABILITY-LICENSE.md"; sourceTree = "<group>"; };
+		C9B7D5C83067AACF003717F6 /* start.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = start.html; path = Resources/start.html; sourceTree = "<group>"; };
+		C9B7D5C93067AACF003717F6 /* reader.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = reader.html; path = Resources/reader.html; sourceTree = "<group>"; };
+		C9B7D5CA3067AACF003717F6 /* content.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = content.js.map; path = Resources/content.js.map; sourceTree = "<group>"; };
+		C9B7D5CB3067AACF003717F6 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = Resources/icons; sourceTree = "<group>"; };
+		C9B7D5CC3067AACF003717F6 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
+		C9B7D5CD3067AACF003717F6 /* impressum.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = impressum.html; path = Resources/impressum.html; sourceTree = "<group>"; };
+		C9B7D5CE3067AACF003717F6 /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = Resources/options.html; sourceTree = "<group>"; };
+		C9B7D5CF3067AACF003717F6 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = Resources/content.js; sourceTree = "<group>"; };
+		C9B7D5D03067AACF003717F6 /* background.js.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = background.js.map; path = Resources/background.js.map; sourceTree = "<group>"; };
+		C9B7D5D13067AACF003717F6 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = Resources/fonts; sourceTree = "<group>"; };
+		C9B7D5D23067AACF003717F6 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = Resources/assets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9B7D5763067AACF003717F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		C9B7D5883067AACF003717F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		C9B7D5943067AACF003717F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		C9B7D59E3067AACF003717F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9B7D5653067AACE003717F6 = {
+			isa = PBXGroup;
+			children = (
+				C9B7D56A3067AACE003717F6 /* Shared (App) */,
+				C9B7D5733067AACF003717F6 /* Shared (Extension) */,
+				C9B7D57B3067AACF003717F6 /* iOS (App) */,
+				C9B7D58C3067AACF003717F6 /* macOS (App) */,
+				C9B7D59B3067AACF003717F6 /* iOS (Extension) */,
+				C9B7D5A53067AACF003717F6 /* macOS (Extension) */,
+				C9B7D57A3067AACF003717F6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9B7D56A3067AACE003717F6 /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D5713067AACE003717F6 /* ViewController.swift */,
+				C9B7D5723067AACF003717F6 /* Assets.xcassets */,
+				C9B7D56B3067AACE003717F6 /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		C9B7D56B3067AACE003717F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D56C3067AACE003717F6 /* Main.html */,
+				A1D5E0113067AACF003717F1 /* impressum.html */,
+				A1D5E0143067AACF003717F1 /* datenschutz.html */,
+				C9B7D56E3067AACE003717F6 /* Icon.png */,
+				C9B7D56F3067AACE003717F6 /* Style.css */,
+				C9B7D5703067AACE003717F6 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C9B7D5733067AACF003717F6 /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D5C53067AACF003717F6 /* Resources */,
+				C9B7D5743067AACF003717F6 /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		C9B7D57A3067AACF003717F6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D5793067AACF003717F6 /* LangUndRund.app */,
+				C9B7D58B3067AACF003717F6 /* LangUndRund.app */,
+				C9B7D5973067AACF003717F6 /* LangUndRund Extension.appex */,
+				C9B7D5A13067AACF003717F6 /* LangUndRund Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9B7D57B3067AACF003717F6 /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D57C3067AACF003717F6 /* AppDelegate.swift */,
+				C9B7D57E3067AACF003717F6 /* SceneDelegate.swift */,
+				C9B7D5803067AACF003717F6 /* LaunchScreen.storyboard */,
+				C9B7D5833067AACF003717F6 /* Main.storyboard */,
+				C9B7D5863067AACF003717F6 /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		C9B7D58C3067AACF003717F6 /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D58D3067AACF003717F6 /* AppDelegate.swift */,
+				C9B7D58F3067AACF003717F6 /* Main.storyboard */,
+				C9B7D5923067AACF003717F6 /* Info.plist */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		C9B7D59B3067AACF003717F6 /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D59C3067AACF003717F6 /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		C9B7D5A53067AACF003717F6 /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D5A63067AACF003717F6 /* Info.plist */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		C9B7D5C53067AACF003717F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C9B7D5C63067AACF003717F6 /* background.js */,
+				C9B7D5C73067AACF003717F6 /* READABILITY-LICENSE.md */,
+				C9B7D5C83067AACF003717F6 /* start.html */,
+				C9B7D5C93067AACF003717F6 /* reader.html */,
+				C9B7D5CA3067AACF003717F6 /* content.js.map */,
+				C9B7D5CB3067AACF003717F6 /* icons */,
+				C9B7D5CC3067AACF003717F6 /* manifest.json */,
+				C9B7D5CD3067AACF003717F6 /* impressum.html */,
+				A1D5E0013067AACF003717F1 /* datenschutz.html */,
+				C9B7D5CE3067AACF003717F6 /* options.html */,
+				C9B7D5CF3067AACF003717F6 /* content.js */,
+				C9B7D5D03067AACF003717F6 /* background.js.map */,
+				C9B7D5D13067AACF003717F6 /* fonts */,
+				C9B7D5D23067AACF003717F6 /* assets */,
+			);
+			name = Resources;
+			path = "Shared (Extension)";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9B7D5783067AACF003717F6 /* LangUndRund (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B7D5BB3067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund (iOS)" */;
+			buildPhases = (
+				C9B7D5753067AACF003717F6 /* Sources */,
+				C9B7D5763067AACF003717F6 /* Frameworks */,
+				C9B7D5773067AACF003717F6 /* Resources */,
+				C9B7D5BA3067AACF003717F6 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9B7D59A3067AACF003717F6 /* PBXTargetDependency */,
+			);
+			name = "LangUndRund (iOS)";
+			productName = "LangUndRund (iOS)";
+			productReference = C9B7D5793067AACF003717F6 /* LangUndRund.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9B7D58A3067AACF003717F6 /* LangUndRund (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B7D5C23067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund (macOS)" */;
+			buildPhases = (
+				C9B7D5873067AACF003717F6 /* Sources */,
+				C9B7D5883067AACF003717F6 /* Frameworks */,
+				C9B7D5893067AACF003717F6 /* Resources */,
+				C9B7D5C13067AACF003717F6 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9B7D5A43067AACF003717F6 /* PBXTargetDependency */,
+			);
+			name = "LangUndRund (macOS)";
+			productName = "LangUndRund (macOS)";
+			productReference = C9B7D58B3067AACF003717F6 /* LangUndRund.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9B7D5963067AACF003717F6 /* LangUndRund Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B7D5B73067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund Extension (iOS)" */;
+			buildPhases = (
+				C9B7D5933067AACF003717F6 /* Sources */,
+				C9B7D5943067AACF003717F6 /* Frameworks */,
+				C9B7D5953067AACF003717F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "LangUndRund Extension (iOS)";
+			productName = "LangUndRund Extension (iOS)";
+			productReference = C9B7D5973067AACF003717F6 /* LangUndRund Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		C9B7D5A03067AACF003717F6 /* LangUndRund Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B7D5BE3067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund Extension (macOS)" */;
+			buildPhases = (
+				C9B7D59D3067AACF003717F6 /* Sources */,
+				C9B7D59E3067AACF003717F6 /* Frameworks */,
+				C9B7D59F3067AACF003717F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "LangUndRund Extension (macOS)";
+			productName = "LangUndRund Extension (macOS)";
+			productReference = C9B7D5A13067AACF003717F6 /* LangUndRund Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9B7D5663067AACE003717F6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					C9B7D5783067AACF003717F6 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					C9B7D58A3067AACF003717F6 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					C9B7D5963067AACF003717F6 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					C9B7D5A03067AACF003717F6 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = C9B7D5693067AACE003717F6 /* Build configuration list for PBXProject "LangUndRund" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C9B7D5653067AACE003717F6;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C9B7D57A3067AACF003717F6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9B7D5783067AACF003717F6 /* LangUndRund (iOS) */,
+				C9B7D58A3067AACF003717F6 /* LangUndRund (macOS) */,
+				C9B7D5963067AACF003717F6 /* LangUndRund Extension (iOS) */,
+				C9B7D5A03067AACF003717F6 /* LangUndRund Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9B7D5773067AACF003717F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C9B7D5A93067AACF003717F6 /* Icon.png in Resources */,
+				C9B7D5823067AACF003717F6 /* LaunchScreen.storyboard in Resources */,
+				C9B7D5A73067AACF003717F6 /* Main.html in Resources */,
+				A1D5E0123067AACF003717F1 /* impressum.html in Resources */,
+				A1D5E0153067AACF003717F1 /* datenschutz.html in Resources */,
+				C9B7D5AD3067AACF003717F6 /* Script.js in Resources */,
+				C9B7D5B13067AACF003717F6 /* Assets.xcassets in Resources */,
+				C9B7D5853067AACF003717F6 /* Main.storyboard in Resources */,
+				C9B7D5AB3067AACF003717F6 /* Style.css in Resources */,
+			);
+		};
+		C9B7D5893067AACF003717F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C9B7D5AA3067AACF003717F6 /* Icon.png in Resources */,
+				C9B7D5AC3067AACF003717F6 /* Style.css in Resources */,
+				C9B7D5913067AACF003717F6 /* Main.storyboard in Resources */,
+				C9B7D5AE3067AACF003717F6 /* Script.js in Resources */,
+				C9B7D5B23067AACF003717F6 /* Assets.xcassets in Resources */,
+				C9B7D5A83067AACF003717F6 /* Main.html in Resources */,
+				A1D5E0133067AACF003717F1 /* impressum.html in Resources */,
+				A1D5E0163067AACF003717F1 /* datenschutz.html in Resources */,
+			);
+		};
+		C9B7D5953067AACF003717F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C9B7D5DE3067AACF003717F6 /* background.js in Resources */,
+				C9B7D5E73067AACF003717F6 /* fonts in Resources */,
+				C9B7D5E43067AACF003717F6 /* impressum.html in Resources */,
+				A1D5E0033067AACF003717F1 /* datenschutz.html in Resources */,
+				C9B7D5E13067AACF003717F6 /* reader.html in Resources */,
+				C9B7D5E53067AACF003717F6 /* options.html in Resources */,
+				C9B7D5E03067AACF003717F6 /* start.html in Resources */,
+				C9B7D5E23067AACF003717F6 /* icons in Resources */,
+				C9B7D5E63067AACF003717F6 /* content.js in Resources */,
+				C9B7D5E33067AACF003717F6 /* manifest.json in Resources */,
+				C9B7D5DF3067AACF003717F6 /* READABILITY-LICENSE.md in Resources */,
+				C9B7D5E83067AACF003717F6 /* assets in Resources */,
+			);
+		};
+		C9B7D59F3067AACF003717F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				C9B7D5D33067AACF003717F6 /* background.js in Resources */,
+				C9B7D5DC3067AACF003717F6 /* fonts in Resources */,
+				C9B7D5D93067AACF003717F6 /* impressum.html in Resources */,
+				A1D5E0023067AACF003717F1 /* datenschutz.html in Resources */,
+				C9B7D5D63067AACF003717F6 /* reader.html in Resources */,
+				C9B7D5DA3067AACF003717F6 /* options.html in Resources */,
+				C9B7D5D53067AACF003717F6 /* start.html in Resources */,
+				C9B7D5D73067AACF003717F6 /* icons in Resources */,
+				C9B7D5DB3067AACF003717F6 /* content.js in Resources */,
+				C9B7D5D83067AACF003717F6 /* manifest.json in Resources */,
+				C9B7D5D43067AACF003717F6 /* READABILITY-LICENSE.md in Resources */,
+				C9B7D5DD3067AACF003717F6 /* assets in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9B7D5753067AACF003717F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				C9B7D5AF3067AACF003717F6 /* ViewController.swift in Sources */,
+				C9B7D57D3067AACF003717F6 /* AppDelegate.swift in Sources */,
+				C9B7D57F3067AACF003717F6 /* SceneDelegate.swift in Sources */,
+			);
+		};
+		C9B7D5873067AACF003717F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				C9B7D5B03067AACF003717F6 /* ViewController.swift in Sources */,
+				C9B7D58E3067AACF003717F6 /* AppDelegate.swift in Sources */,
+			);
+		};
+		C9B7D5933067AACF003717F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				C9B7D5B33067AACF003717F6 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+		C9B7D59D3067AACF003717F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				C9B7D5B43067AACF003717F6 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9B7D59A3067AACF003717F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9B7D5963067AACF003717F6 /* LangUndRund Extension (iOS) */;
+			targetProxy = C9B7D5993067AACF003717F6 /* PBXContainerItemProxy */;
+		};
+		C9B7D5A43067AACF003717F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9B7D5A03067AACF003717F6 /* LangUndRund Extension (macOS) */;
+			targetProxy = C9B7D5A33067AACF003717F6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C9B7D56C3067AACE003717F6 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9B7D56D3067AACE003717F6 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		C9B7D5803067AACF003717F6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9B7D5813067AACF003717F6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C9B7D5833067AACF003717F6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9B7D5843067AACF003717F6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C9B7D58F3067AACF003717F6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9B7D5903067AACF003717F6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9B7D5B53067AACF003717F6 /* Debug configuration for PBXProject "LangUndRund" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C9B7D5B63067AACF003717F6 /* Release configuration for PBXProject "LangUndRund" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		C9B7D5B83067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund Extension (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app.Extension;
+				PRODUCT_NAME = "LangUndRund Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9B7D5B93067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund Extension (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app.Extension;
+				PRODUCT_NAME = "LangUndRund Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9B7D5BC3067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app;
+				PRODUCT_NAME = LangUndRund;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9B7D5BD3067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app;
+				PRODUCT_NAME = LangUndRund;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9B7D5BF3067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund Extension (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app.Extension;
+				PRODUCT_NAME = "LangUndRund Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C9B7D5C03067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund Extension (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app.Extension;
+				PRODUCT_NAME = "LangUndRund Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C9B7D5C33067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app;
+				PRODUCT_NAME = LangUndRund;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C9B7D5C43067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 183;
+				DEVELOPMENT_TEAM = L87AFF5UW2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "lang & rund";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.8;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.langundrund.app;
+				PRODUCT_NAME = LangUndRund;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9B7D5693067AACE003717F6 /* Build configuration list for PBXProject "LangUndRund" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B7D5B53067AACF003717F6 /* Debug configuration for PBXProject "LangUndRund" */,
+				C9B7D5B63067AACF003717F6 /* Release configuration for PBXProject "LangUndRund" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		C9B7D5B73067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B7D5B83067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund Extension (iOS)" */,
+				C9B7D5B93067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund Extension (iOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		C9B7D5BB3067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B7D5BC3067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund (iOS)" */,
+				C9B7D5BD3067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund (iOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		C9B7D5BE3067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B7D5BF3067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund Extension (macOS)" */,
+				C9B7D5C03067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund Extension (macOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		C9B7D5C23067AACF003717F6 /* Build configuration list for PBXNativeTarget "LangUndRund (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B7D5C33067AACF003717F6 /* Debug configuration for PBXNativeTarget "LangUndRund (macOS)" */,
+				C9B7D5C43067AACF003717F6 /* Release configuration for PBXNativeTarget "LangUndRund (macOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9B7D5663067AACE003717F6 /* Project object */;
+	validationLevel = 1;
+}
