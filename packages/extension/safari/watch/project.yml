@@ -8,8 +8,8 @@ options:
   defaultConfig: Debug
 settings:
   base:
-    MARKETING_VERSION: "1.3.4"
-    CURRENT_PROJECT_VERSION: "134"
+    MARKETING_VERSION: "1.6.0"
+    CURRENT_PROJECT_VERSION: "160"
     SWIFT_VERSION: "5.0"
     CODE_SIGN_STYLE: Automatic
     ENABLE_USER_SCRIPT_SANDBOXING: YES
@@ -54,8 +54,8 @@ targets:
         INFOPLIST_FILE: Resources/Info.plist
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: "lang & rund"
-        INFOPLIST_KEY_CFBundleShortVersionString: "1.3.4"
-        INFOPLIST_KEY_CFBundleVersion: "134"
+        INFOPLIST_KEY_CFBundleShortVersionString: "1.6.0"
+        INFOPLIST_KEY_CFBundleVersion: "160"
         INFOPLIST_KEY_WKCompanionAppBundleIdentifier: de.langundrund.watch
         INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

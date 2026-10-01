@@ -8,5 +8,6 @@ dist-ssr
 coverage
 .cursor
 packages/extension/.output
+packages/extension/.cache
 packages/extension/dist-chrome
 packages/extension/dist-firefox

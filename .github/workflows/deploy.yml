@@ -1,0 +1,76 @@
+name: Deploy Host-App to All-Inkl
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Host-App (Web)
+        run: pnpm --filter @langs/extension run build:app
+
+      - name: Trim web bundle for FTP
+        run: |
+          rm -rf packages/extension/dist-app/fonts packages/extension/dist-app/icons
+          rm -f packages/extension/dist-app/READABILITY-LICENSE.md
+
+      - name: Deploy editor via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./packages/extension/dist-app/
+          server-dir: ./editor/
+          timeout: 600000
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/Base.lproj/**
+
+      - name: Assemble landing page
+        run: |
+          rm -rf site-dist
+          mkdir -p site-dist/fonts
+          cp site/index.html site-dist/index.html
+          cp site/fonts/unifrakturmaguntia.ttf site-dist/fonts/
+          cp site/fonts/FRAKTUR-LICENSE.txt site-dist/fonts/
+          cp packages/extension/impressum.html site-dist/impressum.html
+          cp packages/extension/datenschutz.html site-dist/datenschutz.html
+
+      - name: Deploy landing page via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./site-dist/
+          server-dir: ./
+          timeout: 600000
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**

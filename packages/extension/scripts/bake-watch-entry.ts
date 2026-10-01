@@ -1,0 +1,230 @@
+/**
+ * Entry fürs Watch-Daten-Backen (wird von bake-watch-data.mjs per esbuild gebündelt).
+ */
+import { writeFileSync, mkdirSync, copyFileSync, existsSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { convertLongS } from '@langs/core';
+import { matchPitfalls, pitfallCopy } from '../src/learning/matchPitfalls';
+import startWordsData from '../src/learning/startWords.json';
+import { encodeForDisplay } from '../src/reader/kurrentEncode';
+import type { DisplayMode } from '../src/shared/types';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const EXT_DIR = join(__dirname, '..');
+const OUT_DIR = join(EXT_DIR, 'safari/watch/Resources');
+const OUT_JSON = join(OUT_DIR, 'watchWords.json');
+const FONT_SRC = join(EXT_DIR, 'public/fonts');
+
+interface StartWord {
+  modern: string;
+  pitfallIds: string[];
+  preferredMode: DisplayMode;
+}
+
+type ScriptMode = 'fraktur' | 'kurrent' | 'suetterlin';
+
+interface WatchTip {
+  id: string;
+  title: string;
+  confusion: string;
+  glyphs: string[];
+}
+
+interface WatchWordMode {
+  word: string;
+  tips: WatchTip[];
+}
+
+interface WatchWord {
+  modern: string;
+  fraktur: WatchWordMode;
+  kurrent: WatchWordMode;
+  suetterlin: WatchWordMode;
+}
+
+function tipsFor(
+  modern: string,
+  converted: string,
+  mode: ScriptMode,
+): WatchTip[] {
+  const hits = matchPitfalls(converted, mode);
+  const preferred = new Set(
+    (startWordsData.words as StartWord[]).find((w) => w.modern === modern)
+      ?.pitfallIds ?? [],
+  );
+  const ordered = [
+    ...hits.filter((h) => preferred.has(h.pitfall.id)),
+    ...hits.filter((h) => !preferred.has(h.pitfall.id)),
+  ];
+  return ordered
+    .filter((h) => h.pitfall.modes.includes(mode))
+    .map((h) => ({
+      id: h.pitfall.id,
+      title: h.pitfall.title,
+      confusion: pitfallCopy(h.pitfall, mode).confusion,
+      glyphs: h.pitfall.glyphs.map((g) => encodeForDisplay(g, mode)),
+    }));
+}
+
+function bakeWord(row: StartWord): WatchWord {
+  const converted = convertLongS(row.modern).output;
+  return {
+    modern: row.modern,
+    fraktur: {
+      word: converted,
+      tips: tipsFor(row.modern, converted, 'fraktur'),
+    },
+    kurrent: {
+      word: encodeForDisplay(converted, 'kurrent'),
+      tips: tipsFor(row.modern, converted, 'kurrent'),
+    },
+    suetterlin: {
+      word: encodeForDisplay(converted, 'suetterlin'),
+      tips: tipsFor(row.modern, converted, 'suetterlin'),
+    },
+  };
+}
+
+mkdirSync(OUT_DIR, { recursive: true });
+
+const words = (startWordsData.words as StartWord[]).map(bakeWord);
+const payload = {
+  version: 1,
+  generatedAt: new Date().toISOString(),
+  words,
+};
+
+writeFileSync(OUT_JSON, JSON.stringify(payload, null, 2) + '\n', 'utf8');
+
+for (const font of ['unifrakturmaguntia.ttf', 'kurrent.ttf', 'suetterlin.ttf']) {
+  const src = join(FONT_SRC, font);
+  if (existsSync(src)) copyFileSync(src, join(OUT_DIR, font));
+}
+
+for (const lic of [
+  'FRAKTUR-LICENSE.txt',
+  'KURRENT-LICENSE.txt',
+  'SUETTERLIN-LICENSE.txt',
+]) {
+  const src = join(FONT_SRC, lic);
+  if (existsSync(src)) copyFileSync(src, join(OUT_DIR, lic));
+}
+
+console.log(
+  `→ Watch-Daten: ${words.length} Wörter → safari/watch/Resources/watchWords.json`,
+);
+
+/** Kardinalzahl für Wortuhr: Stunde vor „Uhr“ vs. Minute danach. */
+function modernCardinal(n: number, role: 'hour' | 'minute'): string {
+  // Vor „Uhr“: „ein Uhr“ (nicht „eins Uhr“). Als Minute: „… Uhr eins“.
+  if (n === 1) return role === 'hour' ? 'ein' : 'eins';
+
+  const onesSolo = [
+    'null',
+    'eins',
+    'zwei',
+    'drei',
+    'vier',
+    'fünf',
+    'sechs',
+    'sieben',
+    'acht',
+    'neun',
+  ];
+  const onesLink = [
+    '',
+    'ein',
+    'zwei',
+    'drei',
+    'vier',
+    'fünf',
+    'sechs',
+    'sieben',
+    'acht',
+    'neun',
+  ];
+  const teens = [
+    'zehn',
+    'elf',
+    'zwölf',
+    'dreizehn',
+    'vierzehn',
+    'fünfzehn',
+    'sechzehn',
+    'siebzehn',
+    'achtzehn',
+    'neunzehn',
+  ];
+  const tens = ['', '', 'zwanzig', 'dreißig', 'vierzig', 'fünfzig'];
+  if (n < 10) return onesSolo[n]!;
+  if (n < 20) return teens[n - 10]!;
+  const t = Math.floor(n / 10);
+  const o = n % 10;
+  if (o === 0) return tens[t]!;
+  return `${onesLink[o]}und${tens[t]}`;
+}
+
+function swiftStringLiteral(s: string): string {
+  return `"${s.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+}
+
+const hourModern = Array.from({ length: 24 }, (_, n) => modernCardinal(n, 'hour'));
+const hourFraktur = hourModern.map((w) => convertLongS(w).output);
+const hourSuetterlin = hourFraktur.map((w) => encodeForDisplay(w, 'suetterlin'));
+const minuteModern = Array.from({ length: 60 }, (_, n) =>
+  modernCardinal(n, 'minute'),
+);
+const minuteFraktur = minuteModern.map((w) => convertLongS(w).output);
+const minuteSuetterlin = minuteFraktur.map((w) =>
+  encodeForDisplay(w, 'suetterlin'),
+);
+
+const clockSwiftPath = join(
+  EXT_DIR,
+  'safari/watch/Sources/ClockNumberWords.generated.swift',
+);
+const clockSwift = `// Generated by bake-watch-entry.ts — do not edit by hand.
+// Fraktur: convertLongS. Sütterlin: encodeForDisplay (ſ→s, Schluss-s→#).
+// Spoken forms: Stunde vor „Uhr“ → „ein“; Minute → „eins“.
+
+enum ClockNumberWords {
+  /// Stunden 0…23 (vor „Uhr“: Index 1 = „ein“).
+  static let hourModern: [String] = [
+${hourModern.map((w) => `    ${swiftStringLiteral(w)},`).join('\n')}
+  ]
+
+  static let hourFraktur: [String] = [
+${hourFraktur.map((w) => `    ${swiftStringLiteral(w)},`).join('\n')}
+  ]
+
+  static let hourSuetterlin: [String] = [
+${hourSuetterlin.map((w) => `    ${swiftStringLiteral(w)},`).join('\n')}
+  ]
+
+  /// Minuten 0…59 (nach „Uhr“: Index 1 = „eins“).
+  static let minuteModern: [String] = [
+${minuteModern.map((w) => `    ${swiftStringLiteral(w)},`).join('\n')}
+  ]
+
+  static let minuteFraktur: [String] = [
+${minuteFraktur.map((w) => `    ${swiftStringLiteral(w)},`).join('\n')}
+  ]
+
+  static let minuteSuetterlin: [String] = [
+${minuteSuetterlin.map((w) => `    ${swiftStringLiteral(w)},`).join('\n')}
+  ]
+
+  static func hourModernWord(_ h: Int) -> String { hourModern[h] }
+  static func hourFrakturWord(_ h: Int) -> String { hourFraktur[h] }
+  static func hourSuetterlinWord(_ h: Int) -> String { hourSuetterlin[h] }
+  static func minuteModernWord(_ m: Int) -> String { minuteModern[m] }
+  static func minuteFrakturWord(_ m: Int) -> String { minuteFraktur[m] }
+  static func minuteSuetterlinWord(_ m: Int) -> String { minuteSuetterlin[m] }
+}
+`;
+writeFileSync(clockSwiftPath, clockSwift, 'utf8');
+console.log(
+  `→ Uhr-Wörter: Fraktur + Sütterlin (Stunden/Minuten) → safari/watch/Sources/ClockNumberWords.generated.swift`,
+);
