@@ -1,0 +1,425 @@
+<!doctype html>
+<!--
+  PROTOTYPE, throwaway.
+  Three variants of the marketing start page, switchable via ?variant=
+  A Leiste · B Werkbank · C Satzspiegel
+-->
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototyp · Startseite</title>
+    <style>
+      @font-face {
+        font-family: "UnifrakturMaguntia";
+        src: url("fonts/unifrakturmaguntia.ttf") format("truetype");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "LangsKurrent";
+        src: url("fonts/kurrent.ttf") format("truetype");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "LangsSuetterlin";
+        src: url("fonts/suetterlin.ttf") format("truetype");
+        font-display: swap;
+      }
+      :root {
+        --bg: #f3e7d3;
+        --surface: #faf0e0;
+        --ink: #3f2e1e;
+        --muted: #6b563f;
+        --line: #d4b896;
+        --accent: #8b4513;
+        --paper: #fff8ee;
+        --night: #1a120e;
+        --gold: #e4c9a0;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--ink); }
+      body { font-family: system-ui, -apple-system, sans-serif; }
+      a { color: inherit; }
+      .variant { display: none !important; min-height: 100vh; }
+      .variant.is-on.a,
+      .variant.is-on.b { display: flex !important; }
+      .variant.is-on.c { display: block !important; }
+      .fraktur { font-family: "UnifrakturMaguntia", Georgia, serif; }
+      .kurrent { font-family: "LangsKurrent", cursive; }
+      .suetterlin { font-family: "LangsSuetterlin", cursive; }
+
+      /* —— A Leiste (App-Leiste) —— */
+      .a {
+        min-height: 100vh;
+        flex-direction: column;
+        padding-bottom: 4.5rem;
+      }
+      .a-stage {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .a-from {
+        margin: 0;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+      .a-word {
+        margin: 0.2rem 0 0;
+        font-size: clamp(6rem, 22vw, 16rem);
+        line-height: 0.85;
+        font-weight: 400;
+      }
+      .a-line {
+        max-width: 28rem;
+        margin: 1.25rem 0 0;
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+      .a-cta {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        background: var(--accent);
+        color: var(--surface);
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      .a-cta:hover { opacity: 0.92; }
+      .a-foot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem 1.25rem;
+        padding-top: 1rem;
+        font-size: 0.92rem;
+      }
+      .a-foot span { color: var(--muted); }
+      .a-foot a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+      .a-soon {
+        margin-left: 0.35rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      /* —— B Werkbank (großes daſs) —— */
+      .b {
+        min-height: 100vh;
+        flex-direction: column;
+        padding: 1.25rem 1.5rem 5.5rem;
+      }
+      .b-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1rem;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+      .b-brand { margin: 0; font-weight: 600; }
+      .b-modes { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+      .b-modes span {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .b-modes span.on { background: var(--ink); color: var(--surface); }
+      .b-body {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr min(22rem, 34vw);
+        min-height: 0;
+      }
+      .b-sheet { padding: 2.5rem 8vw 2rem; background: var(--paper); }
+      .b-kicker {
+        margin: 0 0 0.4rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .b-sheet h1 {
+        margin: 0 0 1.25rem;
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 400;
+        line-height: 1.05;
+      }
+      .b-prose { margin: 0; max-width: 36rem; font-size: 1.05rem; line-height: 1.55; }
+      .b-drawer {
+        background: var(--surface);
+        border-left: 1px solid var(--line);
+        padding: 1.25rem 1.2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+      }
+      .b-drawer h2 { margin: 0; font-size: 0.95rem; }
+      .b-offer { margin: 0; }
+      .b-offer strong { display: block; font-size: 0.95rem; }
+      .b-offer p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.88rem; line-height: 1.4; }
+      .b-offer em {
+        font-style: normal;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .b-go {
+        margin-top: auto;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        background: var(--accent);
+        color: var(--surface);
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+      }
+      .b-go:hover { opacity: 0.92; }
+
+      /* —— C Satzspiegel —— */
+      .c { padding: 0 0 5rem; }
+      .c-mast {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 1.1rem 6vw 0.6rem;
+        border-bottom: 2px solid var(--ink);
+      }
+      .c-mast strong {
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+      }
+      .c-mast span { color: var(--muted); font-size: 0.85rem; }
+      .c-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.7fr);
+        gap: 2.5rem;
+        padding: 1.5rem 6vw 0;
+      }
+      .c-rule { margin: 0.8rem 0 1rem; border: 0; border-top: 1px solid var(--line); }
+      .c h1 {
+        margin: 0;
+        font-family: Georgia, "Iowan Old Style", Palatino, serif;
+        font-weight: 500;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.15;
+      }
+      .c-essay { font-size: 1.08rem; line-height: 1.65; max-width: 38rem; }
+      .c-essay p { margin: 0 0 0.9rem; }
+      .c-drop {
+        float: left;
+        font-size: 4.2rem;
+        line-height: 0.8;
+        padding-right: 0.35rem;
+      }
+      .c-index { list-style: none; margin: 1.4rem 0 0; padding: 0; }
+      .c-index li {
+        display: grid;
+        grid-template-columns: 2.2rem 1fr auto;
+        gap: 0.6rem;
+        padding: 0.7rem 0;
+        border-top: 1px solid var(--line);
+        align-items: baseline;
+      }
+      .c-index a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+      .c-num { color: var(--muted); font-variant-numeric: tabular-nums; }
+      .c-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .c-side {
+        position: sticky;
+        top: 1rem;
+        align-self: start;
+        padding-top: 0.4rem;
+      }
+      .c-side .fraktur {
+        display: block;
+        font-size: clamp(5rem, 12vw, 9rem);
+        line-height: 0.85;
+      }
+      .c-side p { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.9rem; }
+
+      .switcher {
+        position: fixed;
+        left: 50%;
+        bottom: 1rem;
+        transform: translateX(-50%);
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem;
+        background: #1c1917;
+        color: #faf0e0;
+        border-radius: 999px;
+        box-shadow: 0 10px 30px rgba(63, 46, 30, 0.28);
+        font-family: system-ui, sans-serif;
+      }
+      .switcher button {
+        width: 2rem;
+        height: 2rem;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      .switcher button:hover { background: rgba(250, 240, 224, 0.12); }
+      .switcher p {
+        margin: 0;
+        min-width: 11rem;
+        text-align: center;
+        font-size: 0.82rem;
+      }
+      @media (max-width: 800px) {
+        .b-body, .c-grid { grid-template-columns: 1fr; }
+        .b-modes { display: none; }
+        .c-side { position: static; }
+      }
+    </style>
+  </head>
+  <body>
+    <article class="variant a" data-variant="A">
+      <header class="b-bar">
+        <p class="b-brand">lang &amp; rund</p>
+        <div class="b-modes" aria-hidden="true">
+          <span>Antiqua</span>
+          <span class="on">Fraktur</span>
+          <span>Kurrent</span>
+          <span>Sütterlin</span>
+        </div>
+      </header>
+      <div class="b-body">
+        <section class="b-sheet">
+          <p class="b-kicker">Editor</p>
+          <h1 class="fraktur">daſs</h1>
+          <p class="b-prose">
+            Du schreibst modernen Text. Die Fläche zeigt ihn mit langem ſ.
+            Ein Wort anklicken öffnet die Lernhinweise, so wie in der App.
+          </p>
+        </section>
+        <aside class="b-drawer" aria-label="Angebote">
+          <h2>Wort lernen</h2>
+          <div class="b-offer">
+            <strong>Browser-Erweiterung</strong>
+            <p>Lesemodus für Webseiten, in vier Schriften. <em>folgt</em></p>
+          </div>
+          <div class="b-offer">
+            <strong>Apps</strong>
+            <p>Dieselbe Oberfläche für iPhone und Mac. <em>folgt</em></p>
+          </div>
+          <div class="b-offer">
+            <strong>Ziffernblatt</strong>
+            <p>Für die Apple Watch. <em>folgt</em></p>
+          </div>
+          <a class="b-go" href="/editor/">Im Browser öffnen</a>
+        </aside>
+      </div>
+    </article>
+
+    <article class="variant b" data-variant="B">
+      <div class="a-stage">
+        <p class="a-from">dass</p>
+        <p class="a-word fraktur">daſs</p>
+        <p class="a-line">
+          Langes ſ und rundes s, nach den Regeln des Fraktursatzes.
+          Zum Lesen, Schreiben und Lernen.
+        </p>
+        <a class="a-cta" href="/editor/">Im Browser öffnen</a>
+      </div>
+      <nav class="a-foot" aria-label="Angebote">
+        <span>Erweiterung <span class="a-soon">folgt</span></span>
+        <span>Apps <span class="a-soon">folgt</span></span>
+        <a href="/editor/">Editor</a>
+        <span>Ziffernblatt <span class="a-soon">folgt</span></span>
+      </nav>
+    </article>
+
+    <article class="variant c" data-variant="C">
+      <header class="c-mast">
+        <strong>lang &amp; rund</strong>
+        <span>Langes ſ · rundes s</span>
+      </header>
+      <div class="c-grid">
+        <div>
+          <hr class="c-rule" />
+          <h1>Ein Werkzeug für die alte s-Schreibung.</h1>
+          <div class="c-essay">
+            <p>
+              <span class="fraktur c-drop">ſ</span>
+              Im Fraktursatz ist nicht jedes s gleich. Am Silbenanfang steht das lange ſ,
+              am Ende das runde s. lang &amp; rund setzt diese Unterscheidung beim Lesen
+              von Seiten, beim Schreiben und beim Üben der Formen.
+            </p>
+            <p>Vier Wege, dasselbe zu tun. Nur der Editor ist schon offen.</p>
+          </div>
+          <ol class="c-index">
+            <li><span class="c-num">01</span><span>Browser-Erweiterung</span><span class="c-tag">folgt</span></li>
+            <li><span class="c-num">02</span><span>Apps für iPhone und Mac</span><span class="c-tag">folgt</span></li>
+            <li><span class="c-num">03</span><a href="/editor/">Editor im Browser</a><span class="c-tag">offen</span></li>
+            <li><span class="c-num">04</span><span>Ziffernblatt</span><span class="c-tag">folgt</span></li>
+          </ol>
+        </div>
+        <aside class="c-side">
+          <span class="fraktur">daſs</span>
+          <p>aus „dass“</p>
+        </aside>
+      </div>
+    </article>
+
+    <div class="switcher" role="toolbar" aria-label="Prototyp-Variante">
+      <button type="button" id="prev" aria-label="Vorherige Variante">←</button>
+      <p id="label">A · Leiste</p>
+      <button type="button" id="next" aria-label="Nächste Variante">→</button>
+    </div>
+    <script>
+      var order = ["A", "B", "C"];
+      var names = { A: "Leiste", B: "Werkbank", C: "Satzspiegel" };
+      function current() {
+        var q = new URLSearchParams(location.search).get("variant");
+        return order.indexOf(q) >= 0 ? q : "A";
+      }
+      function show(key) {
+        document.querySelectorAll(".variant").forEach(function (el) {
+          el.classList.toggle("is-on", el.getAttribute("data-variant") === key);
+        });
+        document.getElementById("label").textContent = key + " · " + names[key];
+        var url = new URL(location.href);
+        url.searchParams.set("variant", key);
+        history.replaceState(null, "", url);
+      }
+      function step(dir) {
+        var i = order.indexOf(current());
+        show(order[(i + dir + order.length) % order.length]);
+      }
+      document.getElementById("prev").onclick = function () { step(-1); };
+      document.getElementById("next").onclick = function () { step(1); };
+      document.addEventListener("keydown", function (e) {
+        var t = e.target;
+        if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+        if (e.key === "ArrowLeft") step(-1);
+        if (e.key === "ArrowRight") step(1);
+      });
+      show(current());
+    </script>
+  </body>
+</html>
