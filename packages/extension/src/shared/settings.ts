@@ -1,6 +1,9 @@
 import {
   DEFAULT_SETTINGS,
+  isDisplayMode,
+  isThemeMode,
   MODE_DEFAULT_FONT_SIZE,
+  parseLeading,
   SETTINGS_KEY,
   type DisplayMode,
   type LangsSettings,
@@ -22,34 +25,33 @@ function migrate(raw: Record<string, unknown> | undefined): LangsSettings {
       if (typeof fs[mode] === 'number') fontSizes[mode] = fs[mode];
     }
     // Alte Kurrent-Default 32 → neues Default 64 (2×)
-    if (fs.kurrent === 32) fontSizes.kurrent = MODE_DEFAULT_FONT_SIZE.kurrent;
+    if (fs.kurrent === 32 || fs.kurrent === 64) {
+      fontSizes.kurrent = MODE_DEFAULT_FONT_SIZE.kurrent;
+    }
+    // Sütterlin: frühere Desktop-Defaults → aktuelles Default
+    if (fs.suetterlin === 68 || fs.suetterlin === 44) {
+      fontSizes.suetterlin = MODE_DEFAULT_FONT_SIZE.suetterlin;
+    }
   } else if (typeof raw.fontSize === 'number') {
-    const mode =
-      raw.displayMode === 'fraktur' || raw.displayMode === 'kurrent'
-        ? (raw.displayMode as DisplayMode)
-        : 'antiqua';
+    const mode = isDisplayMode(raw.displayMode) ? raw.displayMode : 'fraktur';
     fontSizes[mode] = raw.fontSize;
   }
 
+  const storedMode = isDisplayMode(raw.displayMode) ? raw.displayMode : 'fraktur';
+  const displayMode: DisplayMode =
+    storedMode === 'antiqua' ? 'fraktur' : storedMode;
+
   return {
-    displayMode:
-      raw.displayMode === 'fraktur' || raw.displayMode === 'kurrent'
-        ? raw.displayMode
-        : 'antiqua',
-    theme:
-      raw.theme === 'dark' ||
-      raw.theme === 'light' ||
-      raw.theme === 'sepia' ||
-      raw.theme === 'graphite'
-        ? raw.theme
-        : 'sepia',
+    displayMode,
+    theme: isThemeMode(raw.theme) ? raw.theme : 'sepia',
     measure:
       raw.measure === 'narrow' || raw.measure === 'wide'
         ? (raw.measure as MeasureMode)
         : 'medium',
+    leading: parseLeading(raw.leading),
     fontSizes,
-    wordTooltip: raw.wordTooltip !== false,
     textOnly: raw.textOnly !== false,
+    drawerLiveCursor: raw.drawerLiveCursor === true,
     forceGerman:
       raw.forceGerman === true || raw.forceGerman === false
         ? raw.forceGerman
@@ -74,6 +76,10 @@ export async function saveSettings(
     ...patch,
     fontSizes: { ...current.fontSizes, ...(patch.fontSizes ?? {}) },
   };
+
+  if (typeof patch.leading === 'number') {
+    next.leading = parseLeading(patch.leading);
+  }
 
   if (typeof patch.fontSize === 'number') {
     const mode = patch.fontSizeMode ?? next.displayMode;

@@ -2,13 +2,11 @@ import type { AmbiguitySpan } from '@langs/core';
 import type { DisplayMode } from '../shared/types';
 import { encodeForDisplay } from '../reader/kurrentEncode';
 import { toModernS } from '../reader/textOnly';
-import {
-  renderDrawerFeedbackTile,
-  type ReportContext,
-} from './feedback';
+import { type ReportContext } from './feedback';
 import {
   escapeHtml,
   matchPitfalls,
+  pitfallCopy,
   type Pitfall,
   type PitfallHit,
 } from './matchPitfalls';
@@ -42,7 +40,7 @@ function renderHighlightedWord(
   word: string,
   hitIndexes: Set<number>,
 ): string {
-  return [...word]
+  const parts = [...word]
     .map((ch, i) => {
       const esc = escapeHtml(ch);
       if (hitIndexes.has(i)) {
@@ -55,6 +53,7 @@ function renderHighlightedWord(
       return `<span class="drawer-letter-plain">${esc}</span>`;
     })
     .join('');
+  return `<span class="drawer-letter-row">${parts}</span>`;
 }
 
 function allHighlightIndexes(hits: PitfallHit[]): Set<number> {
@@ -70,19 +69,29 @@ function glyphDisplayMode(
   if (pitfallModes.includes(active)) return active;
   if (pitfallModes.includes('fraktur')) return 'fraktur';
   if (pitfallModes.includes('kurrent')) return 'kurrent';
+  if (pitfallModes.includes('suetterlin')) return 'suetterlin';
   return pitfallModes[0] ?? active;
+}
+
+function fontClassForMode(mode: DisplayMode): string {
+  if (mode === 'fraktur') return 'fraktur-font';
+  if (mode === 'kurrent') return 'kurrent-font';
+  if (mode === 'suetterlin') return 'suetterlin-font';
+  return 'antiqua-font';
+}
+
+function scriptLabel(mode: DisplayMode): string | null {
+  if (mode === 'kurrent') return 'Kurrent';
+  if (mode === 'suetterlin') return 'Sütterlin';
+  if (mode === 'fraktur') return 'Fraktur';
+  return null;
 }
 
 function renderGlyphPair(glyphs: string[], mode: DisplayMode): string {
   return glyphs
     .map((g) => {
       const visual = encodeForDisplay(g, mode);
-      const fontClass =
-        mode === 'fraktur'
-          ? 'fraktur-font'
-          : mode === 'kurrent'
-            ? 'kurrent-font'
-            : 'antiqua-font';
+      const fontClass = fontClassForMode(mode);
       return (
         `<span class="glyph-chip">` +
         `<span class="glyph-script ${fontClass}">${escapeHtml(visual)}</span>` +
@@ -137,23 +146,71 @@ function groupHitsByLetter(
   );
 }
 
-function collectGlyphs(pitfalls: Pitfall[], focusKey: string): string[] {
+/**
+ * Nur die Buchstaben des Vergleichs (Feld `glyphs`).
+ * Kein Absuchen des Fließtexts: „spitzer/offener“ ist kein Paar r/o.
+ */
+function glyphsForPitfall(pitfall: Pitfall, focusKey: string): string[] {
+  const prefer = (g: string) => letterKeyOf(g) === focusKey;
+  const ordered = [
+    ...pitfall.glyphs.filter(prefer),
+    ...pitfall.glyphs.filter((g) => !prefer(g)),
+  ];
   const out: string[] = [];
   const seen = new Set<string>();
-  const prefer = (g: string) => letterKeyOf(g) === focusKey;
-
-  const ordered = [
-    ...pitfalls.flatMap((p) => p.glyphs.filter(prefer)),
-    ...pitfalls.flatMap((p) => p.glyphs.filter((g) => !prefer(g))),
-  ];
   for (const g of ordered) {
     const k = letterKeyOf(g) + ':' + g;
     if (seen.has(k)) continue;
     seen.add(k);
     out.push(g);
-    if (out.length >= 6) break;
   }
   return out;
+}
+
+function renderPitfallBlocks(p: Pitfall, mode?: DisplayMode): string {
+  const script = mode ? scriptLabel(mode) : null;
+  const copy = pitfallCopy(p, mode);
+  const confuseLabel = script
+    ? `Verwechslungsgefahr (${script})`
+    : 'Verwechslungsgefahr';
+  const writingLabel = script ? `Schreibart in der ${script}` : 'Schreibart';
+  let html =
+    `<div class="pitfall-block">` +
+    `<p class="pitfall-block-label">${escapeHtml(confuseLabel)}</p>` +
+    `<p class="pitfall-hint">${escapeHtml(copy.confusion)}</p>` +
+    `</div>` +
+    `<div class="pitfall-block">` +
+    `<p class="pitfall-block-label">${escapeHtml(writingLabel)}</p>` +
+    `<p class="pitfall-hint">${escapeHtml(copy.writing)}</p>` +
+    `</div>`;
+  if (p.context) {
+    html +=
+      `<div class="pitfall-block">` +
+      `<p class="pitfall-block-label">Kontext</p>` +
+      `<p class="pitfall-hint">${escapeHtml(p.context)}</p>` +
+      `</div>`;
+  }
+  return html;
+}
+
+/** Eine Lernhinweis-Karte (für Drawer-Gruppen und Startseiten-Carousel). */
+export function renderPitfallHintCard(
+  pitfall: Pitfall,
+  mode: DisplayMode,
+  options?: { focusKey?: string },
+): string {
+  const focusKey = options?.focusKey ?? letterKeyOf(pitfall.glyphs[0] ?? '');
+  const glyphMode = glyphDisplayMode(pitfall.modes, mode);
+  const glyphs = glyphsForPitfall(pitfall, focusKey);
+  return (
+    `<article class="pitfall-card start-hint-card" data-pitfall-id="${escapeHtml(pitfall.id)}">` +
+    `<h3 class="pitfall-item-title">${escapeHtml(pitfall.title)}</h3>` +
+    (glyphs.length
+      ? `<div class="glyph-row">${renderGlyphPair(glyphs, glyphMode)}</div>`
+      : '') +
+    renderPitfallBlocks(pitfall, mode) +
+    `</article>`
+  );
 }
 
 function renderGroupedPitfallCards(
@@ -164,11 +221,6 @@ function renderGroupedPitfallCards(
 
   return groups
     .map((group) => {
-      const glyphMode = glyphDisplayMode(
-        group.pitfalls.flatMap((p) => p.modes),
-        mode,
-      );
-      const glyphs = collectGlyphs(group.pitfalls, group.letterKey);
       const label =
         group.letterKey === 'ſ'
           ? 'ſ'
@@ -177,13 +229,19 @@ function renderGroupedPitfallCards(
             : group.letterKey;
 
       const items = group.pitfalls
-        .map(
-          (p) =>
+        .map((p) => {
+          const glyphMode = glyphDisplayMode(p.modes, mode);
+          const glyphs = glyphsForPitfall(p, group.letterKey);
+          return (
             `<div class="pitfall-item">` +
             `<h4 class="pitfall-item-title">${escapeHtml(p.title)}</h4>` +
-            `<p class="pitfall-hint">${escapeHtml(p.hint)}</p>` +
-            `</div>`,
-        )
+            (glyphs.length
+              ? `<div class="glyph-row">${renderGlyphPair(glyphs, glyphMode)}</div>`
+              : '') +
+            renderPitfallBlocks(p, mode) +
+            `</div>`
+          );
+        })
         .join('');
 
       return (
@@ -192,7 +250,6 @@ function renderGroupedPitfallCards(
         `data-indexes="${group.indexes.join(',')}">` +
         `<header class="pitfall-header">` +
         `<h3 class="pitfall-title">Zu „${escapeHtml(label)}“</h3>` +
-        `<div class="glyph-row">${renderGlyphPair(glyphs, glyphMode)}</div>` +
         `</header>` +
         items +
         `</article>`
@@ -201,12 +258,12 @@ function renderGroupedPitfallCards(
     .join('');
 }
 
-function renderAmbiguitySection(amb: AmbiguitySpan): string {
-  const options = amb.candidates
+export function renderAmbiguityOptionsHtml(amb: AmbiguitySpan): string {
+  return amb.candidates
     .map((c, idx) => {
       const selected = idx === amb.selectedIndex;
       return (
-        `<button type="button" class="drawer-amb-option${selected ? ' selected' : ''}" ` +
+        `<button type="button" class="drawer-amb-option tip-amb-option${selected ? ' selected' : ''}" ` +
         `data-amb-id="${escapeHtml(amb.id)}" data-amb-index="${idx}">` +
         `<span class="drawer-amb-text">${escapeHtml(c.text)}</span>` +
         `<span class="drawer-amb-desc">${escapeHtml(c.description)}</span>` +
@@ -214,11 +271,13 @@ function renderAmbiguitySection(amb: AmbiguitySpan): string {
       );
     })
     .join('');
+}
 
+function renderAmbiguitySection(amb: AmbiguitySpan): string {
   return (
     `<section class="drawer-section">` +
     `<h2 class="drawer-section-title">Wortfuge unklar</h2>` +
-    `<div class="drawer-amb-list" role="listbox">${options}</div>` +
+    `<div class="drawer-amb-list" role="listbox">${renderAmbiguityOptionsHtml(amb)}</div>` +
     `</section>`
   );
 }
@@ -226,6 +285,7 @@ function renderAmbiguitySection(amb: AmbiguitySpan): string {
 export function renderDrawerBodyPrecise(
   ctx: DrawerWordContext,
   mode: DisplayMode,
+  options?: { drawerLiveCursor?: boolean; showLiveCursorToggle?: boolean },
 ): { html: string; hits: PitfallHit[]; report: ReportContext } {
   const hits = matchPitfalls(ctx.converted, mode);
   const convertedHighlights = allHighlightIndexes(hits);
@@ -240,10 +300,23 @@ export function renderDrawerBodyPrecise(
   const showConverted = wordHasSForm(ctx.converted);
   const frakturPreview = ctx.converted;
   const kurrentPreview = encodeForDisplay(ctx.converted, 'kurrent');
+  const suetterlinPreview = encodeForDisplay(ctx.converted, 'suetterlin');
 
+  const liveOn = options?.drawerLiveCursor === true;
+  const liveToggle =
+    options?.showLiveCursorToggle === true
+      ? `<label class="drawer-follow-ctrl">` +
+        `<span class="drawer-follow-label">Livevorschau mittels Cursor</span>` +
+        `<button type="button" class="switch drawer-live-toggle" role="switch" ` +
+        `aria-checked="${liveOn ? 'true' : 'false'}" ` +
+        `title="${liveOn ? 'Drawer folgt dem Textcursor. Ausschalten: nur per Mausklick aufs Wort.' : 'Nur per Mausklick aufs Wort. Einschalten: Drawer folgt dem Textcursor.'}">` +
+        `<span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>` +
+        `</button></label>`
+      : '';
   const html =
     `<div class="drawer-word-block">` +
-    `<p class="drawer-kicker">Antiqua</p>` +
+    liveToggle +
+    `<p class="drawer-kicker">In Antiqua</p>` +
     `<p class="drawer-modern">${renderHighlightedWord(modernAligned, modernHighlights)}</p>` +
     (showConverted
       ? `<p class="drawer-kicker">Konvertiert (ſ/s)</p>` +
@@ -253,15 +326,16 @@ export function renderDrawerBodyPrecise(
     `<p class="drawer-preview fraktur-font">${escapeHtml(frakturPreview)}</p>` +
     `<p class="drawer-kicker">In Kurrent</p>` +
     `<p class="drawer-preview kurrent-font">${escapeHtml(kurrentPreview)}</p>` +
+    `<p class="drawer-kicker">In Sütterlin</p>` +
+    `<p class="drawer-preview suetterlin-font">${escapeHtml(suetterlinPreview)}</p>` +
     `</div>` +
     (ctx.ambiguity ? renderAmbiguitySection(ctx.ambiguity) : '') +
+    `<section class="drawer-section pitfall-box">` +
+    `<h2 class="drawer-section-title">Lernhinweise</h2>` +
     (groups.length > 0
-      ? `<section class="drawer-section">` +
-        `<h2 class="drawer-section-title">Lernhinweise</h2>` +
-        renderGroupedPitfallCards(groups, mode) +
-        `</section>`
-      : '') +
-    renderDrawerFeedbackTile();
+      ? renderGroupedPitfallCards(groups, mode)
+      : `<p class="drawer-empty">Keine Lernhinweise für dieses Wort.</p>`) +
+    `</section>`;
 
   return {
     html,
