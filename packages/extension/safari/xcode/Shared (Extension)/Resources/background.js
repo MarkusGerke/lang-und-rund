@@ -1,11 +1,11 @@
-const i = {
+const s = {
   antiqua: 20,
   fraktur: 24,
   /** Desktop-Default; mobil (≤640) Override auf KURRENT_FONT_SIZE_MOBILE wenn noch Default. */
   kurrent: 68,
   /** 16× STEP unter dem Kurrent-Desktop-Default. */
   suetterlin: 36
-}, h = [
+}, N = [
   "light",
   "sepia",
   "graphite",
@@ -23,83 +23,140 @@ const i = {
   "schiefer",
   "rose"
 ];
-function p(e) {
-  return typeof e == "string" && h.includes(e);
+function M(e) {
+  return typeof e == "string" && N.includes(e);
 }
-function c(e) {
+function h(e) {
   return e === "antiqua" || e === "fraktur" || e === "kurrent" || e === "suetterlin";
 }
-const y = 0.5, E = 4, u = 0.05, l = 1.4, d = {
+const D = 0.5, _ = 4, k = 0.1, x = 1.4, E = {
   compact: 1.4,
   normal: 1.75,
   loose: 2.2
 };
-function f(e) {
-  const t = Math.round(e / u) * u;
-  return Math.min(E, Math.max(y, Number(t.toFixed(2))));
+function S(e) {
+  const t = Math.round(e / k) * k;
+  return Math.min(_, Math.max(D, Number(t.toFixed(1))));
 }
-function k(e) {
+function b(e) {
   if (typeof e == "number" && Number.isFinite(e))
-    return f(e);
+    return S(e);
   if (typeof e == "string") {
-    if (e in d) return d[e];
+    if (e in E) return E[e];
     const t = Number(e);
-    if (Number.isFinite(t)) return f(t);
+    if (Number.isFinite(t)) return S(t);
   }
-  return l;
+  return x;
 }
-const T = {
+const w = {
   displayMode: "fraktur",
   theme: "sepia",
   measure: "medium",
-  leading: l,
-  fontSizes: { ...i },
+  leading: x,
+  fontSizes: { ...s },
   textOnly: !0,
   drawerLiveCursor: !1,
+  drawerWordClick: !0,
   forceGerman: null
-}, m = "langs-settings", L = "langs-article:";
-function M(e) {
+}, T = "langs-settings", F = "langs-article:";
+function R() {
+  var e, t;
+  try {
+    const n = (t = (e = globalThis.chrome) == null ? void 0 : e.runtime) == null ? void 0 : t.id;
+    return typeof n == "string" && n.length > 0;
+  } catch {
+    return !1;
+  }
+}
+function U() {
+  var t;
+  if (new URLSearchParams(location.search).get("host") === "1") return !0;
+  if (R()) return !1;
+  try {
+    return typeof ((t = chrome == null ? void 0 : chrome.runtime) == null ? void 0 : t.id) != "string";
+  } catch {
+    return !0;
+  }
+}
+function z() {
+  const e = new URLSearchParams(location.search);
+  if (e.toString() === "") return null;
+  const t = {};
+  let n = !1;
+  const o = e.get("dm");
+  o && h(o) && (t.displayMode = o, n = !0);
+  const r = e.get("th");
+  r && M(r) && (t.theme = r, n = !0);
+  const i = e.get("me");
+  (i === "narrow" || i === "medium" || i === "wide") && (t.measure = i, n = !0);
+  const u = e.get("ld");
+  u != null && u !== "" && (t.leading = b(u), n = !0);
+  const d = e.get("to");
+  (d === "0" || d === "1") && (t.textOnly = d === "1", n = !0);
+  const f = e.get("lc");
+  (f === "0" || f === "1") && (t.drawerLiveCursor = f === "1", n = !0);
+  const l = e.get("wc");
+  (l === "0" || l === "1") && (t.drawerWordClick = l === "1", n = !0);
+  const p = e.get("fs");
+  if (p) {
+    const m = p.split(",").map((c) => Number(c.trim()));
+    if (m.length === 4 && m.every((c) => Number.isFinite(c))) {
+      const c = ["fraktur", "kurrent", "suetterlin", "antiqua"], y = {};
+      c.forEach((C, G) => {
+        y[C] = m[G];
+      }), t.fontSizes = y, n = !0;
+    }
+  }
+  const a = e.get("fg");
+  return (a === "auto" || a === "yes" || a === "no") && (t.forceGerman = a === "yes" ? !0 : a === "no" ? !1 : null, n = !0), n ? t : null;
+}
+function L(e) {
   if (!e)
     return {
-      ...T,
-      fontSizes: { ...i }
+      ...w,
+      fontSizes: { ...s }
     };
-  const t = { ...i };
+  const t = { ...s };
   if (e.fontSizes && typeof e.fontSizes == "object") {
-    const n = e.fontSizes;
-    for (const o of Object.keys(i))
-      typeof n[o] == "number" && (t[o] = n[o]);
-    (n.kurrent === 32 || n.kurrent === 64) && (t.kurrent = i.kurrent), (n.suetterlin === 68 || n.suetterlin === 44) && (t.suetterlin = i.suetterlin);
+    const r = e.fontSizes;
+    for (const i of Object.keys(s))
+      typeof r[i] == "number" && (t[i] = r[i]);
+    (r.kurrent === 32 || r.kurrent === 64) && (t.kurrent = s.kurrent), (r.suetterlin === 68 || r.suetterlin === 44) && (t.suetterlin = s.suetterlin);
   } else if (typeof e.fontSize == "number") {
-    const n = c(e.displayMode) ? e.displayMode : "fraktur";
-    t[n] = e.fontSize;
+    const r = h(e.displayMode) ? e.displayMode : "fraktur";
+    t[r] = e.fontSize;
   }
-  const r = c(e.displayMode) ? e.displayMode : "fraktur";
+  const n = h(e.displayMode) ? e.displayMode : "fraktur";
   return {
-    displayMode: r === "antiqua" ? "fraktur" : r,
-    theme: p(e.theme) ? e.theme : "sepia",
+    displayMode: n === "antiqua" ? "fraktur" : n,
+    theme: M(e.theme) ? e.theme : "sepia",
     measure: e.measure === "narrow" || e.measure === "wide" ? e.measure : "medium",
-    leading: k(e.leading),
+    leading: b(e.leading),
     fontSizes: t,
     textOnly: e.textOnly !== !1,
     drawerLiveCursor: e.drawerLiveCursor === !0,
+    drawerWordClick: e.drawerWordClick !== !1,
     forceGerman: e.forceGerman === !0 || e.forceGerman === !1 ? e.forceGerman : null
   };
 }
-async function S() {
-  const e = await chrome.storage.sync.get(m);
-  return M(e[m]);
+async function I() {
+  if (U()) {
+    const t = z();
+    return L(t ?? void 0);
+  }
+  const e = await chrome.storage.sync.get(T);
+  return L(e[T]);
 }
-async function x() {
+async function v() {
   const [e] = await chrome.tabs.query({ active: !0, currentWindow: !0 });
   return e;
 }
-function b(e) {
+function O(e) {
   return e ? /^(chrome|chrome-extension|moz-extension|about|edge|brave|devtools):/i.test(
     e
   ) : !0;
 }
-async function A(e, t) {
+async function B(e, t) {
   return await chrome.scripting.executeScript({
     target: { tabId: e },
     files: ["content.js"]
@@ -108,53 +165,53 @@ async function A(e, t) {
     forceGerman: t
   });
 }
-async function D(e) {
-  const t = `${L}${e.id}`;
+async function q(e) {
+  const t = `${F}${e.id}`;
   await chrome.storage.session.set({
     [t]: e,
     "langs-latest": e.id
   });
-  const r = chrome.runtime.getURL(
+  const n = chrome.runtime.getURL(
     `reader.html?id=${encodeURIComponent(e.id)}`
   );
-  await chrome.tabs.create({ url: r });
+  await chrome.tabs.create({ url: n });
 }
-async function s(e, t) {
+async function g(e, t) {
   await chrome.action.setBadgeText({ text: "!", tabId: e }), await chrome.action.setBadgeBackgroundColor({ color: "#8b4513", tabId: e }), await chrome.action.setTitle({ title: `lang & rund: ${t}`, tabId: e }), setTimeout(() => {
     chrome.action.setBadgeText({ text: "", tabId: e });
   }, 4e3);
 }
-async function g() {
-  const e = await x();
+async function A() {
+  const e = await v();
   if (!(e != null && e.id)) return;
-  if (b(e.url)) {
-    await s(e.id, "Diese Seite kann nicht gelesen werden");
+  if (O(e.url)) {
+    await g(e.id, "Diese Seite kann nicht gelesen werden");
     return;
   }
-  const t = await S();
-  let r;
+  const t = await I();
+  let n;
   try {
-    r = await A(e.id, t.forceGerman);
-  } catch (n) {
-    console.error("[lang & rund] Extraktion fehlgeschlagen", n), await s(e.id, "Extraktion fehlgeschlagen");
+    n = await B(e.id, t.forceGerman);
+  } catch (r) {
+    console.error("[lang & rund] Extraktion fehlgeschlagen", r), await g(e.id, "Extraktion fehlgeschlagen");
     return;
   }
-  if (!r.ok) {
-    await s(e.id, r.message);
+  if (!n.ok) {
+    await g(e.id, n.message);
     return;
   }
   await chrome.action.setBadgeText({ text: "", tabId: e.id });
-  const a = {
-    ...r.article,
+  const o = {
+    ...n.article,
     id: crypto.randomUUID(),
     createdAt: Date.now()
   };
-  await D(a);
+  await q(o);
 }
 chrome.action.onClicked.addListener(() => {
-  g();
+  A();
 });
 chrome.commands.onCommand.addListener((e) => {
-  e === "open-reader" && g();
+  e === "open-reader" && A();
 });
 //# sourceMappingURL=background.js.map

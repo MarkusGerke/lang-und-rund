@@ -1,0 +1,271 @@
+@font-face {
+  font-family: 'UnifrakturMaguntia';
+  src: url('fonts/unifrakturmaguntia.ttf') format('truetype');
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+a {
+  color: var(--accent);
+}
+
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  padding: 0.65rem 1rem;
+  background: var(--tb-bg);
+  color: var(--tb-text);
+  border-bottom: 1px solid var(--tb-border);
+}
+
+.landing-brand {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--tb-text);
+  text-decoration: none;
+}
+
+.landing-brand:hover {
+  color: var(--tb-accent);
+}
+
+.landing-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.88rem;
+}
+
+.landing-nav a {
+  color: var(--tb-accent);
+  text-decoration: none;
+}
+
+.landing-nav a:hover {
+  text-decoration: underline;
+}
+
+.landing-nav a.is-active {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.landing-main {
+  flex: 1;
+  width: 100%;
+}
+
+.landing-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.25rem 1.5rem;
+}
+
+.landing-from {
+  margin: 0;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--reader-muted);
+}
+
+.landing-word {
+  margin: 0.2rem 0 0;
+  font-family: 'UnifrakturMaguntia', Georgia, serif;
+  font-size: clamp(5rem, 20vw, 14rem);
+  line-height: 0.85;
+  font-weight: 400;
+}
+
+.landing-lead {
+  max-width: 28rem;
+  margin: 1.25rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--reader-text);
+}
+
+.landing-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 8px;
+  border: 1px solid var(--tb-border);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--tb-surface);
+  color: var(--tb-text);
+}
+
+.btn:hover {
+  filter: brightness(0.97);
+}
+
+.btn-store {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.btn-store:hover {
+  filter: brightness(1.12);
+  color: #fff;
+}
+
+.btn-store.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--tb-text);
+  border-color: var(--tb-border);
+}
+
+.btn-secondary:hover {
+  background: color-mix(in srgb, var(--tb-accent) 8%, transparent);
+}
+
+.btn-store .apple-logo {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.legal-main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 2.5rem;
+  line-height: 1.55;
+}
+
+.legal-main h1 {
+  font-size: 1.35rem;
+  margin: 0 0 1rem;
+}
+
+.legal-main h2 {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.4rem;
+}
+
+.legal-main p,
+.legal-main address,
+.legal-main ul {
+  margin: 0 0 0.75rem;
+}
+
+.legal-main address {
+  font-style: normal;
+}
+
+.legal-main ul {
+  padding-left: 1.2rem;
+}
+
+.legal-main .muted {
+  color: var(--reader-muted);
+  font-size: 0.9rem;
+}
+
+/* Editor-Footer (wie renderAppFooterLinks) */
+.app-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 1rem 1rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  font-size: 0.78rem;
+  color: var(--reader-muted);
+  background: transparent;
+}
+
+.app-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.app-footer-disclaimer {
+  margin: 0;
+  max-width: 36rem;
+  text-align: center;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+
+.app-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+.app-footer-sep {
+  opacity: 0.7;
+}
+
+.app-version {
+  font-variant-numeric: tabular-nums;
+}
+
+.x-logo {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.x-handle {
+  margin-left: 0.15rem;
+}
